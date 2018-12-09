@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using TattooShop.Web.Areas.Identity.Data;
+using TattooShop.Data.Models;
 
 namespace TattooShop.Web.Areas.Identity.Pages.Account
 {

@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using TattooShop.Web.Areas.Identity.Data;
+using TattooShop.Data.Models;
 
-namespace TattooShop.Web.Models
+namespace TattooShop.Data
 {
     public class TattooShopContext : IdentityDbContext<TattooShopUser>
     {

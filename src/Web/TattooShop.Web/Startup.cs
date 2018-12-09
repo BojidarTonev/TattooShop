@@ -12,7 +12,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using TattooShop.Web.Areas.Identity.Data;
+using TattooShop.Data;
+using TattooShop.Data.Models;
 using TattooShop.Web.Models;
 
 namespace TattooShop.Web
