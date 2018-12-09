@@ -13,4 +13,10 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\TattooShop.Data.Models\TattooShop.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Data\TattooShop.Data\TattooShop.Data.csproj" />
+  </ItemGroup>
+
 </Project>
