@@ -11,6 +11,16 @@ namespace TattooShop.Data
         {
         }
 
+        public DbSet<Artist> Artists { get; set; }
+
+        public DbSet<Book> Books { get; set; }
+
+        public DbSet<Order> Orders { get; set; }
+
+        public DbSet<Product> Products { get; set; }
+
+        public DbSet<Tattoo> Tattoos { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

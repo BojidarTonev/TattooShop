@@ -5,11 +5,12 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using TattooShop.Data;
 
 namespace TattooShop.Data.Migrations
 {
     [DbContext(typeof(TattooShopContext))]
-    [Migration("20181209214732_InitialCreate")]
+    [Migration("20181209225115_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -130,12 +131,132 @@ namespace TattooShop.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("TattooShop.Web.Areas.Identity.Data.TattooShopUser", b =>
+            modelBuilder.Entity("TattooShop.Data.Models.Artist", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Autobiography");
+
+                    b.Property<int>("BestAt");
+
+                    b.Property<DateTime>("BirthDate");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("ImageUrl");
+
+                    b.Property<string>("LastName");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Artists");
+                });
+
+            modelBuilder.Entity("TattooShop.Data.Models.Book", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ArtistId");
+
+                    b.Property<DateTime>("BookedFor");
+
+                    b.Property<DateTime>("BookedOn");
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("ImageUrl");
+
+                    b.Property<int>("TattooStyle");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArtistId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Books");
+                });
+
+            modelBuilder.Entity("TattooShop.Data.Models.Order", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("EstimatedDeliveryDay");
+
+                    b.Property<DateTime>("OrderedOn");
+
+                    b.Property<string>("ProductId");
+
+                    b.Property<int>("Quantity");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("TattooShop.Data.Models.Product", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("Category");
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("ImageUrl");
+
+                    b.Property<string>("Name");
+
+                    b.Property<decimal>("Price");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("TattooShop.Data.Models.Tattoo", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ArtistId");
+
+                    b.Property<DateTime>("DoneOn");
+
+                    b.Property<int>("Sessions");
+
+                    b.Property<string>("TattoRelevantName");
+
+                    b.Property<int>("TattooStyle");
+
+                    b.Property<string>("TattooUrl");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArtistId");
+
+                    b.ToTable("Tattoos");
+                });
+
+            modelBuilder.Entity("TattooShop.Data.Models.TattooShopUser", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("AccessFailedCount");
+
+                    b.Property<string>("Address");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
@@ -144,6 +265,10 @@ namespace TattooShop.Data.Migrations
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -191,7 +316,7 @@ namespace TattooShop.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("TattooShop.Web.Areas.Identity.Data.TattooShopUser")
+                    b.HasOne("TattooShop.Data.Models.TattooShopUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -199,7 +324,7 @@ namespace TattooShop.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("TattooShop.Web.Areas.Identity.Data.TattooShopUser")
+                    b.HasOne("TattooShop.Data.Models.TattooShopUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -212,7 +337,7 @@ namespace TattooShop.Data.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("TattooShop.Web.Areas.Identity.Data.TattooShopUser")
+                    b.HasOne("TattooShop.Data.Models.TattooShopUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -220,10 +345,39 @@ namespace TattooShop.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("TattooShop.Web.Areas.Identity.Data.TattooShopUser")
+                    b.HasOne("TattooShop.Data.Models.TattooShopUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("TattooShop.Data.Models.Book", b =>
+                {
+                    b.HasOne("TattooShop.Data.Models.Artist", "Artist")
+                        .WithMany("Books")
+                        .HasForeignKey("ArtistId");
+
+                    b.HasOne("TattooShop.Data.Models.TattooShopUser", "User")
+                        .WithMany("Books")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("TattooShop.Data.Models.Order", b =>
+                {
+                    b.HasOne("TattooShop.Data.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId");
+
+                    b.HasOne("TattooShop.Data.Models.TattooShopUser", "User")
+                        .WithMany("Orders")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("TattooShop.Data.Models.Tattoo", b =>
+                {
+                    b.HasOne("TattooShop.Data.Models.Artist", "Artist")
+                        .WithMany("TattooCollection")
+                        .HasForeignKey("ArtistId");
                 });
 #pragma warning restore 612, 618
         }
