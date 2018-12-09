@@ -14,6 +14,7 @@ using TattooShop.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using TattooShop.Data.Contracts;
 
 namespace Sandbox
 {
@@ -53,6 +54,8 @@ namespace Sandbox
             services.AddDbContext<TattooShopContext>(options =>
                 options.UseSqlServer(
                     configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
         }
     }
 }

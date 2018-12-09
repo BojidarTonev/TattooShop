@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TattooShop.Data;
+using TattooShop.Data.Contracts;
 using TattooShop.Data.Models;
 using TattooShop.Web.Models;
 
@@ -54,6 +55,9 @@ namespace TattooShop.Web
                 .AddEntityFrameworkStores<TattooShopContext>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            //Application services:
+            services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
