@@ -19,5 +19,12 @@ namespace TattooShop.Web.Areas.Artists.Controllers
 
             return this.View(artists);
         }
+
+        public IActionResult Details(string id)
+        {
+            var artist = this._artistsService.
+
+            return View(artist);
+        }
     }
 }

@@ -1,0 +1,44 @@
+﻿@model Artist
+
+<section class="probootstrap-slider flexslider">
+    <ul class="slides">
+        <li style="background-image: url(@Model.ImageUrl);" class="overlay2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <div class="slides-text probootstrap-animate" data-animate-effect="fadeIn">
+                            <h2>@Model.FirstName @Model.LastName</h2>
+                            <p>@Model.Autobiography</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</section>
+<section class="probootstrap-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center section-heading probootstrap-animate">
+                <h2>Recent Work</h2>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var artWork in Model.TattooCollection)
+            {
+                <div class="col-md-4 probootstrap-animate">
+                    <div class="probootstrap-card with-hover">
+                        <div class="probootstrap-card-media">
+                            <a href="single-page.html"><img src="@artWork.TattooUrl" class="img-responsive img-border" alt="Free HTML5 Template by uicookies.com"></a>
+                        </div>
+                        <div class="probootstrap-card-text">
+                            <h2 class="probootstrap-card-heading mb0">@artWork.TattoRelevantName</h2>
+                            <p class="category">@artWork.TattooStyle</p>
+                            <p><a href="single-page.html">View details</a></p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
