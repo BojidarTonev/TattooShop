@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -38,11 +37,15 @@ namespace TattooShop.Web.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
-            [EmailAddress]
+            [DataType(DataType.EmailAddress)]
+            [Display(Name = "Email")]
+            //[RegularExpression("^[0-9a-zA-Z-_.*~]+$", ErrorMessage = "Username may only contain alphanumeric characters, dashes, underscores, dots, asterisks and tildes.")]
             public string Email { get; set; }
 
             [Required]
             [DataType(DataType.Password)]
+            [MinLength(5, ErrorMessage = "Password must be atleast 5 characters long.")]
+            [Display(Name = "Password")]
             public string Password { get; set; }
 
             [Display(Name = "Remember me?")]

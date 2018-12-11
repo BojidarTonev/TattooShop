@@ -22,7 +22,7 @@ namespace TattooShop.Web.Areas.Artists.Controllers
 
         public IActionResult Details(string id)
         {
-            var artist = this._artistsService.
+            var artist = this._artistsService.Details(id);
 
             return View(artist);
         }

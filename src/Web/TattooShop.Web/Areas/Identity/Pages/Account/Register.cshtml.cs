@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -46,15 +44,38 @@ namespace TattooShop.Web.Areas.Identity.Pages.Account
             public string Email { get; set; }
 
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [DataType(DataType.Text)]
+            [Display(Name = "First name")]
+            public string FirstName { get; set; }
+
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "Last name")]
+            public string LastName { get; set; }
+
+            [Required]
+            [DataType(DataType.Text)]
+            [MinLength(3, ErrorMessage = "Username  must be atleast 3 characters long.")]
+            [Display(Name = "Username")]
+            [RegularExpression("^[0-9a-zA-Z-_.*~]+$", ErrorMessage = "Username may only contain alphanumeric characters, dashes, underscores, dots, asterisks and tildes.")]
+            public string Username { get; set; }
+
+            [Required]
             [DataType(DataType.Password)]
+            [MinLength(5, ErrorMessage = "Password must be atleast 5 characters long.")]
             [Display(Name = "Password")]
             public string Password { get; set; }
 
+            [Compare("Password")]
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            public byte[] Image { get; set; }
+
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "Address")]
+            public string Address { get; set; }
         }
 
         public void OnGet(string returnUrl = null)
