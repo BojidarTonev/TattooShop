@@ -1,0 +1,50 @@
+﻿@model Tattoo
+
+<section class="probootstrap-slider flexslider">
+    <ul class="slides">
+        <li style="background-image: url(@Model.TattooUrl);" class="overlay2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <div class="slides-text probootstrap-animate" data-animate-effect="fadeIn">
+                            <h2>@Model.TattoRelevantName</h2>
+                            <h1>Done by: @Model.Artist.FirstName @Model.Artist.LastName</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</section>
+<hr />
+<div class="container">
+    <h1 class="lead text-center">This tattoo has been done on: @Model.DoneOn.</h1>
+    <h1 class="lead text-center">The tattoo took @Model.Sessions sessions to be completed</h1>
+</div>
+<hr />
+<div class="container">
+    <div class="row">
+        <div class="col-lg-9">
+            <div class="card card-outline-secondary my-4">
+                <div class="card-header text-center">
+                    <h1>Tattoo Reviews:</h1>
+                </div>
+                <br />
+                <div class="card-body">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
+                    <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+                    <hr>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
+                    <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+                    <hr>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
+                    <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+                    <hr>
+                    <a asp-area="Artists" asp-controller="Artists" asp-action="Details" asp-route-id="@Model.ArtistId" class="btn btn-success">Other artwork by this artist</a>
+                    </br>
+                    </br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

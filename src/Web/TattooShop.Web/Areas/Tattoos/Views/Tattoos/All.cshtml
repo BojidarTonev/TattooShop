@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Tattoo>
+
+<section class="probootstrap-slider flexslider">
+    <ul class="slides">
+        <li style="background-image: url(http://www.sickchirpse.com/wp-content/uploads/2015/09/7-Doors-Featured.jpg);" class="overlay2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <div class="slides-text probootstrap-animate" data-animate-effect="fadeIn">
+                            <h2>Welcome to our tattoo gallery!</h2>
+                            <small>Here you can see all the artowrk that has been done in our studio.</small>
+                            <small></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</section>
+<section class="probootstrap-section">
+    <div class="container">
+        <div class="row overlap">
+            <div class="col-md-4">
+                <div class="service left-icon probootstrap-animate">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="service left-icon probootstrap-animate">
+                    <div class="icon">
+                        <i class="icon-text"></i>
+                    </div>
+                    <div class="text">
+                        <h3 class="heading">Filter</h3>
+                        <p>Filter what you want to see</p>
+                        <div class="dropdown">
+                            <button class="btn btn-danger dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Filters
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" asp-area="Tattoos" asp-controller="Tattoos" asp-action="All">Latest made</a><br />
+                                <a class="dropdown-item" asp-area="Tattoos" asp-controller="Tattoos" asp-action="All">Sessions</a><br />
+                                <a class="dropdown-item" asp-area="Tattoos" asp-controller="Tattoos" asp-action="All">Rating</a><br />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="service left-icon probootstrap-animate">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="container">
+    @foreach (var tattoo in @Model)
+    {
+        <div class="col-md-4 probootstrap-animate">
+            <div class="probootstrap-card with-hover">
+                <div class="probootstrap-card-media">
+                    <a a asp-area="Tattoos" asp-controller="Tattoos" asp-action="Details" asp-route-id="@tattoo.Id"><img src="@tattoo.TattooUrl" class="img-responsive img-border"></a>
+                </div>
+                <div class="probootstrap-card-text">
+                    <h2 class="probootstrap-card-heading mb0">@tattoo.TattoRelevantName</h2>
+                    <p class="category">@tattoo.TattooStyle</p>
+                    <p><a asp-area="Tattoos" asp-controller="Tattoos" asp-action="Details" asp-route-id="@tattoo.Id">View details</a></p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
