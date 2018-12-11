@@ -24,7 +24,7 @@
                 <ul class="probootstrap-main-nav">
                     <li class="active"><a asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="Artists" asp-controller="Artists" asp-action="All">Artists</a></li>
-                    <li><a asp-area="" asp-controller="Products" asp-action="All">Products</a></li>
+                    <li><a asp-area="Products" asp-controller="Products" asp-action="All">Products</a></li>
                     <li><a asp-area="" asp-controller="Tattoos" asp-action="All">All artwork</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
@@ -47,7 +47,7 @@
                 {
                     <ul class="probootstrap-right-nav hidden-xs">
                         <li><a asp-area="Identity" asp-page="/Account/Login"><i class="icon-login"></i></a></li>
-                        <li><a asp-area="Identity" asp-controller="/Account/Register"><i class="icon-add-user"></i></a></li>
+                        <li><a asp-area="Identity" asp-page="/Account/Register"><i class="icon-add-user"></i></a></li>
                     </ul>
                 }
             </nav>
@@ -71,7 +71,7 @@
                             <li><a asp-controller="Home" asp-action="Index">Home</a></li>
                             <li><a asp-controller="Home" asp-action="About">About</a></li>
                             <li><a href="#">Services</a></li>
-                            <li><a href="#">Products</a></li>
+                            <li><a asp-area="Products" asp-controller="Products" asp-action="All">Products</a></li>
                             <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
                         </ul>
                     </div>

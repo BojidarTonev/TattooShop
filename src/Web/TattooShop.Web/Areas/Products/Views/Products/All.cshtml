@@ -1,0 +1,97 @@
+﻿@model IEnumerable<Product>
+
+<section class="probootstrap-slider flexslider">
+    <ul class="slides">
+        <li style="background-image: url(https://pbs.twimg.com/media/ClvVERRVEAEmTMv.jpg);" class="overlay2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <div class="slides-text probootstrap-animate" data-animate-effect="fadeIn">
+                            <h2>The tattoo care products we offer!</h2>
+                            <small>Here you find quality products on reasonable prices, also we have a lot of nice offers to seldom customers!</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</section>
+<section class="probootstrap-section">
+    <div class="container">
+        <div class="row overlap">
+            <div class="col-md-4">
+                <div class="service left-icon probootstrap-animate">
+                    <div class="icon">
+                        <i class="icon-thumbs-up"></i>
+                    </div>
+                    <div class="text">
+                        <h3 class="heading">Tattoo care products</h3>
+                        <p>We offer some of the best before and after tattoo care products worldwide!</p>
+                        <form asp-controller="Products" asp-action="All" method="post">
+                            <button type="submit" class="btn btn-primary">Apply filter</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="service left-icon probootstrap-animate">
+                    <div class="icon">
+                        <i class="icon-text"></i>
+                    </div>
+                    <div class="text">
+                        <h3 class="heading">T-shirts and clothes</h3>
+                        <p>Here you can find some cool looking and high quality tattoo based clothes.</p>
+                        <a asp-controller="Products" asp-action="AllCategorized" asp-fragment="Clothes">Apply filter</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="service left-icon probootstrap-animate">
+                    <div class="icon">
+                        <i class="icon-wallet"></i>
+                    </div>
+                    <div class="text">
+                        <h3 class="heading">Piercings and souvenirs</h3>
+                        <p>We also have creative piercings and other souvenirs.</p>
+                        <p><a asp-controller="Products" asp-action="AllCategorized" asp-route-id="Piercing">Apply filter</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="container">
+    @foreach (var product in @Model)
+    {
+        <div class="col-md-4 probootstrap-animate">
+            <div class="probootstrap-card with-hover">
+                <div class="probootstrap-card-media">
+                    <a href="single-page.html"><img src="@product.ImageUrl" class="img-responsive img-border"></a>
+                </div>
+                <div class="probootstrap-card-text">
+                    <h2 class="probootstrap-card-heading mb0">@product.Name</h2>
+                    <p class="category">@product.Category</p>
+                    <p><a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">View details</a></p>
+                </div>
+            </div>
+        </div>
+
+        @*<div class="col-lg-4 col-md-4 mb-4">
+                <div class="card h-100">
+                    <a href="#"><img class="card-img-top" src="@product.ImageUrl" alt=""></a>
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">@product.Name</a>
+                        </h4>
+                        <h5>$@product.Price</h5>
+                        <p class="card-text">@product.Description</p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                    </div>
+                </div>
+            </div>*@
+    }
+</div>
+
+
