@@ -54,6 +54,7 @@ namespace TattooShop.Web
             services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
             services.AddScoped<IHomeService, HomeService>();
             services.AddScoped<IArtistsService, ArtistsService>();
+            services.AddScoped<IProductsService, ProductsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

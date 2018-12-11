@@ -23,6 +23,8 @@
 
   <ItemGroup>
     <Folder Include="Areas\Artists\Models\" />
+    <Folder Include="Areas\Products\Models\" />
+    <Folder Include="Areas\Products\Views\" />
   </ItemGroup>
 
 </Project>
