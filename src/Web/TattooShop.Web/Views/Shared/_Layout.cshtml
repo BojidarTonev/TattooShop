@@ -1,78 +1,124 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - TattooShop.Web</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.Title</title>
 
-    <environment include="Development">
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-    </environment>
-    <environment exclude="Development">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css"
-              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
-              crossorigin="anonymous"
-              integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE="/>
-    </environment>
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">
+    <link rel="stylesheet" href="~/templateRoot/css/styles-merged.css">
+    <link rel="stylesheet" href="~/templateRoot/css/style.min.css">
+    <link rel="stylesheet" href="~/templateRoot/css/custom.css">
+
+
+
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">TattooShop.Web</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <partial name="_LoginPartial" />
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+    <div class="probootstrap-loader"></div>
+    <header role="banner" class="probootstrap-header">
+        <div class="container">
+            <a asp-controller="Home" asp-action="Index" class="probootstrap-logo">TattooShop</a>
+
+            <a href="#" class="probootstrap-burger-menu visible-xs"><i>Menu</i></a>
+            <nav role="navigation" class="probootstrap-nav hidden-xs">
+                <ul class="probootstrap-main-nav">
+                    <li class="active"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a asp-area="Artists" asp-controller="Artists" asp-action="All">Artists</a></li>
+                    <li><a asp-area="" asp-controller="Products" asp-action="All">Products</a></li>
+                    <li><a asp-area="" asp-controller="Tattoos" asp-action="All">All artwork</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                </ul>
+                @if (this.User.Identity.IsAuthenticated)
+                {
+                    <ul class="probootstrap-right-nav hidden-xs">
+                        @if (this.User.IsInRole("Admin"))
+                        {
+                            <li><a>Welcome back, admin - @User.Identity.Name!</a></li>
+                        }
+                        else
+                        {
+                            <li><a>Welcome, @User.Identity.Name!</a></li>
+                        }
+                        <li><a asp-area="Identity" asp-controller="Accounts" asp-action="Logout"><i class="icon-log-out"></i></a></li>
                     </ul>
+                }
+                else
+                {
+                    <ul class="probootstrap-right-nav hidden-xs">
+                        <li><a asp-area="Identity" asp-page="/Account/Login"><i class="icon-login"></i></a></li>
+                        <li><a asp-area="Identity" asp-controller="/Account/Register"><i class="icon-add-user"></i></a></li>
+                    </ul>
+                }
+            </nav>
+        </div>
+    </header>
+    @RenderBody()
+    <footer class="probootstrap-footer probootstrap-bg">
+        <div class="container">
+            <div class="row mb60">
+                <div class="col-md-3">
+                    <div class="probootstrap-footer-widget">
+                        <h4 class="heading">About our TattooShop studio.</h4>
+                        <p>We are a group of talented and motivated people that are capable of creating the best tattos you can ever imagine. </p>
+                        <p><a asp-controller="Home" asp-action="About">Read more...</a></p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="probootstrap-footer-widget probootstrap-link-wrap">
+                        <h4 class="heading">Quick Links</h4>
+                        <ul class="stack-link">
+                            <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                            <li><a asp-controller="Home" asp-action="About">About</a></li>
+                            <li><a href="#">Services</a></li>
+                            <li><a href="#">Products</a></li>
+                            <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="probootstrap-footer-widget">
+                        <h4 class="heading">More Links</h4>
+                        <ul class="stack-link">
+                            <li><a href="#">Projects</a></li>
+                            <li><a href="#">Privacy</a></li>
+                            <li><a href="#">Terms</a></li>
+                            <li><a href="#">Career</a></li>
+                            <li><a href="#">Support Help</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="probootstrap-footer-widget">
+                        <h4 class="heading">Subscribe</h4>
+                        <p>Subscribe for us if you want to get notified about any discounts on our products or when a tattoo artist of your desire has a free booking day.</p>
+                        <form action="#">
+                            <div class="form-field">
+                                <input type="text" class="form-control" placeholder="Enter your email">
+                                <button class="btn btn-subscribe">Send</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <partial name="_CookieConsentPartial" />
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2018 - TattooShop.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="row copyright">
+                <div class="col-md-6">
+                    <div class="probootstrap-footer-widget right">
+                        <ul class="probootstrap-social">
+                            <li><a asp-controller="Accounts" asp-action="Login"><i class="icon-twitter"></i></a></li>
+                            <li><a asp-controller="Accounts" asp-action="Register"><i class="icon-facebook"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </footer>
+    <div class="gototop js-top">
+        <a href="#" class="js-gotop"><i class="icon-chevron-thin-up"></i></a>
+    </div>
 
-    <environment include="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
-    </environment>
-    <environment exclude="Development">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
-                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                asp-fallback-test="window.jQuery"
-                crossorigin="anonymous"
-                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=">
-        </script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"
-                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
-                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-                crossorigin="anonymous"
-                integrity="sha256-E/V4cWE4qvAeO5MOhjtGtqDzPndRO1LBk8lJ/PR7CA4=">
-        </script>
-    </environment>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-
-    @RenderSection("Scripts", required: false)
+    <script src="~/templateRoot/js/scripts.min.js"></script>
+    <script src="~/templateRoot/js/main.min.js"></script>
+    <script src="~/templateRoot/js/custom.js"></script>
 </body>
 </html>

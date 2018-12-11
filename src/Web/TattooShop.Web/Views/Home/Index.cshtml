@@ -1,8 +1,86 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model IEnumerable<TattooShop.Data.Models.Tattoo>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section class="probootstrap-slider flexslider">
+    <ul class="slides">
+        <li style="background-image: url(https://i.ytimg.com/vi/kxLoycj4pJY/maxresdefault.jpg);" class="overlay2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <div class="slides-text probootstrap-animate" data-animate-effect="fadeIn">
+                            <h2>Your next tattoo is done here with passion and professionalism</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</section>
+<!-- END: slider  -->
+<section class="probootstrap-section">
+    <div class="container">
+        <div class="row overlap">
+            <div class="col-md-4">
+                <div class="service left-icon probootstrap-animate">
+                    <div class="icon">
+                        <i class="icon-pencil3"></i>
+                    </div>
+                    <div class="text">
+                        <h3 class="heading">Creating custom designs</h3>
+                        <p>Feel free to send us your ideas and let our artists create the design that you were dreaming of.</p>
+                        <p><a asp-controller="Home" asp-action="Contact">Contact tattoo artist</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="service left-icon probootstrap-animate">
+                    <div class="icon">
+                        <i class="icon-book-open"></i>
+                    </div>
+                    <div class="text">
+                        <h3 class="heading">Professional artists</h3>
+                        <p>We are a group of passionate tattoo artists with creative minds and a lot of experience behind our backs.</p>
+                        <p><a asp-controller="Home" asp-action="About">About us</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="service left-icon probootstrap-animate">
+                    <div class="icon">
+                        <i class="icon-wallet"></i>
+                    </div>
+                    <div class="text">
+                        <h3 class="heading">Quality products</h3>
+                        <p>Selling some of the best post-tattoo products in the country and others high quality tattoo care products</p>
+                        <p><a asp-controller="Products" asp-action="All">See products</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="probootstrap-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center section-heading probootstrap-animate">
+                <h2>Recent Work</h2>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var tattoo in Model)
+            {
+                <div class="col-md-4 probootstrap-animate ">
+                    <div class="probootstrap-card with-hover">
+                        <div class="probootstrap-card-media">
+                            <a asp-controller="TattoosController" asp-action="Details"><img src="@tattoo.TattooUrl" class="img-responsive img-border image_css"></a>
+                        </div>
+                        <div class="probootstrap-card-text">
+                            <h2 class="probootstrap-card-heading mb0">@tattoo.TattoRelevantName</h2>
+                            <p class="category">@tattoo.TattooStyle</p>
+                            <p><a href="single-page.html">View details</a></p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

@@ -17,6 +17,12 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\TattooShop.Data.Models\TattooShop.Data.Models.csproj" />
     <ProjectReference Include="..\..\Data\TattooShop.Data\TattooShop.Data.csproj" />
+    <ProjectReference Include="..\..\Services\TattooShop.Services\TattooShop.Services.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="Areas\Artists\Models\" />
   </ItemGroup>
 
 </Project>

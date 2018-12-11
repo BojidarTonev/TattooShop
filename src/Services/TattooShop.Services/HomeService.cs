@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using TattooShop.Data;
+using TattooShop.Data.Contracts;
 using TattooShop.Data.Models;
 using TattooShop.Services.Contracts;
 
@@ -9,17 +8,17 @@ namespace TattooShop.Services
 {
     public class HomeService : IHomeService
     {
-        private readonly TattooShopContext _context;
+        private readonly IRepository<Tattoo> _tattoosRepository;
         private const int TattoosToTake = 12;
 
-        public HomeService(TattooShopContext context)
+        public HomeService(IRepository<Tattoo> tattoosRepository)
         {
-            this._context = context;
+            this._tattoosRepository = tattoosRepository;
         }
 
         public IEnumerable<Tattoo> RecentTattoos()
         {
-            return this._context.Tattoos.OrderBy(x => x.DoneOn).Take(TattoosToTake).ToList();
+            return this._tattoosRepository.All().Take(TattoosToTake).OrderBy(x => x.DoneOn).ToList();
         }
     }
 }

@@ -1,23 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using TattooShop.Services.Contracts;
 using TattooShop.Web.Models;
 
 namespace TattooShop.Web.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly IHomeService _homeService;
+
+        public HomeController(IHomeService homeService)
         {
-            return View();
+            this._homeService = homeService;
         }
 
-        public IActionResult Privacy()
+        public IActionResult Index()
         {
-            return View();
+            var tattoos = this._homeService.RecentTattoos();
+
+            return View(tattoos);
+        }
+
+        public IActionResult Contact()
+        {
+            return this.View();
+        }
+
+        public IActionResult About()
+        {
+            return this.View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

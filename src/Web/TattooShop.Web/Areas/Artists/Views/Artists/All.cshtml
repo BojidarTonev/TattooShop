@@ -1,0 +1,52 @@
+﻿@model IEnumerable<TattooShop.Data.Models.Artist>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="probootstrap-slider flexslider">
+    <ul class="slides">
+        <li style="background-image: url(https://static1.squarespace.com/static/54ac2f6be4b0170492f2f956/t/58586fd9725e2510252dccab/1482190856451/27ef868543abf9c4e16439c1aeb8f0bd.jpg);" class="overlay2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <div class="slides-text probootstrap-animate" data-animate-effect="fadeIn">
+                            <h2>Our team!</h2>
+                            <small>Scroll down to see information about our team!</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</section>
+
+@foreach (var item in @Model)
+{
+    <section class="probootstrap-slider flexslider artsitDetails">
+        <ul class="slides">
+            <li style="background-image: url(@item.ImageUrl);" class="overlay2">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 text-left">
+                            <h1>This is @item.FirstName @item.LastName!</h1>
+                            <p>This artist specializes at most at: @item.BestAt</p>
+                            <a class="btn btn-custom btn-lg page-scroll" asp-area="" asp-controller="Artists" asp-action="Details" asp-route-id="@item.Id" class="btn btn-custom btn-lg page-scroll">Details</a>
+                            <a asp-area="" asp-controller="Artists" asp-action="BookTattoo" asp-route-id="@item.Id" class="btn btn-custom btn-lg page-scroll">Book tattoo!</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </section>
+}
+
+<script type="text/javascript" src="~/detailsRoot/js/jquery.1.11.1.js"></script>
+<script type="text/javascript" src="~/detailsRoot/js/bootstrap.js"></script>
+<script type="text/javascript" src="~/detailsRoot/js/SmoothScroll.js"></script>
+<script type="text/javascript" src="~/detailsRoot/js/nivo-lightbox.js"></script>
+<script type="text/javascript" src="~/detailsRoot/js/jquery.isotope.js"></script>
+<script type="text/javascript" src="~/detailsRoot/js/jqBootstrapValidation.js"></script>
+<script type="text/javascript" src="~/detailsRoot/js/contact_me.js"></script>
+<script type="text/javascript" src="~/detailsRoot/js/main.js"></script>
+
