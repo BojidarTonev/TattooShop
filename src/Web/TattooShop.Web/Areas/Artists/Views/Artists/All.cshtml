@@ -17,18 +17,19 @@
     </ul>
 </section>
 
-@foreach (var item in @Model)
+@foreach (var artist in @Model)
 {
     <section class="probootstrap-slider flexslider artsitDetails">
         <ul class="slides">
-            <li style="background-image: url(@item.ImageUrl);" class="overlay2">
+            <li style="background-image: url(@artist.ImageUrl);" class="overlay2">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12 text-left">
-                            <h1>This is @item.FirstName @item.LastName!</h1>
-                            <p>This artist specializes at most at: @item.BestAt</p>
-                            <a class="btn btn-custom btn-lg page-scroll" asp-area="Artists" asp-controller="Artists" asp-action="Details" asp-route-id="@item.Id" class="btn btn-custom btn-lg page-scroll">Details</a>
-                            <a asp-area="Artists" asp-controller="Artists" asp-action="BookTattoo" asp-route-id="@item.Id" class="btn btn-custom btn-lg page-scroll">Book tattoo!</a>
+                            <h1>This is @artist.FirstName @artist.LastName!</h1>
+                            <p>Specialization: @artist.BestAt</p>
+                            <p>@artist.Autobiography</p>
+                            <a asp-area="Artists" asp-controller="Artists" asp-action="Details" asp-route-id="@artist.Id" class="btn btn-primary">Details</a>
+                            <a asp-area="Artists" asp-controller="Artists" asp-action="BookTattoo" asp-route-id="@artist.Id" class="btn btn-primary">Book tattoo!</a>
                         </div>
                     </div>
                 </div>

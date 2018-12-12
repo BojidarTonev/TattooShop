@@ -1,13 +1,18 @@
-﻿@model TattooShop.Web.Areas.Artists.Models.BookTattooInputViewModel
+﻿@using TattooShop.Web.Areas.Artists.Models
+@model Artist
+
+@{
+    var input = new BookTattooInputViewModel();
+}
 
 <section class="probootstrap-slider flexslider">
     <ul class="slides">
-        <li style="background-image: url(@Model.Artist.ImageUrl);" class="overlay2">
+        <li style="background-image: url(@Model.ImageUrl);" class="overlay2">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 text-center">
                         <div class="slides-text probootstrap-animate" data-animate-effect="fadeIn">
-                            <h2>CONSULTATIONS/APPOINTMENTS</h2>
+                            <h2>TATTOO BOOKING</h2>
                             <small>Fill in the information below and the artist will get back to you to schedule your next tattoo.</small>
                         </div>
                     </div>
@@ -22,21 +27,21 @@
             <form asp-controller="Artists" asp-action="BookTattoo" method="post" class="probootstrap-form probootstrap-form-box mb50" enctype="multipart/form-data">
                 <div class="row">
                     <div class="form-group col-md-auto">
-                        <label asp-for="@Model.Description"></label>
-                        <input asp-for="@Model.Description" type="text" class="form-control" placeholder="Description...">
-                        <span asp-validation-for="@Model.Description" class="text-danger"></span>
+                        <label asp-for="@input.Description"></label>
+                        <input asp-for="@input.Description" type="text" class="form-control" placeholder="Description...">
+                        <span asp-validation-for="@input.Description" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group col-md-auto">
-                        <label asp-for="@Model.BookedFor"></label>
-                        <input asp-for="@Model.BookedFor" type="date" class="form-control">
+                        <label asp-for="@input.BookedFor"></label>
+                        <input asp-for="@input.BookedFor" type="date" class="form-control">
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group col-md-auto">
-                        <label asp-for="@Model.Image"></label>
-                        <input asp-for="@Model.Image" class="form-control" placeholder="Confirm password...">
+                        <label asp-for="@input.Image"></label>
+                        <input asp-for="@input.Image" class="form-control" placeholder="Confirm password...">
 
                     </div>
 

@@ -27,9 +27,10 @@ namespace TattooShop.Web.Areas.Artists.Controllers
             return View(artist);
         }
 
-        public IActionResult BookTattoo()
+        public IActionResult BookTattoo(string id)
         {
-            return this.View();
+            var artist = this._artistsService.Details(id);
+            return this.View(artist);
         }
     }
 }
