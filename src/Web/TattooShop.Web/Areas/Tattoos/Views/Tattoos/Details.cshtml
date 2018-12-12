@@ -1,4 +1,11 @@
-﻿@model Tattoo
+﻿@using TattooShop.Services.Contracts
+@model Tattoo
+@inject ITattoosService _tattoosService
+
+@{
+    string style = @Model.TattooStyle.ToString();
+    var similarTattoos = this._tattoosService.OtherSimilar(style);
+}
 
 <section class="probootstrap-slider flexslider">
     <ul class="slides">
@@ -8,7 +15,7 @@
                     <div class="col-md-12 text-center">
                         <div class="slides-text probootstrap-animate" data-animate-effect="fadeIn">
                             <h2>@Model.TattoRelevantName</h2>
-                            <h1>Done by: @Model.Artist.FirstName @Model.Artist.LastName</h1>
+                            <h1>Done by: <a asp-area="Artists" asp-controller="Artists" asp-action="Details" asp-route-id="@Model.Artist.Id">@Model.Artist.FirstName @Model.Artist.LastName</a></h1>
                         </div>
                     </div>
                 </div>
@@ -27,23 +34,24 @@
         <div class="col-lg-9">
             <div class="card card-outline-secondary my-4">
                 <div class="card-header text-center">
-                    <h1>Tattoo Reviews:</h1>
+                    <h1>Other similar tattoos:</h1>
                 </div>
                 <br />
-                <div class="card-body">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-                    <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-                    <hr>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-                    <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-                    <hr>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-                    <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-                    <hr>
-                    <a asp-area="Artists" asp-controller="Artists" asp-action="Details" asp-route-id="@Model.ArtistId" class="btn btn-success">Other artwork by this artist</a>
-                    </br>
-                    </br>
-                </div>
+                @foreach (var tattoo in similarTattoos)
+                {
+                    <div class="col-md-4 probootstrap-animate">
+                        <div class="probootstrap-card with-hover">
+                            <div class="probootstrap-card-media">
+                                <a a asp-area="Tattoos" asp-controller="Tattoos" asp-action="Details" asp-route-id="@tattoo.Id"><img src="@tattoo.TattooUrl" class="img-responsive img-border"></a>
+                            </div>
+                            <div class="probootstrap-card-text">
+                                <h2 class="probootstrap-card-heading mb0">@tattoo.TattoRelevantName</h2>
+                                <p class="category">@tattoo.TattooStyle</p>
+                                <p><a asp-area="Tattoos" asp-controller="Tattoos" asp-action="Details" asp-route-id="@tattoo.Id">View details</a></p>
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     </div>

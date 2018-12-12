@@ -27,8 +27,8 @@
                         <div class="col-md-12 text-left">
                             <h1>This is @item.FirstName @item.LastName!</h1>
                             <p>This artist specializes at most at: @item.BestAt</p>
-                            <a class="btn btn-custom btn-lg page-scroll" asp-area="" asp-controller="Artists" asp-action="Details" asp-route-id="@item.Id" class="btn btn-custom btn-lg page-scroll">Details</a>
-                            <a asp-area="" asp-controller="Artists" asp-action="BookTattoo" asp-route-id="@item.Id" class="btn btn-custom btn-lg page-scroll">Book tattoo!</a>
+                            <a class="btn btn-custom btn-lg page-scroll" asp-area="Artists" asp-controller="Artists" asp-action="Details" asp-route-id="@item.Id" class="btn btn-custom btn-lg page-scroll">Details</a>
+                            <a asp-area="Artists" asp-controller="Artists" asp-action="BookTattoo" asp-route-id="@item.Id" class="btn btn-custom btn-lg page-scroll">Book tattoo!</a>
                         </div>
                     </div>
                 </div>

@@ -1,5 +1,10 @@
 ﻿@model IEnumerable<Product>
 
+@{
+    var productCategories = this.ViewData["ProductsCategories"] as IEnumerable<SelectListItem>;
+    
+}
+
 <section class="probootstrap-slider flexslider">
     <ul class="slides">
         <li style="background-image: url(https://pbs.twimg.com/media/ClvVERRVEAEmTMv.jpg);" class="overlay2">
@@ -22,13 +27,16 @@
             <div class="col-md-4">
                 <div class="service left-icon probootstrap-animate">
                     <div class="icon">
-                        <i class="icon-thumbs-up"></i>
+                        <i class="icon-filter"></i>
                     </div>
                     <div class="text">
-                        <h3 class="heading">Tattoo care products</h3>
-                        <p>We offer some of the best before and after tattoo care products worldwide!</p>
+                        <h3 class="heading">Filter the category</h3>
+                        <p>Quality matters! Current category products:</p>
                         <form asp-controller="Products" asp-action="All" method="post">
-                            <button type="submit" class="btn btn-primary">Apply filter</button>
+                            <div class="dropdown">
+                                <select asp-items="productCategories" class="btn btn-danger dropdown-toggle" type="button"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></select>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -36,24 +44,23 @@
             <div class="col-md-4">
                 <div class="service left-icon probootstrap-animate">
                     <div class="icon">
-                        <i class="icon-text"></i>
+                        <i class="icon-paper-plane"></i>
                     </div>
                     <div class="text">
-                        <h3 class="heading">T-shirts and clothes</h3>
-                        <p>Here you can find some cool looking and high quality tattoo based clothes.</p>
-                        <a asp-controller="Products" asp-action="AllCategorized" asp-fragment="Clothes">Apply filter</a>
+                        <h3 class="heading">Fast and safe shipping</h3>
+                        <p>We offer very fast and safe delivery and shipment all around europe to keep our customers satisfied.</p>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="service left-icon probootstrap-animate">
                     <div class="icon">
-                        <i class="icon-wallet"></i>
+                        <i class="icon-emoji-happy"></i>
                     </div>
                     <div class="text">
-                        <h3 class="heading">Piercings and souvenirs</h3>
-                        <p>We also have creative piercings and other souvenirs.</p>
-                        <p><a asp-controller="Products" asp-action="AllCategorized" asp-route-id="Piercing">Apply filter</a></p>
+                        <h3 class="heading">Having trouble or questions?</h3>
+                        <p>Get in touch with us!</p>
+                        <p><a asp-area="" asp-controller="Home" asp-action="Contact" asp-route-id="Piercing">Contact</a></p>
                     </div>
                 </div>
             </div>

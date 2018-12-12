@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using TattooShop.Data.Models;
+using TattooShop.Data.Models.Enums;
 
 namespace TattooShop.Services.Contracts
 {
@@ -10,5 +11,7 @@ namespace TattooShop.Services.Contracts
         IEnumerable<Product> ProductsByCategory(string categoryName);
 
         Product ProductDetails(string productId);
+
+        IEnumerable<ProductsCategories> GetAllCategories();
     }
 }

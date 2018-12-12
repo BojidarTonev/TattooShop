@@ -70,6 +70,10 @@ namespace TattooShop.Web.Areas.Identity.Pages.Account
             [DataType(DataType.Password)]
             public string ConfirmPassword { get; set; }
 
+            [RegularExpression("[0-9]{9}", ErrorMessage = "Invalid phone number.")]
+            [DataType(DataType.Text)]
+            public string PhoneNumber { get; set; }
+
             public byte[] Image { get; set; }
 
             [Required]

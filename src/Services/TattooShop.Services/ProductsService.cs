@@ -2,6 +2,7 @@
 using System.Linq;
 using TattooShop.Data.Contracts;
 using TattooShop.Data.Models;
+using TattooShop.Data.Models.Enums;
 using TattooShop.Services.Contracts;
 
 namespace TattooShop.Services
@@ -27,6 +28,16 @@ namespace TattooShop.Services
             var product = this._productsRepository.All().FirstOrDefault(p => p.Id == productId);
 
             return product;
+        }
+
+        public IEnumerable<ProductsCategories> GetAllCategories()
+        {
+            return new List<ProductsCategories>()
+            {
+                ProductsCategories.Clothes,
+                ProductsCategories.Piercing,
+                ProductsCategories.TattooCare
+            };
         }
     }
 }

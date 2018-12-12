@@ -1,0 +1,50 @@
+﻿@model TattooShop.Web.Areas.Artists.Models.BookTattooInputViewModel
+
+<section class="probootstrap-slider flexslider">
+    <ul class="slides">
+        <li style="background-image: url(@Model.Artist.ImageUrl);" class="overlay2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <div class="slides-text probootstrap-animate" data-animate-effect="fadeIn">
+                            <h2>CONSULTATIONS/APPOINTMENTS</h2>
+                            <small>Fill in the information below and the artist will get back to you to schedule your next tattoo.</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</section>
+<section class="probootstrap-section">
+    <div class="container">
+        <div class="probootstrap-animate overlap">
+            <form asp-controller="Artists" asp-action="BookTattoo" method="post" class="probootstrap-form probootstrap-form-box mb50" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="form-group col-md-auto">
+                        <label asp-for="@Model.Description"></label>
+                        <input asp-for="@Model.Description" type="text" class="form-control" placeholder="Description...">
+                        <span asp-validation-for="@Model.Description" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-auto">
+                        <label asp-for="@Model.BookedFor"></label>
+                        <input asp-for="@Model.BookedFor" type="date" class="form-control">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-auto">
+                        <label asp-for="@Model.Image"></label>
+                        <input asp-for="@Model.Image" class="form-control" placeholder="Confirm password...">
+
+                    </div>
+
+                </div>
+                <button type="submit" class="btn btn-primary">Book!</button>
+            </form>
+
+        </div>
+
+    </div>
+</section>

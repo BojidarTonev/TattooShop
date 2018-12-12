@@ -6,5 +6,7 @@ namespace TattooShop.Services.Contracts
     public interface IHomeService
     {
         IEnumerable<Tattoo> RecentTattoos();
+
+        IEnumerable<Artist> AllArtists();
     }
 }

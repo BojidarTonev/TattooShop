@@ -46,23 +46,33 @@
                 <div class="row">
                     <div class="form-group">
                         <label asp-for="Input.Address"></label>
-                        <input asp-for="Input.Address" type="text" class="form-control" placeholder="Apartment, studio, or floor address name...">
+                        <input asp-for="Input.Address" class="form-control" placeholder="Apartment, studio, or floor address name...">
                         <span asp-validation-for="Input.Address" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-auto">
+                        <label asp-for="Input.PhoneNumber"></label>
+                        <input asp-for="Input.PhoneNumber" class="form-control" placeholder="Phone number...">
+                        <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group col-md-6">
                         <label asp-for="Input.FirstName">First name</label>
-                        <input asp-for="Input.FirstName" type="text" class="form-control" placeholder="First name...">
+                        <input asp-for="Input.FirstName" class="form-control" placeholder="First name...">
                         <span asp-validation-for="Input.FirstName" class="text-danger"></span>
                     </div>
                     <div class="form-group col-md-6">
                         <label asp-for="Input.LastName">Last name</label>
-                        <input asp-for="Input.LastName" type="text" class="form-control" placeholder="Last name...">
+                        <input asp-for="Input.LastName" class="form-control" placeholder="Last name...">
                         <span asp-validation-for="Input.LastName" class="text-danger"></span>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Register</button>
+                <br>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </div>
             </form>
         </div>
     </div>

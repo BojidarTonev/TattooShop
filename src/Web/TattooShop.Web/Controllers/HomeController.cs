@@ -28,7 +28,9 @@ namespace TattooShop.Web.Controllers
 
         public IActionResult About()
         {
-            return this.View();
+            var artists = this._homeService.AllArtists();
+
+            return this.View(artists);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

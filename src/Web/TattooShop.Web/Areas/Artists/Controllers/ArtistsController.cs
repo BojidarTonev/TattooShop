@@ -26,5 +26,10 @@ namespace TattooShop.Web.Areas.Artists.Controllers
 
             return View(artist);
         }
+
+        public IActionResult BookTattoo()
+        {
+            return this.View();
+        }
     }
 }

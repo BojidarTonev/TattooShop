@@ -8,7 +8,9 @@
                     <div class="col-md-12 text-center">
                         <div class="slides-text probootstrap-animate" data-animate-effect="fadeIn">
                             <h2>@Model.FirstName @Model.LastName</h2>
+                            <p>Tattoos done in studio: @Model.TattoosDone</p>
                             <p>@Model.Autobiography</p>
+                            <a asp-area="Artists" asp-controller="Artists" asp-action="BookTattoo" asp-route-id="@Model.Id" class="btn btn-custom btn-lg page-scroll">Book tattoo!</a>
                         </div>
                     </div>
                 </div>
@@ -24,17 +26,17 @@
             </div>
         </div>
         <div class="row">
-            @foreach (var artWork in Model.TattooCollection)
+            @foreach (var tattoo in @Model.TattooCollection)
             {
-                <div class="col-md-4 probootstrap-animate">
+                <div class="col-md-4 probootstrap-animate ">
                     <div class="probootstrap-card with-hover">
                         <div class="probootstrap-card-media">
-                            <a href="single-page.html"><img src="@artWork.TattooUrl" class="img-responsive img-border" alt="Free HTML5 Template by uicookies.com"></a>
+                            <a asp-area="Tattoos" asp-controller="Tattoos" asp-action="Details" asp-route-id="@tattoo.Id"><img src="@tattoo.TattooUrl" class="img-responsive img-border image_css"></a>
                         </div>
                         <div class="probootstrap-card-text">
-                            <h2 class="probootstrap-card-heading mb0">@artWork.TattoRelevantName</h2>
-                            <p class="category">@artWork.TattooStyle</p>
-                            <p><a href="single-page.html">View details</a></p>
+                            <h2 class="probootstrap-card-heading mb0">@tattoo.TattoRelevantName</h2>
+                            <p class="category">@tattoo.TattooStyle</p>
+                            <p><a asp-area="Tattoos" asp-controller="Tattoos" asp-action="Details" asp-route-id="@tattoo.Id">View details</a></p>
                         </div>
                     </div>
                 </div>

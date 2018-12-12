@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Linq;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using TattooShop.Data.Models.Enums;
 using TattooShop.Services.Contracts;
 
 namespace TattooShop.Web.Areas.Products.Controllers
@@ -16,6 +19,12 @@ namespace TattooShop.Web.Areas.Products.Controllers
         public IActionResult All()
         {
             var products = this._productsService.All();
+            this.ViewData["ProductsCategories"] = this._productsService.GetAllCategories()
+                .Select(pc => new SelectListItem
+            {
+                Value = pc.ToString(),
+                Text = pc.ToString()
+            });
 
             return View(products);
         }

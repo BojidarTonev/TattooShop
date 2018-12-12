@@ -27,7 +27,7 @@
                     <div class="text">
                         <h3 class="heading">Creating custom designs</h3>
                         <p>Feel free to send us your ideas and let our artists create the design that you were dreaming of.</p>
-                        <p><a asp-controller="Home" asp-action="Contact">Contact tattoo artist</a></p>
+                        <p><a asp-area="Artists" asp-controller="Artists" asp-action="All">See tattoo artist</a></p>
                     </div>
                 </div>
             </div>
@@ -51,7 +51,7 @@
                     <div class="text">
                         <h3 class="heading">Quality products</h3>
                         <p>Selling some of the best post-tattoo products in the country and others high quality tattoo care products</p>
-                        <p><a asp-controller="Products" asp-action="All">See products</a></p>
+                        <p><a asp-area="Products" asp-controller="Products" asp-action="All">See products</a></p>
                     </div>
                 </div>
             </div>
@@ -71,12 +71,12 @@
                 <div class="col-md-4 probootstrap-animate ">
                     <div class="probootstrap-card with-hover">
                         <div class="probootstrap-card-media">
-                            <a asp-controller="TattoosController" asp-action="Details"><img src="@tattoo.TattooUrl" class="img-responsive img-border image_css"></a>
+                            <a asp-area="Tattoos" asp-controller="Tattoos" asp-action="Details" asp-route-id="@tattoo.Id"><img src="@tattoo.TattooUrl" class="img-responsive img-border image_css"></a>
                         </div>
                         <div class="probootstrap-card-text">
                             <h2 class="probootstrap-card-heading mb0">@tattoo.TattoRelevantName</h2>
                             <p class="category">@tattoo.TattooStyle</p>
-                            <p><a href="single-page.html">View details</a></p>
+                            <p><a asp-area="Tattoos" asp-controller="Tattoos" asp-action="Details" asp-route-id="@tattoo.Id">View details</a></p>
                         </div>
                     </div>
                 </div>

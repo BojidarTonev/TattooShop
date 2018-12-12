@@ -1,4 +1,10 @@
-﻿@model IEnumerable<Tattoo>
+﻿@using TattooShop.Data.Models.Enums
+
+@model IEnumerable<Tattoo>
+
+@{
+    var tattooStyles = this.ViewData["TattooStyles"] as IEnumerable<SelectListItem>;
+}
 
 <section class="probootstrap-slider flexslider">
     <ul class="slides">
@@ -22,6 +28,17 @@
         <div class="row overlap">
             <div class="col-md-4">
                 <div class="service left-icon probootstrap-animate">
+                    <div class="icon">
+                        <i class="icon-pencil22"></i>
+                    </div>
+                    <div class="text">
+                        <h3 class="heading">Tattoo styles filter</h3>
+                        <p>Filter the products that you want to see:</p>
+                        <div class="dropdown">
+                            <select asp-items="tattooStyles" class="btn btn-danger dropdown-toggle" type="button" 
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></select>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-md-4">
@@ -30,8 +47,8 @@
                         <i class="icon-text"></i>
                     </div>
                     <div class="text">
-                        <h3 class="heading">Filter</h3>
-                        <p>Filter what you want to see</p>
+                        <h3 class="heading">Tattoo content filter</h3>
+                        <p>A little more in-depth filter for the content you are intrested in:</p>
                         <div class="dropdown">
                             <button class="btn btn-danger dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Filters
@@ -43,10 +60,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="service left-icon probootstrap-animate">
                 </div>
             </div>
         </div>
