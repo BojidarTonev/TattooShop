@@ -2,7 +2,10 @@
 @model Artist
 
 @{
+    var tattooStyles = this.ViewData["TattooStyles"] as IEnumerable<SelectListItem>;
+
     var input = new BookTattooInputViewModel();
+    input.Artist = @Model;
 }
 
 <section class="probootstrap-slider flexslider">
@@ -28,23 +31,30 @@
                 <div class="row">
                     <div class="form-group col-md-auto">
                         <label asp-for="@input.Description"></label>
-                        <input asp-for="@input.Description" type="text" class="form-control" placeholder="Description...">
+                        <textarea asp-for="@input.Description" type="text" class="form-control" placeholder="Description..." rows="5"></textarea>
                         <span asp-validation-for="@input.Description" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group col-md-auto">
-                        <label asp-for="@input.BookedFor"></label>
-                        <input asp-for="@input.BookedFor" type="date" class="form-control">
+                        <label asp-for="@input.BookedFor">Book date:</label>
+                        <input asp-for="@input.BookedFor" type="date" class="form-control" plceholder="The date you wishto visit us...">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-auto">
+                        <label asp-for="@input.Style">Style of the tattoo:</label>
+                        <div class="dropdown">
+                            <select asp-items="tattooStyles" class="btn btn-danger dropdown-toggle" type="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></select>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group col-md-auto">
                         <label asp-for="@input.Image"></label>
-                        <input asp-for="@input.Image" class="form-control" placeholder="Confirm password...">
-
+                        <input asp-for="@input.Image" class="form-control" placeholder="Send us example image...">
                     </div>
-
                 </div>
                 <button type="submit" class="btn btn-primary">Book!</button>
             </form>

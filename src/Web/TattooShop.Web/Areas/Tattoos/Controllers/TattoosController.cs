@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using TattooShop.Data.Models.Enums;
 using TattooShop.Services.Contracts;
 
 namespace TattooShop.Web.Areas.Tattoos.Controllers

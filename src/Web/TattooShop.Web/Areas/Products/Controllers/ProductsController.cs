@@ -19,7 +19,7 @@ namespace TattooShop.Web.Areas.Products.Controllers
         public IActionResult All()
         {
             var products = this._productsService.All();
-            this.ViewData["ProductsCategories"] = this._productsService.GetAllCategories()
+            this.ViewData["TattooStyles"] = this._productsService.GetAllCategories()
                 .Select(pc => new SelectListItem
             {
                 Value = pc.ToString(),

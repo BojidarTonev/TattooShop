@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using TattooShop.Data.Models;
+using TattooShop.Data.Models.Enums;
 
 namespace TattooShop.Web.Areas.Artists.Models
 {
@@ -15,5 +16,7 @@ namespace TattooShop.Web.Areas.Artists.Models
 
         public int ArtistId { get; set; }
         public Artist Artist { get; set; }
+
+        public TattooStyles Style { get; set; }
     }
 }
