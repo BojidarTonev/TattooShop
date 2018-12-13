@@ -1,4 +1,6 @@
-﻿@using TattooShop.Web.Areas.Artists.Models
+﻿@using Microsoft.AspNetCore.Identity
+@using TattooShop.Web.Areas.Artists.Models
+@inject UserManager<TattooShopUser> UserManager
 @model Artist
 
 @{
@@ -6,6 +8,8 @@
 
     var input = new BookTattooInputViewModel();
     input.Artist = @Model;
+    var userToAdd = await UserManager.GetUserAsync(this.Context.User);
+    input.User = userToAdd;
 }
 
 <section class="probootstrap-slider flexslider">
@@ -58,8 +62,6 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Book!</button>
             </form>
-
         </div>
-
     </div>
 </section>

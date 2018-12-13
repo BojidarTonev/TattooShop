@@ -14,8 +14,11 @@ namespace TattooShop.Web.Areas.Artists.Models
 
         public string BookedOn { get; set; }
 
-        public int ArtistId { get; set; }
+        public string ArtistId { get; set; }
         public Artist Artist { get; set; }
+
+        public string UserId { get; set; }
+        public TattooShopUser User { get; set; }
 
         public TattooStyles Style { get; set; }
     }

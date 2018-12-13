@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using TattooShop.Data.Models;
 using TattooShop.Services.Contracts;
 
 namespace TattooShop.Web.Areas.Artists.Controllers
@@ -42,6 +43,14 @@ namespace TattooShop.Web.Areas.Artists.Controllers
                     Text = ts.ToString()
                 });
             return this.View(artist);
+        }
+
+        [HttpPost]
+        public IActionResult BookTattoo(Book book)
+        {
+            var result = book;
+
+            return this.RedirectToAction("All");
         }
     }
 }
