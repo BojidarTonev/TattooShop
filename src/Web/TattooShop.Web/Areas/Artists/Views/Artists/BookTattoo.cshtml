@@ -1,20 +1,15 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using TattooShop.Web.Areas.Artists.Models
-@inject UserManager<TattooShopUser> UserManager
-@model Artist
+@model BookTattooInputViewModel
 
 @{
     var tattooStyles = this.ViewData["TattooStyles"] as IEnumerable<SelectListItem>;
-
-    var input = new BookTattooInputViewModel();
-    input.Artist = @Model;
-    var userToAdd = await UserManager.GetUserAsync(this.Context.User);
-    input.User = userToAdd;
+    
 }
 
 <section class="probootstrap-slider flexslider">
     <ul class="slides">
-        <li style="background-image: url(@Model.ImageUrl);" class="overlay2">
+        <li style="background-image: url(@Model.Artist.ImageUrl);" class="overlay2">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 text-center">
@@ -31,33 +26,33 @@
 <section class="probootstrap-section">
     <div class="container">
         <div class="probootstrap-animate overlap">
-            <form asp-controller="Artists" asp-action="BookTattoo" method="post" class="probootstrap-form probootstrap-form-box mb50" enctype="multipart/form-data">
+            <form asp-area="Artists" asp-controller="Artists" asp-action="BookTattoo" method="post" class="probootstrap-form probootstrap-form-box mb50" enctype="multipart/form-data">
                 <div class="row">
                     <div class="form-group col-md-auto">
-                        <label asp-for="@input.Description"></label>
-                        <textarea asp-for="@input.Description" type="text" class="form-control" placeholder="Description..." rows="5"></textarea>
-                        <span asp-validation-for="@input.Description" class="text-danger"></span>
+                        <label asp-for="@Model.Description"></label>
+                        <textarea asp-for="@Model.Description" type="text" class="form-control" placeholder="Description..." rows="5"></textarea>
+                        <span asp-validation-for="@Model.Description" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group col-md-auto">
-                        <label asp-for="@input.BookedFor">Book date:</label>
-                        <input asp-for="@input.BookedFor" type="date" class="form-control" plceholder="The date you wishto visit us...">
+                        <label asp-for="@Model.BookedFor">Book date:</label>
+                        <input asp-for="@Model.BookedFor" type="date" class="form-control" plceholder="The date you wishto visit us...">
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group col-md-auto">
-                        <label asp-for="@input.Style">Style of the tattoo:</label>
+                        <label asp-for="@Model.Style">Style of the tattoo:</label>
                         <div class="dropdown">
-                            <select asp-items="tattooStyles" class="btn btn-danger dropdown-toggle" type="button"
+                            <select  asp-for="@Model.Style" asp-items="tattooStyles" class="btn btn-danger dropdown-toggle" type="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></select>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group col-md-auto">
-                        <label asp-for="@input.Image"></label>
-                        <input asp-for="@input.Image" class="form-control" placeholder="Send us example image...">
+                        <label asp-for="@Model.Image"></label>
+                        <input asp-for="@Model.Image" class="form-control" placeholder="Send us example image...">
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Book!</button>

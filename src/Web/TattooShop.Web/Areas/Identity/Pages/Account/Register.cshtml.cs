@@ -53,16 +53,15 @@ namespace TattooShop.Web.Areas.Identity.Pages.Account
             [Display(Name = "Last name")]
             public string LastName { get; set; }
 
-            [Required]
             [DataType(DataType.Text)]
-            [MinLength(3, ErrorMessage = "Username  must be atleast 3 characters long.")]
+            [MinLength(3, ErrorMessage = "Username  must be at least 3 characters long.")]
             [Display(Name = "Username")]
             [RegularExpression("^[0-9a-zA-Z-_.*~]+$", ErrorMessage = "Username may only contain alphanumeric characters, dashes, underscores, dots, asterisks and tildes.")]
             public string Username { get; set; }
 
             [Required]
             [DataType(DataType.Password)]
-            [MinLength(5, ErrorMessage = "Password must be atleast 5 characters long.")]
+            [MinLength(5, ErrorMessage = "Password must be at least 5 characters long.")]
             [Display(Name = "Password")]
             public string Password { get; set; }
 
@@ -70,7 +69,7 @@ namespace TattooShop.Web.Areas.Identity.Pages.Account
             [DataType(DataType.Password)]
             public string ConfirmPassword { get; set; }
 
-            [RegularExpression("[0-9]{9}", ErrorMessage = "Invalid phone number.")]
+            //[RegularExpression("[/d]", ErrorMessage = "Invalid phone number.")]
             [DataType(DataType.Text)]
             public string PhoneNumber { get; set; }
 
@@ -98,15 +97,15 @@ namespace TattooShop.Web.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User created a new account with password.");
 
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    var callbackUrl = Url.Page(
-                        "/Account/ConfirmEmail",
-                        pageHandler: null,
-                        values: new { userId = user.Id, code = code },
-                        protocol: Request.Scheme);
+                    //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    //var callbackUrl = Url.Page(
+                    //    "/Account/ConfirmEmail",
+                    //    pageHandler: null,
+                    //    values: new { userId = user.Id, code = code },
+                    //    protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    //await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                    //    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return LocalRedirect(returnUrl);

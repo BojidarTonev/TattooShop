@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using TattooShop.Data.Models;
@@ -12,6 +11,6 @@ namespace TattooShop.Services.Contracts
 
         Artist Details(string id);
 
-        Task<bool> AddBook(Artist artist, string bookedFor, string description, IFormFile file, ClaimsPrincipal user);
+        Task<bool> AddBook(string bookedFor, string description, IFormFile file, string style, TattooShopUser user, Artist artist);
     }
 }
