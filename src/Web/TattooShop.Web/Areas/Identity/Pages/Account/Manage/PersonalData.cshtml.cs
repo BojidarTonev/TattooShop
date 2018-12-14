@@ -1,24 +1,32 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
 using TattooShop.Data.Models;
+using TattooShop.Services.Contracts;
 
 namespace TattooShop.Web.Areas.Identity.Pages.Account.Manage
 {
     public class PersonalDataModel : PageModel
     {
         private readonly UserManager<TattooShopUser> _userManager;
-        private readonly ILogger<PersonalDataModel> _logger;
+        private readonly IUsersService _usersService;
 
         public PersonalDataModel(
             UserManager<TattooShopUser> userManager,
-            ILogger<PersonalDataModel> logger)
+            IUsersService usersService)
         {
             _userManager = userManager;
-            _logger = logger;
+            _usersService = usersService;
         }
+
+        public List<Book> Books { get; set; }
+
+        public List<Order> Orders { get; set; }
+
+        public string RegisteredEmail { get; set; }
 
         public async Task<IActionResult> OnGet()
         {
@@ -27,6 +35,10 @@ namespace TattooShop.Web.Areas.Identity.Pages.Account.Manage
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
+
+            this.RegisteredEmail = user.Email;
+            this.Books = this._usersService.GetUserBooks(user.Id).ToList();
+            this.Orders = this._usersService.GetUserOrders(user.Id).ToList();
 
             return Page();
         }

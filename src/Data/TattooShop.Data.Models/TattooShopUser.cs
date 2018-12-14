@@ -15,8 +15,8 @@ namespace TattooShop.Data.Models
 
         public string Address { get; set; }
 
-        public virtual ICollection<Order> Orders => new List<Order>();
+        public virtual ICollection<Order> Orders => new HashSet<Order>();
 
-        public virtual ICollection<Book> Books => new List<Book>();
+        public virtual ICollection<Book> Books => new HashSet<Book>();
     }
 }

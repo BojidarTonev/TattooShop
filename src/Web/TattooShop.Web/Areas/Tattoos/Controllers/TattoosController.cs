@@ -28,6 +28,13 @@ namespace TattooShop.Web.Areas.Tattoos.Controllers
             return View(tattoos);
         }
 
+        //[HttpPost]
+        //public IActionResult All(TattooStyleViewModel model)
+        //{
+
+        //    return this.View();
+        //}
+
         public IActionResult Details(string id)
         {
             var tattoo = this._tattoosService.Details(id);

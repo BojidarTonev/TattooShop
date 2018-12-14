@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using TattooShop.Data.Models;
@@ -35,17 +36,9 @@ namespace TattooShop.Web.Areas.Orders.Controllers
             return this.View(model);
         }
 
-        public IActionResult FinishOrder()
+        public IActionResult FinishOrder(FinishOrderViewModel model)
         {
-
-            return this.View();
-        }
-
-        [HttpPost]
-        public IActionResult FinishOrder()
-        {
-            var products = this._productsService.All();
-            return this.RedirectToAction("Products", "All", products);
+            return this.View(model);
         }
 
         [HttpPost]
@@ -63,9 +56,17 @@ namespace TattooShop.Web.Areas.Orders.Controllers
                 return this.View("Error");
             }
 
-            return this.View("FinishOrder");
+            var finalPrice = model.Quantity * product.Price;
+            var finish = new FinishOrderViewModel()
+            {
+                FinalPrice = finalPrice,
+                DeliveryAddress = model.DeliveryAddress,
+                DeliveryDay = DateTime.UtcNow.ToString(),
+                ProductName = product.Name
+            };
+
+            return this.View("FinishOrder", finish);
         }
 
-        
     }
 }

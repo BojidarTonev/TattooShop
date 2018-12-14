@@ -1,6 +1,6 @@
-﻿@model CreateOrderViewModel
+﻿@model FinishOrderViewModel
 @{
-    ViewData["Title"] = "Order?";
+    ViewData["Title"] = "You order has been accepted.";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -12,10 +12,11 @@
                     <div class="col-md-12 text-center">
                         <div class="slides-text probootstrap-animate" data-animate-effect="fadeIn">
                             <h1>@ViewData["Title"]</h1>
-                            <h3>Name of product: @Model.Product.Name</h3><br />
-                            <h3>Description of product: @Model.Product.Description</h3><br />
-                            <h3>Category of product: @Model.Product.Category</h3><br />
-                            <h3>Price per product: @Model.Product.Price</h3><br />
+                            <h3>Name of product: @Model.ProductName</h3><br />
+                            <h3>Price: @Model.FinalPrice</h3><br />
+                            <h3>Address: @Model.DeliveryAddress</h3>
+                            <h3>Expect delivery at: @Model.DeliveryDay</h3>
+                            <h3>Thank you for ordering from us!</h3>
                         </div>
                     </div>
                 </div>

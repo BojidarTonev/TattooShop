@@ -34,10 +34,13 @@
                     <div class="text">
                         <h3 class="heading">Tattoo styles filter</h3>
                         <p>Filter the products that you want to see:</p>
-                        <div class="dropdown">
-                            <select asp-items="tattooStyles" class="btn btn-danger dropdown-toggle" type="button" 
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></select>
-                        </div>
+                        <form asp-controller="Tattoos" asp-action="All" method="post">
+                            <div class="dropdown">
+                                <select asp-items="tattooStyles" class="btn btn-danger dropdown-toggle" type="button"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></select>
+                            </div><br/>
+                            <button class="btn btn-black" type="submit" value="Submit">Submit</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -53,11 +56,6 @@
                             <button class="btn btn-danger dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Filters
                             </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" asp-area="Tattoos" asp-controller="Tattoos" asp-action="All">Latest made</a><br />
-                                <a class="dropdown-item" asp-area="Tattoos" asp-controller="Tattoos" asp-action="All">Sessions</a><br />
-                                <a class="dropdown-item" asp-area="Tattoos" asp-controller="Tattoos" asp-action="All">Rating</a><br />
-                            </div>
                         </div>
                     </div>
                 </div>

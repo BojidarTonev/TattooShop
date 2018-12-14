@@ -40,7 +40,7 @@ namespace TattooShop.Services
                 OrderedOn = orderedOn,
                 Product = product,
                 Quantity = quantity,
-                User = user,
+                UserId = user.Id,
                 Description = description
             };
 
