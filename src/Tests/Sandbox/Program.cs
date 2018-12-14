@@ -36,7 +36,11 @@ namespace Sandbox
         private static void SandboxCode(IServiceProvider serviceProvider)
         {
             //TODO: code here...
+            SeedTattooShopDatabaseRolesAndDefaultAdminAndArtist(serviceProvider);
+            SeedSampleProductsData(serviceProvider);
+            SeedSampleTattooArtistData(serviceProvider);
 
+            SeedSampleTattoosData(serviceProvider);
         }
 
         private static void ConfigureServices(ServiceCollection services)

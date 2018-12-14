@@ -16,5 +16,9 @@ namespace TattooShop.Data.Models
         public DateTime EstimatedDeliveryDay { get; set; }
 
         public int Quantity { get; set; }
+
+        public string DeliveryAddress { get; set; }
+
+        public string Description { get; set; }
     }
 }

@@ -10,7 +10,7 @@ using TattooShop.Data;
 namespace TattooShop.Data.Migrations
 {
     [DbContext(typeof(TattooShopContext))]
-    [Migration("20181209225115_InitialCreate")]
+    [Migration("20181214020531_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -185,6 +185,10 @@ namespace TattooShop.Data.Migrations
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<string>("DeliveryAddress");
+
+                    b.Property<string>("Description");
 
                     b.Property<DateTime>("EstimatedDeliveryDay");
 

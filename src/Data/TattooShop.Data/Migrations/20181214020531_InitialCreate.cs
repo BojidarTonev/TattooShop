@@ -44,6 +44,7 @@ namespace TattooShop.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
+                    UserName = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
                     EmailConfirmed = table.Column<bool>(nullable: false),
@@ -55,7 +56,6 @@ namespace TattooShop.Data.Migrations
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
-                    UserName = table.Column<string>(maxLength: 256, nullable: true),
                     Email = table.Column<string>(maxLength: 256, nullable: true),
                     PhoneNumber = table.Column<string>(nullable: true),
                     FirstName = table.Column<string>(nullable: true),
@@ -251,7 +251,9 @@ namespace TattooShop.Data.Migrations
                     ProductId = table.Column<string>(nullable: true),
                     OrderedOn = table.Column<DateTime>(nullable: false),
                     EstimatedDeliveryDay = table.Column<DateTime>(nullable: false),
-                    Quantity = table.Column<int>(nullable: false)
+                    Quantity = table.Column<int>(nullable: false),
+                    DeliveryAddress = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

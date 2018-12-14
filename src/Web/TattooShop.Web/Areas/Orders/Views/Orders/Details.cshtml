@@ -1,0 +1,58 @@
+﻿@model CreateOrderViewModel
+@{
+    ViewData["Title"] = "Order?";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="probootstrap-slider flexslider">
+    <ul class="slides">
+        <li style="background-image: url(@Model.Product.ImageUrl);" class="overlay2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <div class="slides-text probootstrap-animate" data-animate-effect="fadeIn">
+                            <h1>@ViewData["Title"]</h1>
+                            <h3>Name of product: @Model.Product.Name</h3><br />
+                            <h3>Description of product: @Model.Product.Description</h3><br />
+                            <h3>Category of product: @Model.Product.Category</h3><br />
+                            <h3>Price per product: @Model.Product.Price</h3><br />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</section>
+<section class="probootstrap-section">
+    <div class="container">
+        <div class="probootstrap-animate overlap">
+            <form asp-area="Orders" asp-controller="Orders" asp-action="Details" method="post" class="probootstrap-form probootstrap-form-box mb50" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="form-group col-md-auto">
+                        <label asp-for="@Model.Description"></label>
+                        <textarea asp-for="@Model.Description" type="text" class="form-control" placeholder="Description for your order..." rows="5"></textarea>
+                        <span asp-validation-for="@Model.Description" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-auto">
+                        <label asp-for="@Model.DeliveryAddress"></label><br />
+                        <small>If you want your product to be delivered to the same address as your account, leave it empty..</small>
+                        <input asp-for="@Model.DeliveryAddress" type="text" class="form-control" plceholder="@Model.User.Address">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-auto">
+                        <label asp-for="@Model.Quantity"></label>
+                        <input asp-for="@Model.Quantity" type="number" value="1" class="form-control">
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Finish order!</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+

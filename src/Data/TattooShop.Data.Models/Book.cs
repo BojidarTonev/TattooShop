@@ -20,6 +20,6 @@ namespace TattooShop.Data.Models
         public virtual Artist Artist { get; set; }
 
         public string UserId { get; set; }
-        public virtual TattooShopUser User { get; set; }
+        public TattooShopUser User { get; set; }
     }
 }

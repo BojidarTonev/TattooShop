@@ -184,6 +184,10 @@ namespace TattooShop.Data.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("DeliveryAddress");
+
+                    b.Property<string>("Description");
+
                     b.Property<DateTime>("EstimatedDeliveryDay");
 
                     b.Property<DateTime>("OrderedOn");
