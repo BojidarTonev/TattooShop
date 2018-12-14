@@ -1,0 +1,37 @@
+﻿@page
+@model PersonalDataModel
+@{
+    ViewData["Title"] = "Personal information";
+    ViewData["ActivePage"] = ManageNavPages.PersonalData;
+}
+
+<section class="probootstrap-slider flexslider">
+    <ul class="slides">
+        <li style="background-image: url(https://s.yimg.com/uu/api/res/1.2/2KNUr8YbCTuYrkJBBG7BDQ--~B/aD0xODA4O3c9MzMwNjtzbT0xO2FwcGlkPXl0YWNoeW9u/http://media.zenfs.com/en/homerun/feed_manager_auto_publish_494/72235f43001d0f53edaa7942187474e9);" class="overlay2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <div class="slides-text probootstrap-animate" data-animate-effect="fadeIn">
+                            <h2>@ViewData["Title"]</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</section>
+
+<div class="row">
+    <div class="col-md-6">
+        <p>Your account contains personal data that you have given us. This page allows you to download or delete that data.</p>
+        <p>
+            <strong>Deleting this data will permanently remove your account, and this cannot be recovered.</strong>
+        </p>
+        <form id="download-data" asp-page="DownloadPersonalData" method="post" class="form-group">
+            <button class="btn btn-primary" type="submit">Download</button>
+        </form>
+        <p>
+            <a id="delete" asp-page="DeletePersonalData" class="btn btn-primary">Delete</a>
+        </p>
+    </div>
+</div>

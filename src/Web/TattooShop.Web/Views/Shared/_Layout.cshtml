@@ -31,17 +31,18 @@
                 </ul>
                 @if (this.User.Identity.IsAuthenticated)
                 {
-                    <ul class="probootstrap-right-nav hidden-xs">
-                        @if (this.User.IsInRole("Admin"))
-                        {
-                            <li><a>Welcome back, admin - @User.Identity.Name!</a></li>
-                        }
-                        else
-                        {
-                            <li><a>Welcome, @User.Identity.Name!</a></li>
-                        }
-                        <li><a asp-area="Identity" asp-controller="Accounts" asp-action="Logout"><i class="icon-log-out"></i></a></li>
-                    </ul>
+                <ul class="probootstrap-right-nav hidden-xs">
+                    @if (this.User.IsInRole("Admin"))
+                    {
+                        <li><a>Welcome back, admin - @User.Identity.Name!</a></li>
+                    }
+                    else
+                    {
+                        <li><a>Welcome, @User.Identity.Name!</a></li>
+                    }
+                    <li><a asp-area="Identity" asp-page="/Account/Manage/PersonalData"><i class="icon-info"></i></a></li>
+                    <li><a asp-area="Identity" asp-page="/Account/Logout"><i class="icon-log-out"></i></a></li>
+                </ul>
                 }
                 else
                 {

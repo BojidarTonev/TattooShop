@@ -1,5 +1,4 @@
-﻿@using TattooShop.Data.Models
-@inject SignInManager<TattooShopUser> SignInManager
+﻿@inject SignInManager<TattooShopUser> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }
