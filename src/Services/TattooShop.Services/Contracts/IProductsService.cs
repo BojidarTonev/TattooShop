@@ -12,7 +12,7 @@ namespace TattooShop.Services.Contracts
 
         Product ProductDetails(string productId);
 
-        IEnumerable<Product> OtherSimilar(string category);
+        IEnumerable<Product> OtherSimilar(ProductsCategories category);
 
         IEnumerable<ProductsCategories> GetAllCategories();
     }

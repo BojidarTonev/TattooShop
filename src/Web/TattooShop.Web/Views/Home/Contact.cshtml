@@ -1,11 +1,14 @@
-﻿<section class="probootstrap-slider flexslider">
+﻿@{
+    ViewData["Title"] = "Contact";
+}
+<section class="probootstrap-slider flexslider">
     <ul class="slides">
         <li style="background-image: url(https://cdn.24.co.za/files/Cms/General/d/3716/1bca1a0bbfc847d48a3f9dcfc5f9c42f.jpg);" class="overlay2">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 text-center">
                         <div class="slides-text probootstrap-animate" data-animate-effect="fadeIn">
-                            <h2>Contact</h2>
+                            <h2>@ViewData["Title"]</h2>
                             <p>Here you can see all our contacts and pages connected to this site and send E-mails directly to us so we can have a better contact.</p>
                         </div>
                     </div>

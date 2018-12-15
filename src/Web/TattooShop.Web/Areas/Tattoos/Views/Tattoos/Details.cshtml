@@ -1,11 +1,4 @@
-﻿@using TattooShop.Services.Contracts
-@model Tattoo
-@inject ITattoosService _tattoosService
-
-@{
-    string style = @Model.TattooStyle.ToString();
-    var similarTattoos = this._tattoosService.OtherSimilar(style);
-}
+﻿@model TattooDetailsViewModel
 
 <section class="probootstrap-slider flexslider">
     <ul class="slides">
@@ -14,7 +7,7 @@
                 <div class="row">
                     <div class="col-md-12 text-center">
                         <div class="slides-text probootstrap-animate" data-animate-effect="fadeIn">
-                            <h2>@Model.TattoRelevantName</h2>
+                            <h2>@Model.TattooRelevantName</h2>
                             <h1>Done by: <a asp-area="Artists" asp-controller="Artists" asp-action="Details" asp-route-id="@Model.Artist.Id">@Model.Artist.FirstName @Model.Artist.LastName</a></h1>
                         </div>
                     </div>
@@ -37,7 +30,7 @@
                     <h1>Other similar tattoos:</h1>
                 </div>
                 <br />
-                @foreach (var tattoo in similarTattoos)
+                @foreach (var tattoo in @Model.SimilarTattoos)
                 {
                     <div class="col-md-4 probootstrap-animate ">
                         <div class="probootstrap-card with-hover">
@@ -45,7 +38,7 @@
                                 <a asp-area="Tattoos" asp-controller="Tattoos" asp-action="Details" asp-route-id="@tattoo.Id"><img src="@tattoo.TattooUrl" class="img-responsive img-border image_css"></a>
                             </div>
                             <div class="probootstrap-card-text">
-                                <h2 class="probootstrap-card-heading mb0">@tattoo.TattoRelevantName</h2>
+                                <h2 class="probootstrap-card-heading mb0">@tattoo.RelevantName</h2>
                                 <p class="category">@tattoo.TattooStyle</p>
                                 <p><a asp-area="Tattoos" asp-controller="Tattoos" asp-action="Details" asp-route-id="@tattoo.Id">View details</a></p>
                             </div>

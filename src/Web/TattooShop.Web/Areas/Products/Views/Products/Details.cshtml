@@ -1,11 +1,4 @@
-﻿@using TattooShop.Services.Contracts
-@model Product
-@inject IProductsService _productsService;
-
-@{
-    string style = @Model.Category.ToString();
-    var similarProducts = this._productsService.OtherSimilar(style);
-}
+﻿@model ProductDetailsViewModel
 
 <section class="probootstrap-slider flexslider">
     <ul class="slides">
@@ -35,7 +28,7 @@
                     <h1>Other similar products:</h1>
                 </div>
                 <br />
-                @foreach (var product in similarProducts)
+                @foreach (var product in @Model.SimilarProducts)
                 {
                     <div class="col-md-4 probootstrap-animate ">
                         <div class="probootstrap-card with-hover">

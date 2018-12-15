@@ -28,10 +28,18 @@ namespace TattooShop.Web.Areas.Orders.Controllers
             var product = this._productsService.ProductDetails(id);
             var user = this._userManager.GetUserAsync(this.User).Result;
 
+            var productDto = new OrderProductDisplayViewModel()
+            {
+                Name = product.Name,
+                Category = product.Category.ToString(),
+                Description = product.Description,
+                Price = product.Price.ToString(),
+                ImageUrl = product.ImageUrl
+            };
             var model = new CreateOrderViewModel()
             {
-                Product = product,
-                User = user
+                Product = productDto,
+                UserAddress = user.Address
             };
 
             return this.View(model);

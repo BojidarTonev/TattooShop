@@ -1,6 +1,7 @@
-﻿@model IEnumerable<Product>
+﻿@model IEnumerable<ProductsAllViewModel>
 
 @{
+    ViewData["Title"] = "The tattoo care products we offer!";
     var productCategories = this.ViewData["ProductsCategories"] as IEnumerable<SelectListItem>;
 
 }
@@ -12,7 +13,7 @@
                 <div class="row">
                     <div class="col-md-12 text-center">
                         <div class="slides-text probootstrap-animate" data-animate-effect="fadeIn">
-                            <h2>The tattoo care products we offer!</h2>
+                            <h2>@ViewData["Title"]</h2>
                             <small>Here you find quality products on reasonable prices, also we have a lot of nice offers to seldom customers!</small>
                         </div>
                     </div>

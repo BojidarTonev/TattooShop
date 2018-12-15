@@ -10,7 +10,7 @@ namespace TattooShop.Services.Contracts
 
         Tattoo Details(string id);
 
-        IEnumerable<Tattoo> OtherSimilar(string tattooStyle);
+        IEnumerable<Tattoo> OtherSimilar(TattooStyles tattooStyle);
 
         IEnumerable<TattooStyles> GetAllStyles();
     }

@@ -31,11 +31,9 @@ namespace TattooShop.Services
             return product;
         }
 
-        public IEnumerable<Product> OtherSimilar(string category)
+        public IEnumerable<Product> OtherSimilar(ProductsCategories category)
         {
-            var productsCategory = Enum.Parse<ProductsCategories>(category);
-
-            return this._productsRepository.All().Where(p => p.Category == productsCategory);
+            return this._productsRepository.All().Where(p => p.Category == category).Take(9);
         }
 
         public IEnumerable<ProductsCategories> GetAllCategories()

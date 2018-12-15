@@ -1,4 +1,7 @@
-﻿@model IEnumerable<TattooShop.Data.Models.Tattoo>
+﻿@model IEnumerable<IndexTattooViewModel>
+@{
+    ViewData["Title"] = "Your next tattoo is done here with passion and professionalism";
+}
 
 <section class="probootstrap-slider flexslider">
     <ul class="slides">
@@ -7,7 +10,7 @@
                 <div class="row">
                     <div class="col-md-12 text-center">
                         <div class="slides-text probootstrap-animate" data-animate-effect="fadeIn">
-                            <h2>Your next tattoo is done here with passion and professionalism</h2>
+                            <h2>@ViewData["Title"]</h2>
                         </div>
                     </div>
                 </div>
@@ -74,7 +77,7 @@
                             <a asp-area="Tattoos" asp-controller="Tattoos" asp-action="Details" asp-route-id="@tattoo.Id"><img src="@tattoo.TattooUrl" class="img-responsive img-border image_css"></a>
                         </div>
                         <div class="probootstrap-card-text">
-                            <h2 class="probootstrap-card-heading mb0">@tattoo.TattoRelevantName</h2>
+                            <h2 class="probootstrap-card-heading mb0">@tattoo.TattooRelevantName</h2>
                             <p class="category">@tattoo.TattooStyle</p>
                             <p><a asp-area="Tattoos" asp-controller="Tattoos" asp-action="Details" asp-route-id="@tattoo.Id">View details</a></p>
                         </div>

@@ -27,11 +27,9 @@ namespace TattooShop.Services
             return tattoo;
         }
 
-        public IEnumerable<Tattoo> OtherSimilar(string tattooStyle)
+        public IEnumerable<Tattoo> OtherSimilar(TattooStyles tattooStyle)
         {
-            var style = Enum.Parse<TattooStyles>(tattooStyle);
-
-            return this._tattoosRepository.All().Where(t => t.TattooStyle == style).OrderBy(t => t.DoneOn).Take(9)
+            return this._tattoosRepository.All().Where(t => t.TattooStyle == tattooStyle).OrderBy(t => t.DoneOn).Take(9)
                 .ToList();
         }
 

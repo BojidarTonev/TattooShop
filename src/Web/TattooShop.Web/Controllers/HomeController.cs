@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using System.Linq;
-using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TattooShop.Data;
@@ -13,26 +12,29 @@ namespace TattooShop.Web.Controllers
     public class HomeController : Controller
     {
         private readonly IHomeService _homeService;
-        private readonly TattooShopContext _db;
-        private readonly UserManager<TattooShopUser> _userManager;
 
-        public HomeController(IHomeService homeService, TattooShopContext db, UserManager<TattooShopUser> userManager)
+        public HomeController(IHomeService homeService)
         {
             this._homeService = homeService;
-            _db = db;
-            _userManager = userManager;
         }
 
         public IActionResult Index()
         {
-            var tattoos = this._homeService.RecentTattoos();
+            var tattoos = this._homeService.RecentTattoos()
+                .Select(t => new IndexTattooViewModel()
+                {
+                    Id = t.Id,
+                    TattooUrl = t.TattooUrl,
+                    TattooRelevantName = t.TattoRelevantName,
+                    TattooStyle = t.TattooStyle.ToString()
+                }).ToList();
             //var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             //this._db.Orders.Add(new Order()
             //{
             //    UserId = userId,
             //    ProductId = "06a65418-83ae-4631-9305-ce4319927a37",
             //});
-            this._db.SaveChanges();
+            //this._db.SaveChanges();
             return View(tattoos);
         }
 
@@ -43,7 +45,16 @@ namespace TattooShop.Web.Controllers
 
         public IActionResult About()
         {
-            var artists = this._homeService.AllArtists();
+            var artists = this._homeService.AllArtists()
+                .Select(a => new AboutArtistsDisplayViewModel()
+                {
+                    Autobiography = a.Autobiography,
+                    FirstName = a.FirstName,
+                    Id = a.Id,
+                    LastName = a.LastName,
+                    TattoosDone = a.TattoosDone.ToString(),
+                    ImageUrl = a.ImageUrl
+                }).ToList();
 
             return this.View(artists);
         }

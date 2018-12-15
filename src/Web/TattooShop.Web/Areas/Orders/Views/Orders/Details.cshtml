@@ -1,7 +1,6 @@
 ﻿@model CreateOrderViewModel
 @{
     ViewData["Title"] = "Order?";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <section class="probootstrap-slider flexslider">
@@ -38,7 +37,7 @@
                     <div class="form-group col-md-auto">
                         <label asp-for="@Model.DeliveryAddress"></label><br />
                         <small>If you want your product to be delivered to the same address as your account, leave it empty..</small>
-                        <input asp-for="@Model.DeliveryAddress" type="text" class="form-control" plceholder="@Model.User.Address">
+                        <input asp-for="@Model.DeliveryAddress" type="text" class="form-control" plceholder="@Model.UserAddress">
                     </div>
                 </div>
                 <div class="row">

@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using System.Security.Claims;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -26,16 +26,51 @@ namespace TattooShop.Web.Areas.Artists.Controllers
 
         public IActionResult All()
         {
-            var artists = this._artistsService.All();
+            var artists = this._artistsService.All()
+                .Select(a => new DisplayAllArtistsViewModel()
+                {
+                    ArtistId = a.Id,
+                    Autobiography = a.Autobiography,
+                    BestAt = a.BestAt.ToString(),
+                    FirstName = a.FirstName,
+                    ImageUrl = a.ImageUrl,
+                    LastName = a.LastName
+                });
 
             return this.View(artists);
         }
 
         public IActionResult Details(string id)
         {
+            var tattoosDto = new List<ArtistDetailsTattoosViewModel>();
             var artist = this._artistsService.Details(id);
 
-            return View(artist);
+            foreach (var tattoo in artist.TattooCollection)
+            {
+                var tatDto = new ArtistDetailsTattoosViewModel()
+                {
+                    TattooStyle = tattoo.TattooStyle.ToString(),
+                    TattooId = tattoo.Id,
+                    TattooRelevantName = tattoo.TattoRelevantName,
+                    TattooUrl = tattoo.TattooUrl
+                };
+
+
+                tattoosDto.Add(tatDto);
+            }
+
+            var dto = new DisplayArtistDetailsViewModel()
+            {
+                ArtistId = artist.Id,
+                Autobiography = artist.Autobiography,
+                BestAt = artist.BestAt.ToString(),
+                FirstName = artist.FirstName,
+                ImageUrl = artist.ImageUrl,
+                LastName = artist.LastName,
+                Tattoos = tattoosDto
+            };
+
+            return View(dto);
         }
 
         public IActionResult BookTattoo(string id)
@@ -48,7 +83,7 @@ namespace TattooShop.Web.Areas.Artists.Controllers
                     Value = ts.ToString(),
                     Text = ts.ToString()
                 });
-            
+
             var model = new BookTattooInputViewModel()
             {
                 Artist = artist

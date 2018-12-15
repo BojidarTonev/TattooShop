@@ -9,7 +9,5 @@
         public string DeliveryAddress { get; set; }
 
         public string DeliveryDay { get; set; }
-
-        public int ProductId { get; set; }
     }
 }

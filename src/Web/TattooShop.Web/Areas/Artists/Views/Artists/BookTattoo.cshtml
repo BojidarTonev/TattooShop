@@ -1,7 +1,7 @@
-﻿@using TattooShop.Web.Areas.Artists.Models
-@model BookTattooInputViewModel
+﻿@model BookTattooInputViewModel
 
 @{
+    ViewData["Title"] = "TATTOO BOOKING";
     var tattooStyles = this.ViewData["TattooStyles"] as IEnumerable<SelectListItem>;
     
 }
@@ -13,7 +13,7 @@
                 <div class="row">
                     <div class="col-md-12 text-center">
                         <div class="slides-text probootstrap-animate" data-animate-effect="fadeIn">
-                            <h2>TATTOO BOOKING</h2>
+                            <h2>@ViewData["Title"]</h2>
                             <small>Fill in the information below and the artist will get back to you to schedule your next tattoo.</small>
                         </div>
                     </div>

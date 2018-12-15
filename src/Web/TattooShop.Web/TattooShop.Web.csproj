@@ -21,9 +21,4 @@
     <ProjectReference Include="..\..\Services\TattooShop.Services\TattooShop.Services.csproj" />
   </ItemGroup>
 
-
-  <ItemGroup>
-    <Folder Include="Areas\Products\Models\" />
-  </ItemGroup>
-
 </Project>

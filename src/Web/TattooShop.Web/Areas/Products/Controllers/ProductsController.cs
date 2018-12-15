@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using TattooShop.Data.Models.Enums;
 using TattooShop.Services.Contracts;
+using TattooShop.Web.Areas.Products.Models;
 
 namespace TattooShop.Web.Areas.Products.Controllers
 {
@@ -18,7 +19,15 @@ namespace TattooShop.Web.Areas.Products.Controllers
 
         public IActionResult All()
         {
-            var products = this._productsService.All();
+            var products = this._productsService.All()
+                .Select(p => new ProductsAllViewModel()
+                {
+                    Category = p.Category.ToString(),
+                    Id = p.Id,
+                    ImageUrl = p.ImageUrl,
+                    Name = p.Name
+                });
+
             this.ViewData["ProductsCategories"] = this._productsService.GetAllCategories()
                 .Select(pc => new SelectListItem
             {
@@ -32,7 +41,27 @@ namespace TattooShop.Web.Areas.Products.Controllers
         public IActionResult Details(string id)
         {
             var product = this._productsService.ProductDetails(id);
-            return this.View(product);
+            var similars = this._productsService.OtherSimilar(product.Category)
+                .Select(p => new SimilarProductsDisplayModel()
+                {
+                    Category = p.Category.ToString(),
+                    Id = p.Id,
+                    ImageUrl = p.ImageUrl,
+                    Name = p.Name
+                }).ToList();
+
+            var dto = new ProductDetailsViewModel()
+            {
+                Description = product.Description,
+                Id = product.Id,
+                Name = product.Name,
+                Price = product.Price.ToString(),
+                Category = product.Category.ToString(),
+                ImageUrl = product.ImageUrl,
+                SimilarProducts = similars
+            };
+
+            return this.View(dto);
         }
 
         public IActionResult AllCategorized(string category)
