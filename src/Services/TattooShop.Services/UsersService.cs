@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using TattooShop.Data.Contracts;
 using TattooShop.Data.Models;
 using TattooShop.Services.Contracts;
@@ -19,13 +20,13 @@ namespace TattooShop.Services
 
         public IEnumerable<Book> GetUserBooks(string userId)
         {
-            var userBooks = this._booksRepository.All().Where(b => b.UserId == userId);
+            var userBooks = this._booksRepository.All().Where(b => b.UserId == userId).Include(x => x.Artist);
             return userBooks;
         }
 
         public IEnumerable<Order> GetUserOrders(string userId)
         {
-            var userOrders = this._ordersRepository.All().Where(o => o.UserId == userId);
+            var userOrders = this._ordersRepository.All().Where(o => o.UserId == userId).Include(x => x.Product);
             return userOrders;
         }
     }

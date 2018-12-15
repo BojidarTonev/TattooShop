@@ -37,8 +37,8 @@ namespace TattooShop.Web.Areas.Identity.Pages.Account.Manage
             }
 
             this.RegisteredEmail = user.Email;
-            this.Books = this._usersService.GetUserBooks(user.Id).ToList();
-            this.Orders = this._usersService.GetUserOrders(user.Id).ToList();
+            this.Books = this._usersService.GetUserBooks(user.Id)?.ToList();
+            this.Orders = this._usersService.GetUserOrders(user.Id)?.ToList();
 
             return Page();
         }

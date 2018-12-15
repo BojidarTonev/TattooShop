@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using TattooShop.Data.Contracts;
 using TattooShop.Data.Models;
@@ -15,7 +16,7 @@ namespace TattooShop.Services
             this._ordersRepository = ordersRepository;
         }
 
-        public async Task<bool> AddOrder(string address, string description, int quantity, Product product, TattooShopUser user)
+        public async Task<bool> AddOrder(string address, string description, int quantity, Product product, TattooShopUser user, string userId)
         {
             if (description == null ||
                 product == null ||
@@ -30,8 +31,9 @@ namespace TattooShop.Services
                 deliveryAddress = user.Address;
             }
 
-            var orderedOn = DateTime.UtcNow;
+            var orderedOn = DateTime.UtcNow.Date;
             var deliverDate = DateTime.UtcNow.AddDays(3);
+
 
             var order = new Order()
             {
@@ -40,7 +42,7 @@ namespace TattooShop.Services
                 OrderedOn = orderedOn,
                 Product = product,
                 Quantity = quantity,
-                UserId = user.Id,
+                UserId = userId,
                 Description = description
             };
 

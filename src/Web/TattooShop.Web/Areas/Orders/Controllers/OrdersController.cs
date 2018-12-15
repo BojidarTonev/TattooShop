@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -49,7 +50,9 @@ namespace TattooShop.Web.Areas.Orders.Controllers
 
             var user = this._userManager.GetUserAsync(this.User).Result;
 
-            var orderSuccessful = this._ordersService.AddOrder(model.DeliveryAddress, model.Description, model.Quantity, product, user).Result;
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var orderSuccessful = this._ordersService.AddOrder(model.DeliveryAddress, model.Description, model.Quantity, product, user, userId).Result;
 
             if (!orderSuccessful)
             {
