@@ -56,11 +56,10 @@ namespace TattooShop.Web.Areas.Orders.Controllers
             var productId = this.HttpContext.GetRouteData().Values["id"].ToString();
             var product = this._productsService.ProductDetails(productId);
 
-            var user = this._userManager.GetUserAsync(this.User).Result;
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userAddress = this._userManager.GetUserAsync(this.User).Result.Address;
 
-            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-            var orderSuccessful = this._ordersService.AddOrder(model.DeliveryAddress, model.Description, model.Quantity, product, user, userId).Result;
+            var orderSuccessful = this._ordersService.AddOrder(model.DeliveryAddress, model.Description, model.Quantity, productId, userId, userAddress).Result;
 
             if (!orderSuccessful)
             {

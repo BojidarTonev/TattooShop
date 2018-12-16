@@ -16,19 +16,19 @@ namespace TattooShop.Services
             this._ordersRepository = ordersRepository;
         }
 
-        public async Task<bool> AddOrder(string address, string description, int quantity, Product product, TattooShopUser user, string userId)
+        public async Task<bool> AddOrder(string address, string description, int quantity, string productId, string userId, string userAddress)
         {
             if (description == null ||
-                product == null ||
-                user == null)
+                productId == null ||
+                userId == null)
             {
-                return true;
+                return false;
             }
 
             string deliveryAddress = address;
             if (address == null)
             {
-                deliveryAddress = user.Address;
+                deliveryAddress = userAddress;
             }
 
             var orderedOn = DateTime.UtcNow.Date;
@@ -37,10 +37,10 @@ namespace TattooShop.Services
 
             var order = new Order()
             {
-                DeliveryAddress = address,
+                DeliveryAddress = deliveryAddress,
                 EstimatedDeliveryDay = deliverDate,
                 OrderedOn = orderedOn,
-                Product = product,
+                ProductId = productId,
                 Quantity = quantity,
                 UserId = userId,
                 Description = description

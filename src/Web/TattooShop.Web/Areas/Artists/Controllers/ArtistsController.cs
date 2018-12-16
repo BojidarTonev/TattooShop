@@ -86,7 +86,7 @@ namespace TattooShop.Web.Areas.Artists.Controllers
 
             var model = new BookTattooInputViewModel()
             {
-                Artist = artist
+                ArtistImageUrl = artist.ImageUrl
             };
             return this.View(model);
         }
@@ -107,7 +107,18 @@ namespace TattooShop.Web.Areas.Artists.Controllers
                 return this.View("Error");
             }
 
-            return this.View("All", artists);
+            var artistsDto = this._artistsService.All()
+                .Select(a => new DisplayAllArtistsViewModel()
+                {
+                    ArtistId = a.Id,
+                    Autobiography = a.Autobiography,
+                    BestAt = a.BestAt.ToString(),
+                    FirstName = a.FirstName,
+                    ImageUrl = a.ImageUrl,
+                    LastName = a.LastName
+                });
+
+            return this.View("All", artistsDto);
         }
     }
 }
