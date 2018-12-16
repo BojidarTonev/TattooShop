@@ -15,18 +15,21 @@ namespace TattooShop.Web.Areas.Orders.Controllers
         private readonly IProductsService _productsService;
         private readonly UserManager<TattooShopUser> _userManager;
         private readonly IOrdersService _ordersService;
+        private readonly IUsersService _usersService;
 
-        public OrdersController(IProductsService productsService, UserManager<TattooShopUser> userManager, IOrdersService ordersService)
+        public OrdersController(IProductsService productsService, UserManager<TattooShopUser> userManager, IOrdersService ordersService, IUsersService usersService)
         {
             this._productsService = productsService;
             this._userManager = userManager;
             this._ordersService = ordersService;
+            this._usersService = usersService;
         }
 
         public IActionResult Details(string id)
         {
             var product = this._productsService.ProductDetails(id);
-            var user = this._userManager.GetUserAsync(this.User).Result;
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userAddress = this._usersService.GetUserAddress(userId);
 
             var productDto = new OrderProductDisplayViewModel()
             {
@@ -39,7 +42,7 @@ namespace TattooShop.Web.Areas.Orders.Controllers
             var model = new CreateOrderViewModel()
             {
                 Product = productDto,
-                UserAddress = user.Address
+                UserAddress = userAddress
             };
 
             return this.View(model);
@@ -57,9 +60,9 @@ namespace TattooShop.Web.Areas.Orders.Controllers
             var product = this._productsService.ProductDetails(productId);
 
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var userAddress = this._userManager.GetUserAsync(this.User).Result.Address;
+            //var userAddress = this._usersService.GetUserAddress(userId);
 
-            var orderSuccessful = this._ordersService.AddOrder(model.DeliveryAddress, model.Description, model.Quantity, productId, userId, userAddress).Result;
+            var orderSuccessful = this._ordersService.AddOrder(model.DeliveryAddress, model.Description, model.Quantity, productId, userId, null).Result;
 
             if (!orderSuccessful)
             {

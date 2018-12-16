@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using TattooShop.Data.Models;
 
 namespace TattooShop.Services.Contracts
@@ -10,5 +8,7 @@ namespace TattooShop.Services.Contracts
         IEnumerable<Book> GetUserBooks(string userId);
 
         IEnumerable<Order> GetUserOrders(string userId);
+
+        string GetUserAddress(string id);
     }
 }

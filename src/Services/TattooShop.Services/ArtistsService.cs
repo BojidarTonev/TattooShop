@@ -35,13 +35,13 @@ namespace TattooShop.Services
             return artist;
         }
 
-        public async Task<bool> AddBook(string bookedFor, string description, IFormFile file, string style, TattooShopUser user, Artist artist)
+        public async Task<bool> AddBook(string bookedFor, string description, IFormFile file, string style, string userId, Artist artist)
         {
             if (bookedFor == null ||
                 description == null ||
                 file == null ||
                 style == null ||
-                user == null ||
+                userId == null ||
                 artist == null)
             {
                 return false;
@@ -58,7 +58,7 @@ namespace TattooShop.Services
 
             var book = new Book()
             {
-                User = user,
+                UserId = userId,
                 Artist = artist,
                 BookedFor = BookedFor,
                 BookedOn = DateTime.UtcNow,

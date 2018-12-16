@@ -91,7 +91,10 @@ namespace TattooShop.Web.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var user = new TattooShopUser { UserName = Input.Email, Email = Input.Email };
+                var user = new TattooShopUser
+                    { UserName = Input.Email, Email = Input.Email, Address = Input.Address,
+                        PhoneNumber = Input.PhoneNumber, LastName = Input.LastName, FirstName = Input.FirstName};
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

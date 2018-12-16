@@ -11,6 +11,6 @@ namespace TattooShop.Services.Contracts
 
         Artist Details(string id);
 
-        Task<bool> AddBook(string bookedFor, string description, IFormFile file, string style, TattooShopUser user, Artist artist);
+        Task<bool> AddBook(string bookedFor, string description, IFormFile file, string style, string userId, Artist artist);
     }
 }

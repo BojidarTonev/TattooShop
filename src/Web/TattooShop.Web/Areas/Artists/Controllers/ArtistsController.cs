@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -98,9 +99,9 @@ namespace TattooShop.Web.Areas.Artists.Controllers
             var artist = this._artistsService.Details(artistId);
 
             var artists = this._artistsService.All();
-            var user = this._userManager.GetUserAsync(this.User).Result;
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var bookSuccessful = this._artistsService.AddBook(model.BookedFor, model.Description, model.Image, model.Style, user, artist).Result;
+            var bookSuccessful = this._artistsService.AddBook(model.BookedFor, model.Description, model.Image, model.Style, userId, artist).Result;
 
             if (!bookSuccessful)
             {
