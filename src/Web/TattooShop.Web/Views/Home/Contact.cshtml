@@ -1,4 +1,6 @@
-﻿@{
+﻿@model ContactViewModel
+
+@{
     ViewData["Title"] = "Contact";
 }
 <section class="probootstrap-slider flexslider">
@@ -22,32 +24,33 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 probootstrap-animate overlap">
-                <form action="#" method="post" class="probootstrap-form probootstrap-form-box mb60">
+                <form asp-controller="Home" asp-action="Contact" method="post" class="probootstrap-form probootstrap-form-box mb60">
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="fname">First Name</label>
-                                <input type="text" class="form-control" id="fname" name="fname">
+                            <div class="form-group col-md-auto">
+                                <label asp-for="@Model.FirstName"></label><br />
+                                <input asp-for="@Model.FirstName" type="text" class="form-control" plceholder="Your first name...">
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="lname">Last Name</label>
-                                <input type="text" class="form-control" id="lname" name="lname">
+                            <div class="form-group col-md-auto">
+                                <label asp-for="@Model.LastName"></label><br />
+                                <input asp-for="@Model.LastName" type="text" class="form-control" plceholder="Your last name...">
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" name="email">
+                    <div class="form-group col-md-auto">
+                        <label asp-for="@Model.SenderEmail"></label><br />
+                        <input asp-for="@Model.SenderEmail" type="email" class="form-control" plceholder="Your email so we can contact back to you...">
                     </div>
-                    <div class="form-group">
-                        <label for="email">Phone number</label>
-                        <input type="email" class="form-control" id="email" name="email">
+                    <div class="form-group col-md-auto">
+                        <label asp-for="@Model.SenderPhoneNumber"></label><br />
+                        <input asp-for="@Model.SenderPhoneNumber" type="text" class="form-control" plceholder="Your phone number...">
                     </div>
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea cols="30" rows="10" class="form-control" id="message" name="message"></textarea>
+                    <div class="form-group col-md-auto">
+                        <label asp-for="@Model.Message"></label>
+                        <textarea asp-for="@Model.Message" type="text" class="form-control" placeholder="What you want to tell us..." rows="5"></textarea>
+                        <span asp-validation-for="@Model.Message" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <input type="submit" class="btn btn-primary" id="submit" name="submit" value="Send Message">

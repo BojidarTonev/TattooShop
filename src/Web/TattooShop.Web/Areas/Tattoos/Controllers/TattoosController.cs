@@ -81,9 +81,9 @@ namespace TattooShop.Web.Areas.Tattoos.Controllers
         }
 
         [HttpPost]
-        public IActionResult All(string id)
+        public IActionResult All(string style)
         {
-            var tattoos = this._tattoosService.GetAllTattoosFromStyle(id)
+            var tattoos = this._tattoosService.GetAllTattoosFromStyle(style)
                 .Select(t => new AllTattoosViewModel()
                 {
                     Id = t.Id,

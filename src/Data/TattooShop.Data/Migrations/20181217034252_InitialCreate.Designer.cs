@@ -10,7 +10,7 @@ using TattooShop.Data;
 namespace TattooShop.Data.Migrations
 {
     [DbContext(typeof(TattooShopContext))]
-    [Migration("20181217023813_InitialCreate")]
+    [Migration("20181217034252_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -191,6 +191,26 @@ namespace TattooShop.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("TattooShop.Data.Models.ContactInfo", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
+
+                    b.Property<string>("Message");
+
+                    b.Property<string>("SenderEmail");
+
+                    b.Property<string>("SenderPhoneNumber");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Feedback");
                 });
 
             modelBuilder.Entity("TattooShop.Data.Models.Order", b =>

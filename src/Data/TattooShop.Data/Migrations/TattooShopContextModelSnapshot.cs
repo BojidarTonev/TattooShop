@@ -191,6 +191,26 @@ namespace TattooShop.Data.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("TattooShop.Data.Models.ContactInfo", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
+
+                    b.Property<string>("Message");
+
+                    b.Property<string>("SenderEmail");
+
+                    b.Property<string>("SenderPhoneNumber");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Feedback");
+                });
+
             modelBuilder.Entity("TattooShop.Data.Models.Order", b =>
                 {
                     b.Property<string>("Id")

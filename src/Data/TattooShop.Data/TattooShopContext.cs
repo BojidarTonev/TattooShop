@@ -25,6 +25,8 @@ namespace TattooShop.Data
 
         public DbSet<Style> Styles { get; set; }
 
+        public DbSet<ContactInfo> Feedback { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

@@ -71,7 +71,6 @@
                         <ul class="stack-link">
                             <li><a asp-controller="Home" asp-action="Index">Home</a></li>
                             <li><a asp-controller="Home" asp-action="About">About</a></li>
-                            <li><a href="#">Services</a></li>
                             <li><a asp-area="Products" asp-controller="Products" asp-action="All">Products</a></li>
                             <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
                         </ul>
@@ -81,24 +80,11 @@
                     <div class="probootstrap-footer-widget">
                         <h4 class="heading">More Links</h4>
                         <ul class="stack-link">
-                            <li><a href="#">Projects</a></li>
+                            <li><a asp-area="Tattoos" asp-controller="Tattoos" asp-action="All">Projects</a></li>
                             <li><a href="#">Privacy</a></li>
                             <li><a href="#">Terms</a></li>
-                            <li><a href="#">Career</a></li>
-                            <li><a href="#">Support Help</a></li>
+                            <li><a asp-controller="Home" asp-action="Contact">Support Help</a></li>
                         </ul>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="probootstrap-footer-widget">
-                        <h4 class="heading">Subscribe</h4>
-                        <p>Subscribe for us if you want to get notified about any discounts on our products or when a tattoo artist of your desire has a free booking day.</p>
-                        <form action="#">
-                            <div class="form-field">
-                                <input type="text" class="form-control" placeholder="Enter your email">
-                                <button class="btn btn-subscribe">Send</button>
-                            </div>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -106,8 +92,8 @@
                 <div class="col-md-6">
                     <div class="probootstrap-footer-widget right">
                         <ul class="probootstrap-social">
-                            <li><a asp-controller="Accounts" asp-action="Login"><i class="icon-twitter"></i></a></li>
-                            <li><a asp-controller="Accounts" asp-action="Register"><i class="icon-facebook"></i></a></li>
+                            <li><a href="#"><i class="icon-twitter"></i></a></li>
+                            <li><a href="#"><i class="icon-facebook"></i></a></li>
                         </ul>
                     </div>
                 </div>

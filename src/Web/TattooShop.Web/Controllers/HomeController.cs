@@ -1,9 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Linq;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using TattooShop.Data;
-using TattooShop.Data.Models;
 using TattooShop.Services.Contracts;
 using TattooShop.Web.Models;
 
@@ -28,18 +25,20 @@ namespace TattooShop.Web.Controllers
                     TattooRelevantName = t.TattoRelevantName,
                     TattooStyle = t.TattooStyle.Name.ToString()
                 }).ToList();
-            //var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            //this._db.Orders.Add(new Order()
-            //{
-            //    UserId = userId,
-            //    ProductId = "06a65418-83ae-4631-9305-ce4319927a37",
-            //});
-            //this._db.SaveChanges();
+
             return View(tattoos);
         }
 
         public IActionResult Contact()
         {
+            return this.View();
+        }
+
+        [HttpPost]
+        public IActionResult Contact(ContactViewModel model)
+        {
+            this._homeService.RegisterFeedBack(model.FirstName, model.LastName, model.Message, model.SenderEmail, model.SenderPhoneNumber);
+
             return this.View();
         }
 

@@ -8,5 +8,8 @@ namespace TattooShop.Services.Contracts
         IEnumerable<Tattoo> RecentTattoos();
 
         IEnumerable<Artist> AllArtists();
+
+        void RegisterFeedBack(string firstName, string lastName, string message, string email, string phone);
+
     }
 }
