@@ -67,6 +67,7 @@ namespace TattooShop.Web
             services.AddScoped<IImageService, ImageService>();
             services.AddScoped<IOrdersService, OrdersService>();
             services.AddScoped<IUsersService, UsersService>();
+            services.AddScoped<IStylesService, StylesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

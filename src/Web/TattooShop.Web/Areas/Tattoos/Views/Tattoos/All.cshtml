@@ -33,7 +33,7 @@
                     <div class="text">
                         <h3 class="heading">Tattoo styles filter</h3>
                         <p>Filter the products that you want to see:</p>
-                        @using(Html.BeginForm()) {
+                        @*@using(Html.BeginForm()) {
 
                             <select asp-for="DisplayCategory" class="btn btn-danger dropdown-toggle" type="button" data-toggle="dropdown">
                                 @foreach(var c in @tattooStyles)
@@ -44,14 +44,14 @@
 
                             <button class="btn btn-black" type="submit" value="Submit">Submit</button>
 
-                        }
-                        @*<form asp-area="Tattoos" asp-controller="Tattoos" asp-action="All" method="post">
+                        }*@
+                        <form asp-area="Tattoos" asp-controller="Tattoos" asp-action="All" method="post">
                             <div class="dropdown">
-                                <select asp-items="tattooStyles" asp-for="@Model.DisplayCategory" class="btn btn-danger dropdown-toggle" type="button"
+                                <select asp-items="tattooStyles" asp-for="@Model.DisplayStyle" class="btn btn-danger dropdown-toggle" type="button"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></select>
                             </div><br/>
                             <button class="btn btn-black" type="submit" value="Submit">Submit</button>
-                        </form>*@
+                        </form>
                     </div>
                 </div>
             </div>

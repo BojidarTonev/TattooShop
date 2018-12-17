@@ -1,7 +1,10 @@
-﻿namespace TattooShop.Web.Areas.Orders.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace TattooShop.Web.Areas.Orders.Models
 {
     public class CreateOrderViewModel
     {
+        [Required]
         public string Description { get; set; }
 
         public int Quantity { get; set; }

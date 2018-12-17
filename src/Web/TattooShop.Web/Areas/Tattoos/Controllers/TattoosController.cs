@@ -11,11 +11,13 @@ namespace TattooShop.Web.Areas.Tattoos.Controllers
     {
         private readonly ITattoosService _tattoosService;
         private readonly IArtistsService _artistsService;
+        private readonly IStylesService _stylesService;
 
-        public TattoosController(ITattoosService tattoosService, IArtistsService artistsService)
+        public TattoosController(ITattoosService tattoosService, IArtistsService artistsService, IStylesService stylesService)
         {
             this._tattoosService = tattoosService;
             this._artistsService = artistsService;
+            this._stylesService = stylesService;
         }
 
         public IActionResult All()
@@ -39,7 +41,7 @@ namespace TattooShop.Web.Areas.Tattoos.Controllers
 
             var dto = new AllTattoosViewModelWrapper()
             {
-                DisplayCategory = "All",
+                DisplayStyle = "All",
                 Tattoos = tattoos
             };
 
@@ -81,9 +83,12 @@ namespace TattooShop.Web.Areas.Tattoos.Controllers
         }
 
         [HttpPost]
-        public IActionResult All(string style)
+        public IActionResult All(AllTattoosViewModelWrapper model)
         {
-            var tattoos = this._tattoosService.GetAllTattoosFromStyle(style)
+            var styleId = model.DisplayStyle;
+            var style = this._stylesService.GetStyle(styleId);
+
+            var tattoos = this._tattoosService.GetAllTattoosFromStyle(style.Name.ToString())
                 .Select(t => new AllTattoosViewModel()
                 {
                     Id = t.Id,
@@ -102,7 +107,7 @@ namespace TattooShop.Web.Areas.Tattoos.Controllers
 
             var dto = new AllTattoosViewModelWrapper()
             {
-                DisplayCategory = "All",
+                DisplayStyle = "All",
                 Tattoos = tattoos
             };
 

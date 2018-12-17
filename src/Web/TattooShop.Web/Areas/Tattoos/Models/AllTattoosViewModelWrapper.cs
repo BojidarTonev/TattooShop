@@ -9,6 +9,6 @@ namespace TattooShop.Web.Areas.Tattoos.Models
     {
         public List<AllTattoosViewModel> Tattoos { get; set; }
 
-        public string DisplayCategory { get; set; }
+        public string DisplayStyle { get; set; }
     }
 }
