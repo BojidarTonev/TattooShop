@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -16,13 +18,11 @@ namespace TattooShop.Web.Areas.Artists.Controllers
     {
         private readonly IArtistsService _artistsService;
         private readonly ITattoosService _tattoosService;
-        private readonly UserManager<TattooShopUser> _userManager;
 
-        public ArtistsController(IArtistsService artistsService, ITattoosService tattoosService, UserManager<TattooShopUser> userManager)
+        public ArtistsController(IArtistsService artistsService, ITattoosService tattoosService)
         {
             this._artistsService = artistsService;
             this._tattoosService = tattoosService;
-            this._userManager = userManager;
         }
 
         public IActionResult All()
@@ -74,6 +74,7 @@ namespace TattooShop.Web.Areas.Artists.Controllers
             return View(dto);
         }
 
+        [Authorize]
         public IActionResult BookTattoo(string id)
         {
             var artist = this._artistsService.Details(id);
@@ -92,13 +93,17 @@ namespace TattooShop.Web.Areas.Artists.Controllers
             return this.View(model);
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult BookTattoo(BookTattooInputViewModel model)
         {
+            if (!TryValidateModel(model))
+            {
+                return this.View(model);
+            }
             var artistId = this.HttpContext.GetRouteData().Values["id"].ToString();
             var artist = this._artistsService.Details(artistId);
 
-            var artists = this._artistsService.All();
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             var bookSuccessful = this._artistsService.AddBook(model.BookedFor, model.Description, model.Image, model.Style, userId, artist).Result;

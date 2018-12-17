@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -13,18 +14,19 @@ namespace TattooShop.Web.Areas.Orders.Controllers
     public class OrdersController : Controller
     {
         private readonly IProductsService _productsService;
-        private readonly UserManager<TattooShopUser> _userManager;
         private readonly IOrdersService _ordersService;
         private readonly IUsersService _usersService;
 
-        public OrdersController(IProductsService productsService, UserManager<TattooShopUser> userManager, IOrdersService ordersService, IUsersService usersService)
+        public OrdersController(IProductsService productsService, 
+            IOrdersService ordersService, 
+            IUsersService usersService)
         {
             this._productsService = productsService;
-            this._userManager = userManager;
             this._ordersService = ordersService;
             this._usersService = usersService;
         }
 
+        [Authorize]
         public IActionResult Details(string id)
         {
             var product = this._productsService.ProductDetails(id);
@@ -48,19 +50,24 @@ namespace TattooShop.Web.Areas.Orders.Controllers
             return this.View(model);
         }
 
+        [Authorize]
         public IActionResult FinishOrder(FinishOrderViewModel model)
         {
             return this.View(model);
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult Details(CreateOrderViewModel model)
         {
+            if (!TryValidateModel(model))
+            {
+                return this.View(model);
+            }
             var productId = this.HttpContext.GetRouteData().Values["id"].ToString();
             var product = this._productsService.ProductDetails(productId);
 
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            //var userAddress = this._usersService.GetUserAddress(userId);
 
             var orderSuccessful = this._ordersService.AddOrder(model.DeliveryAddress, model.Description, model.Quantity, productId, userId, null).Result;
 
