@@ -12,18 +12,15 @@ namespace TattooShop.Services
         private readonly IRepository<Tattoo> _tattoosRepository;
         private readonly IRepository<Artist> _artistsRepository;
         private readonly IRepository<ContactInfo> _feedbackRepository;
-        private readonly IRepository<Subscriber> _subscribersRepository;
         private const int TattoosToTake = 12;
 
         public HomeService(IRepository<Tattoo> tattoosRepository, 
             IRepository<Artist> artistsRepository, 
-            IRepository<ContactInfo> feedbackRepository,
-            IRepository<Subscriber> subscribersRepository)
+            IRepository<ContactInfo> feedbackRepository)
         {
             this._tattoosRepository = tattoosRepository;
             this._artistsRepository = artistsRepository;
             this._feedbackRepository = feedbackRepository;
-            this._subscribersRepository = subscribersRepository;
         }
 
         public IEnumerable<Tattoo> RecentTattoos()
