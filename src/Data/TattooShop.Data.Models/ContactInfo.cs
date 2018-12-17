@@ -1,4 +1,6 @@
-﻿namespace TattooShop.Data.Models
+﻿using System;
+
+namespace TattooShop.Data.Models
 {
     public class ContactInfo
     {
@@ -13,5 +15,7 @@
         public string SenderPhoneNumber { get; set; }
 
         public string Message { get; set; }
+
+        public DateTime SendOn { get; set; }
     }
 }

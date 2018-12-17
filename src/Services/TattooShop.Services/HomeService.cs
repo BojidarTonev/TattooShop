@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using TattooShop.Data.Contracts;
@@ -41,12 +42,17 @@ namespace TattooShop.Services
                 LastName = lastName,
                 Message = message,
                 SenderEmail = email,
-                SenderPhoneNumber = phone
+                SenderPhoneNumber = phone,
+                SendOn = DateTime.UtcNow
             };
 
             this._feedbackRepository.AddAsync(info);
             this._feedbackRepository.SaveChangesAsync();
         }
 
+        public IEnumerable<ContactInfo> AllFeedback()
+        {
+            return this._feedbackRepository.All();
+        }
     }
 }

@@ -202,6 +202,8 @@ namespace TattooShop.Data.Migrations
 
                     b.Property<string>("Message");
 
+                    b.Property<DateTime>("SendOn");
+
                     b.Property<string>("SenderEmail");
 
                     b.Property<string>("SenderPhoneNumber");

@@ -88,7 +88,8 @@ namespace TattooShop.Data.Migrations
                     LastName = table.Column<string>(nullable: true),
                     SenderEmail = table.Column<string>(nullable: true),
                     SenderPhoneNumber = table.Column<string>(nullable: true),
-                    Message = table.Column<string>(nullable: true)
+                    Message = table.Column<string>(nullable: true),
+                    SendOn = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {

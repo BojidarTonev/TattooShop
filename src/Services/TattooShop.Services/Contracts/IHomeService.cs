@@ -11,5 +11,7 @@ namespace TattooShop.Services.Contracts
 
         void RegisterFeedBack(string firstName, string lastName, string message, string email, string phone);
 
+        IEnumerable<ContactInfo> AllFeedback();
+
     }
 }

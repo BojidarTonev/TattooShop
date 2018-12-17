@@ -13,18 +13,23 @@ namespace TattooShop.Web.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<TattooShopUser> _userManager;
         private readonly IUsersService _usersService;
+        private readonly IHomeService _homeService;
 
         public PersonalDataModel(
             UserManager<TattooShopUser> userManager,
-            IUsersService usersService)
+            IUsersService usersService,
+            IHomeService homeService)
         {
             _userManager = userManager;
             _usersService = usersService;
+            _homeService = homeService;
         }
 
         public List<Book> Books { get; set; }
 
         public List<Order> Orders { get; set; }
+
+        public List<ContactInfo> Feedback { get; set; }
 
         public string RegisteredEmail { get; set; }
 
@@ -39,6 +44,7 @@ namespace TattooShop.Web.Areas.Identity.Pages.Account.Manage
             this.RegisteredEmail = user.Email;
             this.Books = this._usersService.GetUserBooks(user.Id)?.ToList();
             this.Orders = this._usersService.GetUserOrders(user.Id)?.ToList();
+            this.Feedback = this._homeService.AllFeedback().ToList();
 
             return Page();
         }

@@ -14,8 +14,15 @@
                         <div class="slides-text probootstrap-animate" data-animate-effect="fadeIn">
                             <h2>@ViewData["Title"]</h2>
                             <h2>Account email: @Model.RegisteredEmail</h2>
-                            <h4>Books made: @Model.Books.Count</h4>
-                            <h4>Orders made: @Model.Orders.Count</h4>
+                            @if (this.User.IsInRole("User"))
+                            {
+                                <h4>Books made: @Model.Books.Count</h4>
+                                <h4>Orders made: @Model.Orders.Count</h4>
+                            }
+                            else
+                            {
+                                <h4>Scroll down to see reviews and recently send emails from customers</h4>
+                            }
                         </div>
                     </div>
                 </div>
@@ -23,77 +30,122 @@
         </li>
     </ul>
 </section>
-<div class="container">
-    <div class="row">
-        <div class="col-lg-9">
-            <div class="card card-outline-secondary my-4">
-                <div class="card-header text-center">
+@if (this.User.IsInRole("User"))
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="card card-outline-secondary my-4">
+                    <div class="card-header text-center">
+                        <br />
+                        <h1>Your books:</h1>
+                    </div>
                     <br />
-                    <h1>Your books:</h1>
-                </div>
-                <br />
-                <table class="table table-dark">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Book date</th>
-                            <th scope="col">Artist name</th>
-                            <th scope="col">Booked on</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if (@Model.Books.Any())
-                        {
-                            foreach (var book in @Model.Books)
+                    <table class="table table-dark">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Book date</th>
+                                <th scope="col">Artist name</th>
+                                <th scope="col">Booked on</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (@Model.Books.Any())
                             {
-                                <tr>
-                                    <th scope="row"></th>
-                                    <td>@book.BookedFor</td>
-                                    <td>@book.Artist.FirstName @book.Artist.LastName</td>
-                                    <td>@book.BookedOn</td>
-                                </tr>
+                                foreach (var book in @Model.Books)
+                                {
+                                    <tr>
+                                        <th scope="row"></th>
+                                        <td>@book.BookedFor</td>
+                                        <td>@book.Artist.FirstName @book.Artist.LastName</td>
+                                        <td>@book.BookedOn</td>
+                                    </tr>
+                                }
                             }
-                        }
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div class="container">
-    <div class="row">
-        <div class="col-lg-9">
-            <div class="card card-outline-secondary my-4">
-                <div class="card-header text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="card card-outline-secondary my-4">
+                    <div class="card-header text-center">
+                        <br />
+                        <h1>Your orders:</h1>
+                    </div>
                     <br />
-                    <h1>Your orders:</h1>
-                </div>
-                <br />
-                <table class="table table-dark">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Delivery date</th>
-                            <th scope="col">Product name</th>
-                            <th scope="col">Ordered on</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if (@Model.Orders.Any())
-                        {
-                            foreach (var book in @Model.Orders)
+                    <table class="table table-dark">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Delivery date</th>
+                                <th scope="col">Product name</th>
+                                <th scope="col">Ordered on</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (@Model.Orders.Any())
                             {
-                                <tr>
-                                    <th scope="row"></th>
-                                    <td>@book.EstimatedDeliveryDay</td>
-                                    <td>@book.Product.Name</td>
-                                    <td>@book.OrderedOn</td>
-                                </tr>
+                                foreach (var book in @Model.Orders)
+                                {
+                                    <tr>
+                                        <th scope="row"></th>
+                                        <td>@book.EstimatedDeliveryDay</td>
+                                        <td>@book.Product.Name</td>
+                                        <td>@book.OrderedOn</td>
+                                    </tr>
+                                }
                             }
-                        }
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-</div>
+}
+else
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="card card-outline-secondary my-4">
+                    <div class="card-header text-center">
+                        <br />
+                        <h1>Your feedback:</h1>
+                    </div>
+                    <br />
+                    <table class="table table-dark">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Feedback send date:</th>
+                                <th scope="col">Sender email</th>
+                                <th scope="col">Sender message</th>
+                                <th scope="col">Sender phone:</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (@Model.Feedback.Any())
+                            {
+                                foreach (var feedback in @Model.Feedback)
+                                {
+                                    <tr>
+                                        <th scope="row"></th>
+                                        <td>@feedback.SendOn</td>
+                                        <td>@feedback.SenderEmail</td>
+                                        <td>@feedback.Message</td>
+                                        <td>@feedback.SenderPhoneNumber</td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+}
