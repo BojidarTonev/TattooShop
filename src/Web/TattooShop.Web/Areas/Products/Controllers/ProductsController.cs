@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using TattooShop.Data.Models.Enums;
 using TattooShop.Services.Contracts;
 using TattooShop.Web.Areas.Products.Models;
 
@@ -22,7 +21,7 @@ namespace TattooShop.Web.Areas.Products.Controllers
             var products = this._productsService.All()
                 .Select(p => new ProductsAllViewModel()
                 {
-                    Category = p.Category.ToString(),
+                    Category = p.Category.Name.ToString(),
                     Id = p.Id,
                     ImageUrl = p.ImageUrl,
                     Name = p.Name
@@ -41,7 +40,7 @@ namespace TattooShop.Web.Areas.Products.Controllers
         public IActionResult Details(string id)
         {
             var product = this._productsService.ProductDetails(id);
-            var similars = this._productsService.OtherSimilar(product.Category)
+            var similars = this._productsService.OtherSimilar(product.Category.Name)
                 .Select(p => new SimilarProductsDisplayModel()
                 {
                     Category = p.Category.ToString(),
@@ -62,21 +61,6 @@ namespace TattooShop.Web.Areas.Products.Controllers
             };
 
             return this.View(dto);
-        }
-
-        public IActionResult AllCategorized(string category)
-        {
-            var products = this._productsService.ProductsByCategory(category);
-
-            return this.View("All", products);
-        }
-
-        [HttpPost]
-        public IActionResult All(string category)
-        {
-            var products = this._productsService.ProductsByCategory(category);
-
-            return this.View("All", products);
         }
     }
 }

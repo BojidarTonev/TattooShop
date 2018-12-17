@@ -13,6 +13,6 @@ namespace TattooShop.Data.Models
 
         public decimal Price { get; set; }
 
-        public ProductsCategories Category { get; set; }
+        public Category Category { get; set; }
     }
 }

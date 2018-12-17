@@ -26,18 +26,24 @@ namespace TattooShop.Web.Areas.Tattoos.Controllers
                     Id =t.Id,
                     TattooUrl = t.TattooUrl,
                     TattooRelevantName = t.TattoRelevantName,
-                    TattooStyle = t.TattooStyle.ToString()
+                    TattooStyle = t.TattooStyle.Name.ToString()
                 }).ToList();
 
             var tattooStyles = this._tattoosService.GetAllStyles().Select(t => new SelectListItem()
             {
-                Value = t.ToString(),
-                Text = t.ToString()
+                Value = t.Id,
+                Text = t.Name.ToString()
             });
 
             this.ViewData["TattooStyles"] = tattooStyles;
 
-            return View(tattoos);
+            var dto = new AllTattoosViewModelWrapper()
+            {
+                DisplayCategory = "All",
+                Tattoos = tattoos
+            };
+
+            return View(dto);
         }
 
         public IActionResult Details(string id)
@@ -45,12 +51,12 @@ namespace TattooShop.Web.Areas.Tattoos.Controllers
             var tattoo = this._tattoosService.Details(id);
             var artist = this._artistsService.Details(tattoo.ArtistId);
 
-            var similarTattooDtos = this._tattoosService.OtherSimilar(tattoo.TattooStyle)
+            var similarTattooDtos = this._tattoosService.OtherSimilar(tattoo.TattooStyle.Name)
                 .Select(t => new SimilarTattooViewModel()
                 {
                     Id = t.Id,
                     RelevantName = t.TattoRelevantName,
-                    TattooStyle = t.TattooStyle.ToString(),
+                    TattooStyle = t.TattooStyle.Name.ToString(),
                     TattooUrl = t.TattooUrl
                 }).ToList();
 
@@ -72,6 +78,35 @@ namespace TattooShop.Web.Areas.Tattoos.Controllers
             };
 
             return this.View(tattooDto);
+        }
+
+        [HttpPost]
+        public IActionResult All(string id)
+        {
+            var tattoos = this._tattoosService.GetAllTattoosFromStyle(id)
+                .Select(t => new AllTattoosViewModel()
+                {
+                    Id = t.Id,
+                    TattooUrl = t.TattooUrl,
+                    TattooRelevantName = t.TattoRelevantName,
+                    TattooStyle = t.TattooStyle.Name.ToString()
+                }).ToList();
+
+            var tattooStyles = this._tattoosService.GetAllStyles().Select(t => new SelectListItem()
+            {
+                Value = t.Id,
+                Text = t.Name.ToString()
+            });
+
+            this.ViewData["TattooStyles"] = tattooStyles;
+
+            var dto = new AllTattoosViewModelWrapper()
+            {
+                DisplayCategory = "All",
+                Tattoos = tattoos
+            };
+
+            return View(dto);
         }
     }
 }

@@ -21,6 +21,10 @@ namespace TattooShop.Data
 
         public DbSet<Tattoo> Tattoos { get; set; }
 
+        public DbSet<Category> Categories { get; set; }
+
+        public DbSet<Style> Styles { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

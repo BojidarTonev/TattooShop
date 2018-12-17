@@ -21,7 +21,7 @@ namespace TattooShop.Services
 
         public IEnumerable<Tattoo> RecentTattoos()
         {
-            return this._tattoosRepository.All().Take(TattoosToTake).OrderBy(x => x.DoneOn).ToList();
+            return this._tattoosRepository.All().Include(t => t.TattooStyle).Take(TattoosToTake).OrderBy(x => x.DoneOn).ToList();
         }
 
         public IEnumerable<Artist> AllArtists()

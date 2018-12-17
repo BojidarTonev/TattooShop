@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using TattooShop.Data.Contracts;
 using TattooShop.Data.Models;
 using TattooShop.Data.Models.Enums;
@@ -17,7 +18,7 @@ namespace TattooShop.Services
             this._productsRepository = productsRepository;
         }
 
-        public IEnumerable<Product> All() => this._productsRepository.All().ToList();
+        public IEnumerable<Product> All() => this._productsRepository.All().Include(p => p.Category).ToList();
 
         public IEnumerable<Product> ProductsByCategory(string categoryName)
         {
@@ -26,14 +27,14 @@ namespace TattooShop.Services
 
         public Product ProductDetails(string productId)
         {
-            var product = this._productsRepository.All().FirstOrDefault(p => p.Id == productId);
+            var product = this._productsRepository.All().Include(p => p.Category).FirstOrDefault(p => p.Id == productId);
 
             return product;
         }
 
         public IEnumerable<Product> OtherSimilar(ProductsCategories category)
         {
-            return this._productsRepository.All().Where(p => p.Category == category).Take(9);
+            return this._productsRepository.All().Include(p => p.Category).Where(p => p.Category.Name == category).Take(9);
         }
 
         public IEnumerable<ProductsCategories> GetAllCategories()

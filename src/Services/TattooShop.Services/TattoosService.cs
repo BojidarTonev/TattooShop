@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using TattooShop.Data.Contracts;
@@ -12,39 +11,59 @@ namespace TattooShop.Services
     public class TattoosService : ITattoosService
     {
         private readonly IRepository<Tattoo> _tattoosRepository;
+        private readonly IRepository<Style> _stylesRepository;
 
-        public TattoosService(IRepository<Tattoo> tattoosRepository)
+        public TattoosService(IRepository<Tattoo> tattoosRepository, IRepository<Style> stylesRepository)
         {
             this._tattoosRepository = tattoosRepository;
+            this._stylesRepository = stylesRepository;
         }
 
-        public IEnumerable<Tattoo> All() => this._tattoosRepository.All().OrderBy(t => t.DoneOn);
+        public IEnumerable<Tattoo> All() => this._tattoosRepository.All().Include(t => t.TattooStyle).OrderBy(t => t.DoneOn);
 
         public Tattoo Details(string id)
         {
-            var tattoo = this._tattoosRepository.All().Include(t => t.Artist).First(t => t.Id == id);
+            var tattoo = this._tattoosRepository.All().Include(t => t.TattooStyle).Include(t => t.Artist).First(t => t.Id == id);
 
             return tattoo;
         }
 
         public IEnumerable<Tattoo> OtherSimilar(TattooStyles tattooStyle)
         {
-            return this._tattoosRepository.All().Where(t => t.TattooStyle == tattooStyle).OrderBy(t => t.DoneOn).Take(9)
+            return this._tattoosRepository.All().Include(t => t.TattooStyle).Where(t => t.TattooStyle.Name == tattooStyle).OrderBy(t => t.DoneOn).Take(9)
                 .ToList();
         }
 
-        public IEnumerable<TattooStyles> GetAllStyles()
+        public IEnumerable<Style> GetAllStyles()
         {
-            return new List<TattooStyles>()
-            {
-                TattooStyles.AmericanTraditional,
-                TattooStyles.Biomechanical,
-                TattooStyles.Geometric,
-                TattooStyles.Polynesian,
-                TattooStyles.Realistic,
-                TattooStyles.TraditionalJapanese,
-                TattooStyles.Watercolor
-            };
+            //var styles = new List<TattooStyles>()
+            //{
+            //    TattooStyles.AmericanTraditional,
+            //    TattooStyles.Biomechanical,
+            //    TattooStyles.Geometric,
+            //    TattooStyles.Polynesian,
+            //    TattooStyles.Realistic,
+            //    TattooStyles.TraditionalJapanese,
+            //    TattooStyles.Watercolor
+            //};
+            //var tattooStyles = new List<Style>();
+
+            //for (int i = 1; i < 7; i++)
+            //{
+            //    Style style = new Style()
+            //    {
+                    
+            //        Name = styles[i]
+            //    };
+            //    tattooStyles.Add(style);
+            //}
+
+            return this._stylesRepository.All().ToList();
+        }
+
+        public IEnumerable<Tattoo> GetAllTattoosFromStyle(string style)
+        {
+            return this._tattoosRepository.All().Where(t => t.TattooStyle.Name.ToString() == style).ToList();
         }
     }
 }

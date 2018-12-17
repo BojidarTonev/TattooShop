@@ -37,11 +37,12 @@ namespace Sandbox
         {
             //TODO: code here...
             SeedTattooShopDatabaseRolesAndDefaultAdminAndArtist(serviceProvider);
+            SeedEnumsDatabase(serviceProvider);
             SeedSampleProductsData(serviceProvider);
             SeedSampleTattooArtistData(serviceProvider);
-
             SeedSampleTattoosData(serviceProvider);
         }
+       
 
         private static void ConfigureServices(ServiceCollection services)
         {
@@ -66,6 +67,57 @@ namespace Sandbox
                 .AddEntityFrameworkStores<TattooShopContext>();
 
             services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
+        }
+
+        private static void SeedEnumsDatabase(IServiceProvider serviceProvider)
+        {
+            var db = serviceProvider.GetService<TattooShopContext>();
+            if (!db.Styles.Any() && !db.Categories.Any())
+            {
+                var styles = new List<TattooStyles>()
+                {
+                    TattooStyles.AmericanTraditional,
+                    TattooStyles.Biomechanical,
+                    TattooStyles.Geometric,
+                    TattooStyles.Polynesian,
+                    TattooStyles.Realistic,
+                    TattooStyles.TraditionalJapanese,
+                    TattooStyles.Watercolor
+                };
+                var categories = new List<ProductsCategories>()
+                {
+                    ProductsCategories.Clothes,
+                    ProductsCategories.Piercing,
+                    ProductsCategories.TattooCare
+                };
+
+                var tattooStyles = new List<Style>();
+                var productsCategories = new List<Category>();
+
+                for (int i = 0; i < styles.Count; i++)
+                {
+                    Style style = new Style()
+                    {
+                        Name = styles[i]
+                    };
+                    tattooStyles.Add(style);
+                }
+
+                for (int i = 0; i < categories.Count; i++)
+                {
+                    Category category = new Category()
+                    {
+                        Name = categories[i]
+                    };
+                    productsCategories.Add(category);
+                }
+
+                db.Categories.AddRange(productsCategories);
+                db.Styles.AddRange(tattooStyles);
+
+                db.SaveChanges();
+
+            }
         }
 
         public static void SeedTattooShopDatabaseRolesAndDefaultAdminAndArtist(IServiceProvider serviceProvider)
@@ -213,7 +265,10 @@ namespace Sandbox
                         var product = new Product()
                         {
                             Name = $"Tattoo care product{i}",
-                            Category = ProductsCategories.TattooCare,
+                            Category = new Category()
+                            {
+                                Name = ProductsCategories.TattooCare
+                            },
                             Description = $"This is a great product buy it now please",
                             Price = decimal.Parse("22.50"),
                             ImageUrl = TattoCareImageUrl
@@ -226,7 +281,10 @@ namespace Sandbox
                         var product = new Product()
                         {
                             Name = $"Piercing product {i}",
-                            Category = ProductsCategories.Piercing,
+                            Category = new Category()
+                            {
+                                Name = ProductsCategories.Piercing
+                            },
                             Description = $"This is a great product buy it now please",
                             Price = decimal.Parse("22.50"),
                             ImageUrl = PiercingAndSouvenirImageUrl
@@ -239,7 +297,10 @@ namespace Sandbox
                         var product = new Product()
                         {
                             Name = $"Employed t-shirt {i}",
-                            Category = ProductsCategories.Clothes,
+                            Category = new Category()
+                            {
+                                Name = ProductsCategories.Clothes
+                            },
                             Description = $"This is a great product buy it now please",
                             Price = decimal.Parse("22.50"),
                             ImageUrl = ClothesImageUrl
@@ -263,6 +324,10 @@ namespace Sandbox
 
             var db = serviceProvider.GetService<TattooShopContext>();
 
+            var americanTraditionalStyle = db.Styles.First(s => s.Name == TattooStyles.AmericanTraditional);
+            var geometricStyle = db.Styles.First(s => s.Name == TattooStyles.Geometric);
+            var realisticStyle = db.Styles.First(s => s.Name == TattooStyles.Realistic);
+
             if (!db.Tattoos.Any())
             {
                 var tattooList = new List<Tattoo>();
@@ -276,7 +341,7 @@ namespace Sandbox
                             Artist = db.Artists.First(),
                             DoneOn = DateTime.UtcNow.Date,
                             Sessions = i,
-                            TattooStyle = db.Artists.First().BestAt,
+                            TattooStyle = americanTraditionalStyle,
                             TattooUrl = firstTattooUrl,
                             TattoRelevantName = $"{i} Petko"
                         };
@@ -291,7 +356,7 @@ namespace Sandbox
                             Artist = db.Artists.Skip(1).First(),
                             DoneOn = DateTime.UtcNow.Date,
                             Sessions = i,
-                            TattooStyle = db.Artists.Skip(2).First().BestAt,
+                            TattooStyle = geometricStyle,
                             TattooUrl = secondTattooUrl,
                             TattoRelevantName = $"{i} Bojidar"
                         };
@@ -306,7 +371,7 @@ namespace Sandbox
                             Artist = db.Artists.Skip(2).First(),
                             DoneOn = DateTime.UtcNow.Date,
                             Sessions = i,
-                            TattooStyle = db.Artists.Skip(2).First().BestAt,
+                            TattooStyle = realisticStyle,
                             TattooUrl = thirdTattooUrl,
                             TattoRelevantName = $"{i} Kristiqn"
                         };

@@ -68,42 +68,27 @@ namespace TattooShop.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Products",
+                name: "Categories",
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    ImageUrl = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    Price = table.Column<decimal>(nullable: false),
-                    Category = table.Column<int>(nullable: false)
+                    Name = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Products", x => x.Id);
+                    table.PrimaryKey("PK_Categories", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Tattoos",
+                name: "Styles",
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    DoneOn = table.Column<DateTime>(nullable: false),
-                    ArtistId = table.Column<string>(nullable: true),
-                    TattoRelevantName = table.Column<string>(nullable: true),
-                    TattooStyle = table.Column<int>(nullable: false),
-                    TattooUrl = table.Column<string>(nullable: true),
-                    Sessions = table.Column<int>(nullable: false)
+                    Name = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tattoos", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Tattoos_Artists_ArtistId",
-                        column: x => x.ArtistId,
-                        principalTable: "Artists",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                    table.PrimaryKey("PK_Styles", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -243,6 +228,57 @@ namespace TattooShop.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Products",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    ImageUrl = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    Price = table.Column<decimal>(nullable: false),
+                    CategoryId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Products", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Products_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Tattoos",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    DoneOn = table.Column<DateTime>(nullable: false),
+                    ArtistId = table.Column<string>(nullable: true),
+                    TattoRelevantName = table.Column<string>(nullable: true),
+                    TattooStyleId = table.Column<string>(nullable: true),
+                    TattooUrl = table.Column<string>(nullable: true),
+                    Sessions = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tattoos", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Tattoos_Artists_ArtistId",
+                        column: x => x.ArtistId,
+                        principalTable: "Artists",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Tattoos_Styles_TattooStyleId",
+                        column: x => x.TattooStyleId,
+                        principalTable: "Styles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Orders",
                 columns: table => new
                 {
@@ -332,9 +368,19 @@ namespace TattooShop.Data.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Products_CategoryId",
+                table: "Products",
+                column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Tattoos_ArtistId",
                 table: "Tattoos",
                 column: "ArtistId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tattoos_TattooStyleId",
+                table: "Tattoos",
+                column: "TattooStyleId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -374,6 +420,12 @@ namespace TattooShop.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Artists");
+
+            migrationBuilder.DropTable(
+                name: "Styles");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
         }
     }
 }

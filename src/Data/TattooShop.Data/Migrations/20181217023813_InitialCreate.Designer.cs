@@ -10,7 +10,7 @@ using TattooShop.Data;
 namespace TattooShop.Data.Migrations
 {
     [DbContext(typeof(TattooShopContext))]
-    [Migration("20181214020531_InitialCreate")]
+    [Migration("20181217023813_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -181,6 +181,18 @@ namespace TattooShop.Data.Migrations
                     b.ToTable("Books");
                 });
 
+            modelBuilder.Entity("TattooShop.Data.Models.Category", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+                });
+
             modelBuilder.Entity("TattooShop.Data.Models.Order", b =>
                 {
                     b.Property<string>("Id")
@@ -214,7 +226,7 @@ namespace TattooShop.Data.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("Category");
+                    b.Property<string>("CategoryId");
 
                     b.Property<string>("Description");
 
@@ -226,7 +238,21 @@ namespace TattooShop.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("TattooShop.Data.Models.Style", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Styles");
                 });
 
             modelBuilder.Entity("TattooShop.Data.Models.Tattoo", b =>
@@ -242,13 +268,15 @@ namespace TattooShop.Data.Migrations
 
                     b.Property<string>("TattoRelevantName");
 
-                    b.Property<int>("TattooStyle");
+                    b.Property<string>("TattooStyleId");
 
                     b.Property<string>("TattooUrl");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ArtistId");
+
+                    b.HasIndex("TattooStyleId");
 
                     b.ToTable("Tattoos");
                 });
@@ -377,11 +405,22 @@ namespace TattooShop.Data.Migrations
                         .HasForeignKey("UserId");
                 });
 
+            modelBuilder.Entity("TattooShop.Data.Models.Product", b =>
+                {
+                    b.HasOne("TattooShop.Data.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId");
+                });
+
             modelBuilder.Entity("TattooShop.Data.Models.Tattoo", b =>
                 {
                     b.HasOne("TattooShop.Data.Models.Artist", "Artist")
                         .WithMany("TattooCollection")
                         .HasForeignKey("ArtistId");
+
+                    b.HasOne("TattooShop.Data.Models.Style", "TattooStyle")
+                        .WithMany()
+                        .HasForeignKey("TattooStyleId");
                 });
 #pragma warning restore 612, 618
         }

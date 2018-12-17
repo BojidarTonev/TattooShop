@@ -12,6 +12,8 @@ namespace TattooShop.Services.Contracts
 
         IEnumerable<Tattoo> OtherSimilar(TattooStyles tattooStyle);
 
-        IEnumerable<TattooStyles> GetAllStyles();
+        IEnumerable<Style> GetAllStyles();
+
+        IEnumerable<Tattoo> GetAllTattoosFromStyle(string id);
     }
 }

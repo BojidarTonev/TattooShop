@@ -1,4 +1,5 @@
-﻿@model IEnumerable<AllTattoosViewModel>
+﻿@using System.Linq
+@model AllTattoosViewModelWrapper
 
 @{
     ViewData["Title"] = "Welcome to our tattoo gallery!";
@@ -33,29 +34,25 @@
                     <div class="text">
                         <h3 class="heading">Tattoo styles filter</h3>
                         <p>Filter the products that you want to see:</p>
-                        <form asp-controller="Tattoos" asp-action="All" method="post">
+                        @using(Html.BeginForm()) {
+
+                            <select asp-for="DisplayCategory" class="btn btn-danger dropdown-toggle" type="button" data-toggle="dropdown">
+                                @foreach(var c in @tattooStyles)
+                                {
+                                    <option value="@c.Value">@c.Text</option>
+                                }
+                            </select>
+
+                            <button class="btn btn-black" type="submit" value="Submit">Submit</button>
+
+                        }
+                        @*<form asp-area="Tattoos" asp-controller="Tattoos" asp-action="All" method="post">
                             <div class="dropdown">
-                                <select asp-items="tattooStyles" class="btn btn-danger dropdown-toggle" type="button"
+                                <select asp-items="tattooStyles" asp-for="@Model.DisplayCategory" class="btn btn-danger dropdown-toggle" type="button"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></select>
                             </div><br/>
                             <button class="btn btn-black" type="submit" value="Submit">Submit</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="service left-icon probootstrap-animate">
-                    <div class="icon">
-                        <i class="icon-text"></i>
-                    </div>
-                    <div class="text">
-                        <h3 class="heading">Tattoo content filter</h3>
-                        <p>A little more in-depth filter for the content you are intrested in:</p>
-                        <div class="dropdown">
-                            <button class="btn btn-danger dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Filters
-                            </button>
-                        </div>
+                        </form>*@
                     </div>
                 </div>
             </div>
@@ -63,7 +60,7 @@
     </div>
 </section>
 <div class="container">
-    @foreach (var tattoo in @Model)
+    @foreach (var tattoo in @Model.Tattoos)
     {
         <div class="col-md-4 probootstrap-animate ">
             <div class="probootstrap-card with-hover">

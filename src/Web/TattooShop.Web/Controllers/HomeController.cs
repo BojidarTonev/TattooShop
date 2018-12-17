@@ -26,7 +26,7 @@ namespace TattooShop.Web.Controllers
                     Id = t.Id,
                     TattooUrl = t.TattooUrl,
                     TattooRelevantName = t.TattoRelevantName,
-                    TattooStyle = t.TattooStyle.ToString()
+                    TattooStyle = t.TattooStyle.Name.ToString()
                 }).ToList();
             //var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             //this._db.Orders.Add(new Order()

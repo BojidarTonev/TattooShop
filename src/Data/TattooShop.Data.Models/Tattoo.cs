@@ -13,7 +13,7 @@ namespace TattooShop.Data.Models
 
         public string TattoRelevantName { get; set; }
 
-        public TattooStyles TattooStyle { get; set; }
+        public Style TattooStyle { get; set; }
 
         public string TattooUrl { get; set; }
 
