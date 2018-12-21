@@ -17,18 +17,15 @@ namespace TattooShop.Web.Areas.Identity.Pages.Account
         private readonly SignInManager<TattooShopUser> _signInManager;
         private readonly UserManager<TattooShopUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
-        private readonly IEmailSender _emailSender;
 
         public RegisterModel(
             UserManager<TattooShopUser> userManager,
             SignInManager<TattooShopUser> signInManager,
-            ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            ILogger<RegisterModel> logger)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
-            _emailSender = emailSender;
         }
 
         [BindProperty]
@@ -57,7 +54,7 @@ namespace TattooShop.Web.Areas.Identity.Pages.Account
             [MinLength(3, ErrorMessage = "Username  must be at least 3 characters long.")]
             [Display(Name = "Username")]
             [RegularExpression("^[0-9a-zA-Z-_.*~]+$", ErrorMessage = "Username may only contain alphanumeric characters, dashes, underscores, dots, asterisks and tildes.")]
-            public string Username { get; set; }
+            public string UserName { get; set; }
 
             [Required]
             [DataType(DataType.Password)]
@@ -92,7 +89,7 @@ namespace TattooShop.Web.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = new TattooShopUser
-                    { UserName = Input.Email, Email = Input.Email, Address = Input.Address,
+                    { UserName = Input.UserName, Email = Input.Email, Address = Input.Address,
                         PhoneNumber = Input.PhoneNumber, LastName = Input.LastName, FirstName = Input.FirstName};
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
@@ -110,6 +107,7 @@ namespace TattooShop.Web.Areas.Identity.Pages.Account
                     //await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                     //    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
+                    await _userManager.AddToRoleAsync(user, "User");
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return LocalRedirect(returnUrl);
                 }

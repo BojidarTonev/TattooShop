@@ -30,6 +30,7 @@ namespace TattooShop.Services
         {
             var artist = this._artistsRepository.All()
                 .Include(t => t.TattooCollection)
+                .ThenInclude(t => t.TattooStyle)
                 .FirstOrDefault(a => a.Id == id);
 
             return artist;

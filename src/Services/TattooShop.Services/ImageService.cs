@@ -37,7 +37,8 @@ namespace TattooShop.Services
                 {
                     var uploadParams = new ImageUploadParams()
                     {
-                        File = new FileDescription(file.Name, stream)
+                        File = new FileDescription(file.Name, stream),
+                        Folder = "/UserTattooUploads"
                     };
 
                     uploadResult = _cloudinary.Upload(uploadParams);

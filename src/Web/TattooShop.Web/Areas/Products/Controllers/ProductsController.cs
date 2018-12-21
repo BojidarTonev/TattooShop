@@ -43,7 +43,7 @@ namespace TattooShop.Web.Areas.Products.Controllers
             var similars = this._productsService.OtherSimilar(product.Category.Name)
                 .Select(p => new SimilarProductsDisplayModel()
                 {
-                    Category = p.Category.ToString(),
+                    Category = p.Category.Name.ToString(),
                     Id = p.Id,
                     ImageUrl = p.ImageUrl,
                     Name = p.Name

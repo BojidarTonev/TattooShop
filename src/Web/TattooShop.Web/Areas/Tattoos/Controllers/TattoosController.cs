@@ -97,6 +97,8 @@ namespace TattooShop.Web.Areas.Tattoos.Controllers
                     TattooStyle = t.TattooStyle.Name.ToString()
                 }).ToList();
 
+           // var tattoosDto = Mapper.Map<AllTattoosViewModel>(tattoos);
+
             var tattooStyles = this._tattoosService.GetAllStyles().Select(t => new SelectListItem()
             {
                 Value = t.Id,

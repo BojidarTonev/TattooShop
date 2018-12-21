@@ -36,11 +36,11 @@ namespace TattooShop.Web.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
-            [DataType(DataType.EmailAddress)]
-            [Display(Name = "Email")]
-            //[RegularExpression("^[0-9a-zA-Z-_.*~]+$", ErrorMessage = "Username may only contain alphanumeric characters, dashes, underscores, dots, asterisks and tildes.")]
-            public string Email { get; set; }
+            [DataType(DataType.Text)]
+            [MinLength(3, ErrorMessage = "Username  must be at least 3 characters long.")]
+            [Display(Name = "Username")]
+            [RegularExpression("^[0-9a-zA-Z-_.*~]+$", ErrorMessage = "Username may only contain alphanumeric characters, dashes, underscores, dots, asterisks and tildes.")]
+            public string UserName { get; set; }
 
             [Required]
             [DataType(DataType.Password)]
@@ -77,7 +77,7 @@ namespace TattooShop.Web.Areas.Identity.Pages.Account
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: true);
+                var result = await _signInManager.PasswordSignInAsync(Input.UserName, Input.Password, Input.RememberMe, lockoutOnFailure: true);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");

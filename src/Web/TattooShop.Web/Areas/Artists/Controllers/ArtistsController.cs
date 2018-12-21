@@ -18,11 +18,13 @@ namespace TattooShop.Web.Areas.Artists.Controllers
     {
         private readonly IArtistsService _artistsService;
         private readonly ITattoosService _tattoosService;
+        private readonly IStylesService _stylesService;
 
-        public ArtistsController(IArtistsService artistsService, ITattoosService tattoosService)
+        public ArtistsController(IArtistsService artistsService, ITattoosService tattoosService, IStylesService stylesService)
         {
             this._artistsService = artistsService;
             this._tattoosService = tattoosService;
+            this._stylesService = stylesService;
         }
 
         public IActionResult All()
@@ -50,7 +52,7 @@ namespace TattooShop.Web.Areas.Artists.Controllers
             {
                 var tatDto = new ArtistDetailsTattoosViewModel()
                 {
-                    TattooStyle = tattoo.TattooStyle.ToString(),
+                    TattooStyle = tattoo.TattooStyle.Name.ToString(),
                     TattooId = tattoo.Id,
                     TattooRelevantName = tattoo.TattoRelevantName,
                     TattooUrl = tattoo.TattooUrl
@@ -82,8 +84,8 @@ namespace TattooShop.Web.Areas.Artists.Controllers
             this.ViewData["TattooStyles"] = this._tattoosService.GetAllStyles()
                 .Select(ts => new SelectListItem
                 {
-                    Value = ts.ToString(),
-                    Text = ts.ToString()
+                    Value = ts.Id.ToString(),
+                    Text = ts.Name.ToString()
                 });
 
             var model = new BookTattooInputViewModel()
@@ -104,9 +106,11 @@ namespace TattooShop.Web.Areas.Artists.Controllers
             var artistId = this.HttpContext.GetRouteData().Values["id"].ToString();
             var artist = this._artistsService.Details(artistId);
 
+            var style = this._stylesService.GetStyle(model.Style).Name.ToString();
+
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var bookSuccessful = this._artistsService.AddBook(model.BookedFor, model.Description, model.Image, model.Style, userId, artist).Result;
+            var bookSuccessful = this._artistsService.AddBook(model.BookedFor, model.Description, model.Image, style, userId, artist).Result;
 
             if (!bookSuccessful)
             {
