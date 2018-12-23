@@ -36,28 +36,6 @@ namespace TattooShop.Services
 
         public IEnumerable<Style> GetAllStyles()
         {
-            //var styles = new List<TattooStyles>()
-            //{
-            //    TattooStyles.AmericanTraditional,
-            //    TattooStyles.Biomechanical,
-            //    TattooStyles.Geometric,
-            //    TattooStyles.Polynesian,
-            //    TattooStyles.Realistic,
-            //    TattooStyles.TraditionalJapanese,
-            //    TattooStyles.Watercolor
-            //};
-            //var tattooStyles = new List<Style>();
-
-            //for (int i = 1; i < 7; i++)
-            //{
-            //    Style style = new Style()
-            //    {
-                    
-            //        Name = styles[i]
-            //    };
-            //    tattooStyles.Add(style);
-            //}
-
             return this._stylesRepository.All().ToList();
         }
 

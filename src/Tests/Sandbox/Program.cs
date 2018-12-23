@@ -252,8 +252,12 @@ namespace Sandbox
 
             const string ClothesCategory = "Clothes";
             const string ClothesImageUrl = "https://cdn.shopify.com/s/files/1/1248/7893/products/employed_242471d7-7144-4bff-abff-ec26d7d1ab5a_900x.jpg?v=1531421487";
-
+            
             var db = serviceProvider.GetService<TattooShopContext>();
+
+            var tattooCareCategory = db.Categories.First(c => c.Name == ProductsCategories.TattooCare);
+            var clothesCategory = db.Categories.First(c => c.Name == ProductsCategories.Clothes);
+            var piercingCategory = db.Categories.First(c => c.Name == ProductsCategories.Piercing);
 
             if (!db.Products.Any())
             {
@@ -265,10 +269,7 @@ namespace Sandbox
                         var product = new Product()
                         {
                             Name = $"Tattoo care product{i}",
-                            Category = new Category()
-                            {
-                                Name = ProductsCategories.TattooCare
-                            },
+                            Category = tattooCareCategory,
                             Description = $"This is a great product buy it now please",
                             Price = decimal.Parse("22.50"),
                             ImageUrl = TattoCareImageUrl
@@ -281,10 +282,7 @@ namespace Sandbox
                         var product = new Product()
                         {
                             Name = $"Piercing product {i}",
-                            Category = new Category()
-                            {
-                                Name = ProductsCategories.Piercing
-                            },
+                            Category = piercingCategory,
                             Description = $"This is a great product buy it now please",
                             Price = decimal.Parse("22.50"),
                             ImageUrl = PiercingAndSouvenirImageUrl
@@ -297,10 +295,7 @@ namespace Sandbox
                         var product = new Product()
                         {
                             Name = $"Employed t-shirt {i}",
-                            Category = new Category()
-                            {
-                                Name = ProductsCategories.Clothes
-                            },
+                            Category = clothesCategory,
                             Description = $"This is a great product buy it now please",
                             Price = decimal.Parse("22.50"),
                             ImageUrl = ClothesImageUrl

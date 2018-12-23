@@ -11,18 +11,15 @@ namespace TattooShop.Services
     public class ProductsService : IProductsService
     {
         private readonly IRepository<Product> _productsRepository;
+        private readonly IRepository<Category> _categoriesRepository;
 
-        public ProductsService(IRepository<Product> productsRepository)
+        public ProductsService(IRepository<Product> productsRepository, IRepository<Category> categoriesRepository)
         {
             this._productsRepository = productsRepository;
+            this._categoriesRepository = categoriesRepository;
         }
 
         public IEnumerable<Product> All() => this._productsRepository.All().Include(p => p.Category).ToList();
-
-        public IEnumerable<Product> ProductsByCategory(string categoryName)
-        {
-            return null;
-        }
 
         public Product ProductDetails(string productId)
         {
@@ -36,14 +33,14 @@ namespace TattooShop.Services
             return this._productsRepository.All().Include(p => p.Category).Where(p => p.Category.Name == category).Take(9);
         }
 
-        public IEnumerable<ProductsCategories> GetAllCategories()
+        public IEnumerable<Category> GetAllCategories()
         {
-            return new List<ProductsCategories>()
-            {
-                ProductsCategories.Clothes,
-                ProductsCategories.Piercing,
-                ProductsCategories.TattooCare
-            };
+            return this._categoriesRepository.All().ToList();
+        }
+
+        public IEnumerable<Product> GetAllProductsByCategory(string category)
+        {
+            return this._productsRepository.All().Where(p => p.Category.Name.ToString() == category).ToList();
         }
     }
 }

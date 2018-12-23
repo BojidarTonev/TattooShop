@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ProductsAllViewModel>
+﻿@model ProductsAllViewModelWrapper
 
 @{
     ViewData["Title"] = "The tattoo care products we offer!";
@@ -31,13 +31,14 @@
                         <i class="icon-filter"></i>
                     </div>
                     <div class="text">
-                        <h3 class="heading">Filter the category</h3>
-                        <p>Quality matters! Current category products:</p>
-                        <form asp-controller="Products" asp-action="All" method="post">
+                        <h3 class="heading">Products categories filter</h3>
+                        <p>Filter the products that you want to see:</p>
+                        <form asp-area="Products" asp-controller="Products" asp-action="All" method="post">
                             <div class="dropdown">
-                                <select asp-items="productCategories" class="btn btn-danger dropdown-toggle" type="button"
+                                <select asp-items="productCategories" asp-for="@Model.DisplayCategory" class="btn btn-danger dropdown-toggle" type="button"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></select>
-                            </div>
+                            </div><br/>
+                            <button class="btn btn-black" type="submit" value="Submit">Submit</button>
                         </form>
                     </div>
                 </div>
@@ -69,7 +70,7 @@
     </div>
 </section>
 <div class="container">
-    @foreach (var product in @Model)
+    @foreach (var product in @Model.Products)
     {
         <div class="col-md-4 probootstrap-animate ">
             <div class="probootstrap-card with-hover">

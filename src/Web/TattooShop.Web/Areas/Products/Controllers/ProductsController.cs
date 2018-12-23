@@ -10,10 +10,12 @@ namespace TattooShop.Web.Areas.Products.Controllers
     public class ProductsController : Controller
     {
         private readonly IProductsService _productsService;
+        private readonly ICategoriesService _categoriesService;
 
-        public ProductsController(IProductsService productsService)
+        public ProductsController(IProductsService productsService, ICategoriesService categoriesService)
         {
             this._productsService = productsService;
+            this._categoriesService = categoriesService;
         }
 
         public IActionResult All()
@@ -27,14 +29,53 @@ namespace TattooShop.Web.Areas.Products.Controllers
                     Name = p.Name
                 });
 
-            this.ViewData["ProductsCategories"] = this._productsService.GetAllCategories()
-                .Select(pc => new SelectListItem
+            var dto = new ProductsAllViewModelWrapper()
             {
-                Value = pc.ToString(),
-                Text = pc.ToString()
+                Products = products,
+                DisplayCategory = "All"
+            };
+
+            var productsCategories = this._productsService.GetAllCategories().Select(t => new SelectListItem()
+            {
+                Value = t.Id,
+                Text = t.Name.ToString()
             });
 
-            return View(products);
+            this.ViewData["ProductsCategories"] = productsCategories;
+
+            return View(dto);
+        }
+
+        [HttpPost]
+        public IActionResult All(ProductsAllViewModelWrapper model)
+        {
+            var categoryId = model.DisplayCategory;
+            var category = this._categoriesService.GetCategory(categoryId);
+
+            var products = this._productsService.GetAllProductsByCategory(category.Name.ToString())
+                .Select(p => new ProductsAllViewModel()
+                {
+                    Id = p.Id,
+                    Category = p.Category.Name.ToString(),
+                    ImageUrl = p.ImageUrl,
+                    Name = p.Name
+                }).ToList();
+
+            var productsCategories = this._productsService.GetAllCategories().Select(t => new SelectListItem()
+            {
+                Value = t.Id,
+                Text = t.Name.ToString()
+            });
+
+            this.ViewData["ProductsCategories"] = productsCategories;
+
+            var dto = new ProductsAllViewModelWrapper()
+            {
+                DisplayCategory = model.DisplayCategory,
+                Products = products
+            };
+
+            return View(dto);
         }
 
         public IActionResult Details(string id)
