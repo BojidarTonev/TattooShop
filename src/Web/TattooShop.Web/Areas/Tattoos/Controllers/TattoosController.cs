@@ -46,36 +46,15 @@ namespace TattooShop.Web.Areas.Tattoos.Controllers
 
         public IActionResult Details(string id)
         {
-            var tattoo = this._tattoosService.Details(id);
-            var artist = this._artistsService.Details(tattoo.ArtistId);
+            var tattoo = this._tattoosService.Details<TattooDetailsViewModel>(id);
 
-            var similarTattooDtos = this._tattoosService.OtherSimilar(tattoo.TattooStyle.Name)
-                .Select(t => new SimilarTattooViewModel()
-                {
-                    Id = t.Id,
-                    RelevantName = t.TattoRelevantName,
-                    TattooStyle = t.TattooStyle.Name.ToString(),
-                    TattooUrl = t.TattooUrl
-                }).ToList();
+            var similarTattooDtos = this._tattoosService.OtherSimilar(tattoo.TattooStyle)
+                .To<SimilarTattooViewModel>()
+                .ToList();
 
-            var artistDto = new TattooArtistViewModel()
-            {
-                FirstName = artist.FirstName,
-                Id = artist.Id,
-                LastName = artist.LastName
-            };
+            tattoo.SimilarTattoos = similarTattooDtos;
 
-            var tattooDto = new TattooDetailsViewModel()
-            {
-                Artist = artistDto,
-                DoneOn = tattoo.DoneOn.ToString(),
-                Sessions = tattoo.Sessions.ToString(),
-                SimilarTattoos = similarTattooDtos,
-                TattooRelevantName = tattoo.TattoRelevantName,
-                TattooUrl = tattoo.TattooUrl
-            };
-
-            return this.View(tattooDto);
+            return this.View(tattoo);
         }
 
         [HttpPost]

@@ -338,7 +338,7 @@ namespace Sandbox
                             Sessions = i,
                             TattooStyle = americanTraditionalStyle,
                             TattooUrl = firstTattooUrl,
-                            TattoRelevantName = $"{i} Petko"
+                            TattooRelevantName = $"{i} Petko"
                         };
 
                         db.Tattoos.Add(tattoo);
@@ -353,7 +353,7 @@ namespace Sandbox
                             Sessions = i,
                             TattooStyle = geometricStyle,
                             TattooUrl = secondTattooUrl,
-                            TattoRelevantName = $"{i} Bojidar"
+                            TattooRelevantName = $"{i} Bojidar"
                         };
 
                         db.Tattoos.Add(tattoo);
@@ -368,7 +368,7 @@ namespace Sandbox
                             Sessions = i,
                             TattooStyle = realisticStyle,
                             TattooUrl = thirdTattooUrl,
-                            TattoRelevantName = $"{i} Kristiqn"
+                            TattooRelevantName = $"{i} Kristiqn"
                         };
 
                         db.Tattoos.Add(tattoo);

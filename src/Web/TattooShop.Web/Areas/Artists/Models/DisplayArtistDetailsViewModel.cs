@@ -14,7 +14,7 @@ namespace TattooShop.Web.Areas.Artists.Models
 
         public string Autobiography { get; set; }
 
-        public string ArtistId { get; set; }
+        public string Id { get; set; }
 
         public int TattoosDone => this.Tattoos.Count;
 

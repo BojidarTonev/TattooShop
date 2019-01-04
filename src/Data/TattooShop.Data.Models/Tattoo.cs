@@ -11,7 +11,7 @@ namespace TattooShop.Data.Models
         public string ArtistId { get; set; }
         public virtual Artist Artist { get; set; }
 
-        public string TattoRelevantName { get; set; }
+        public string TattooRelevantName { get; set; }
 
         public Style TattooStyle { get; set; }
 

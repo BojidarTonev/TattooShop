@@ -10,7 +10,7 @@
                             <h2>@Model.FirstName @Model.LastName</h2>
                             <p>Tattoos done in studio: @Model.TattoosDone</p>
                             <p>@Model.Autobiography</p>
-                            <a asp-area="Artists" asp-controller="Artists" asp-action="BookTattoo" asp-route-id="@Model.ArtistId" class="btn btn-success">Book tattoo?</a>
+                            <a asp-area="Artists" asp-controller="Artists" asp-action="BookTattoo" asp-route-id="@Model.Id" class="btn btn-success">Book tattoo?</a>
                         </div>
                     </div>
                 </div>

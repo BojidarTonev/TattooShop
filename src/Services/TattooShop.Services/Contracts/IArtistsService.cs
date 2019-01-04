@@ -10,8 +10,10 @@ namespace TattooShop.Services.Contracts
     {
         IQueryable<Artist> All();
 
-        Artist Details(string id);
+        TViewModel Details<TViewModel>(string id);
 
-        Task<bool> AddBook(string bookedFor, string description, IFormFile file, string style, string userId, Artist artist);
+        Task<bool> AddBook(string bookedFor, string description, IFormFile file, string style, string userId, string artistId);
+
+        IEnumerable<TViewModel> GetArtistsArtwork<TViewModel>(string id);
     }
 }

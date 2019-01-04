@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using TattooShop.Data.Models;
-using TattooShop.Data.Models.Enums;
 
 namespace TattooShop.Services.Contracts
 {
@@ -9,9 +8,9 @@ namespace TattooShop.Services.Contracts
     {
         IQueryable<Product> All();
 
-        Product ProductDetails(string productId);
+        TViewModel ProductDetails<TViewModel>(string productId);
 
-        IQueryable<Product> OtherSimilar(ProductsCategories category);
+        IQueryable<Product> OtherSimilar(string category);
 
         IEnumerable<Category> GetAllCategories();
 

@@ -1,9 +1,11 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using TattooShop.Data.Contracts;
 using TattooShop.Data.Models;
 using TattooShop.Data.Models.Enums;
+using TattooShop.Services.Automapper;
 using TattooShop.Services.Contracts;
 
 namespace TattooShop.Services
@@ -21,17 +23,20 @@ namespace TattooShop.Services
 
         public IQueryable<Tattoo> All() => this._tattoosRepository.All().Include(t => t.TattooStyle).OrderBy(t => t.DoneOn);
 
-        public Tattoo Details(string id)
+        public TViewModel Details<TViewModel>(string id)
         {
-            var tattoo = this._tattoosRepository.All().Include(t => t.TattooStyle).Include(t => t.Artist).First(t => t.Id == id);
+            var tattoo = this._tattoosRepository.All().Include(t => t.TattooStyle).ThenInclude(t => t.Name).Include(t => t.Artist).Where(t => t.Id == id)
+                .To<TViewModel>()
+                .FirstOrDefault();
 
             return tattoo;
         }
 
-        public IEnumerable<Tattoo> OtherSimilar(TattooStyles tattooStyle)
+        public IQueryable<Tattoo> OtherSimilar(string tattooStyle)
         {
-            return this._tattoosRepository.All().Include(t => t.TattooStyle).Where(t => t.TattooStyle.Name == tattooStyle).OrderBy(t => t.DoneOn).Take(9)
-                .ToList();
+            var style = Enum.Parse<TattooStyles>(tattooStyle);
+            return this._tattoosRepository.All().Include(t => t.TattooStyle)
+                .Where(t => t.TattooStyle.Name == style).OrderBy(t => t.DoneOn).Take(9);
         }
 
         public IEnumerable<Style> GetAllStyles()
@@ -42,6 +47,12 @@ namespace TattooShop.Services
         public IQueryable<Tattoo> GetAllTattoosFromStyle(string style)
         {
             return this._tattoosRepository.All().Where(t => t.TattooStyle.Name.ToString() == style);
+        }
+
+        public Tattoo Details(string id)
+        {
+
+            return new Tattoo();
         }
     }
 }

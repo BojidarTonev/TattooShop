@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
-using TattooShop.Data.Models;
 using TattooShop.Services.Contracts;
 using TattooShop.Web.Areas.Orders.Models;
+using TattooShop.Web.Areas.Products.Models;
 
 namespace TattooShop.Web.Areas.Orders.Controllers
 {
@@ -29,25 +28,17 @@ namespace TattooShop.Web.Areas.Orders.Controllers
         [Authorize]
         public IActionResult Details(string id)
         {
-            var product = this._productsService.ProductDetails(id);
+            var product = this._productsService.ProductDetails<OrderProductDisplayViewModel>(id);
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var userAddress = this._usersService.GetUserAddress(userId);
 
-            var productDto = new OrderProductDisplayViewModel()
+            var dto = new CreateOrderViewModel()
             {
-                Name = product.Name,
-                Category = product.Category.ToString(),
-                Description = product.Description,
-                Price = product.Price.ToString(),
-                ImageUrl = product.ImageUrl
-            };
-            var model = new CreateOrderViewModel()
-            {
-                Product = productDto,
+                Product = product,
                 UserAddress = userAddress
             };
 
-            return this.View(model);
+            return this.View(dto);
         }
 
         [Authorize]
@@ -65,23 +56,24 @@ namespace TattooShop.Web.Areas.Orders.Controllers
                 return this.View(model);
             }
             var productId = this.HttpContext.GetRouteData().Values["id"].ToString();
-            var product = this._productsService.ProductDetails(productId);
+            var product = this._productsService.ProductDetails<ProductDetailsViewModel>(productId);
 
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var orderSuccessful = this._ordersService.AddOrder(model.DeliveryAddress, model.Description, model.Quantity, productId, userId, null).Result;
+            var orderSuccessful = this._ordersService.AddOrder(model.DeliveryAddress, model.Description, model.Quantity, productId, userId).Result;
 
             if (!orderSuccessful)
             {
                 return this.View("Error");
             }
 
-            var finalPrice = model.Quantity * product.Price;
+            var finalPrice = model.Quantity * decimal.Parse(product.Price);
+
             var finish = new FinishOrderViewModel()
             {
                 FinalPrice = finalPrice,
                 DeliveryAddress = model.DeliveryAddress,
-                DeliveryDay = DateTime.UtcNow.ToString(),
+                DeliveryDay = DateTime.UtcNow.AddDays(3).ToString("D"),
                 ProductName = product.Name
             };
 

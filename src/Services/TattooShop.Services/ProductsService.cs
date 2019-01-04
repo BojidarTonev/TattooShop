@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using TattooShop.Data.Contracts;
 using TattooShop.Data.Models;
 using TattooShop.Data.Models.Enums;
+using TattooShop.Services.Automapper;
 using TattooShop.Services.Contracts;
 
 namespace TattooShop.Services
@@ -21,16 +23,21 @@ namespace TattooShop.Services
 
         public IQueryable<Product> All() => this._productsRepository.All().Include(p => p.Category);
 
-        public Product ProductDetails(string productId)
+        public TViewModel ProductDetails<TViewModel>(string productId)
         {
-            var product = this._productsRepository.All().Include(p => p.Category).FirstOrDefault(p => p.Id == productId);
+            var product = this._productsRepository.All().Include(p => p.Category)
+                .Where(p => p.Id == productId)
+                .To<TViewModel>()
+                .FirstOrDefault();
 
             return product;
         }
 
-        public IQueryable<Product> OtherSimilar(ProductsCategories category)
+        public IQueryable<Product> OtherSimilar(string category)
         {
-            return this._productsRepository.All().Include(p => p.Category).Where(p => p.Category.Name == category).Take(9);
+            var productCategory = Enum.Parse<ProductsCategories>(category);
+
+            return this._productsRepository.All().Include(p => p.Category).Where(p => p.Category.Name == productCategory).Take(9);
         }
 
         public IEnumerable<Category> GetAllCategories()

@@ -31,11 +31,12 @@ namespace TattooShop.Web.Areas.Products.Controllers
                 DisplayCategory = "All"
             };
 
-            var productsCategories = this._productsService.GetAllCategories().Select(t => new SelectListItem()
-            {
-                Value = t.Id,
-                Text = t.Name.ToString()
-            });
+            var productsCategories = this._productsService.GetAllCategories()
+                .Select(t => new SelectListItem()
+                {
+                    Value = t.Id,
+                    Text = t.Name.ToString()
+                });
 
             this.ViewData["ProductsCategories"] = productsCategories;
 
@@ -52,11 +53,12 @@ namespace TattooShop.Web.Areas.Products.Controllers
                 .To<ProductsAllViewModel>()
                 .ToList();
 
-            var productsCategories = this._productsService.GetAllCategories().Select(t => new SelectListItem()
-            {
-                Value = t.Id,
-                Text = t.Name.ToString()
-            });
+            var productsCategories = this._productsService.GetAllCategories()
+                .Select(t => new SelectListItem()
+                {
+                    Value = t.Id,
+                    Text = t.Name.ToString()
+                });
 
             this.ViewData["ProductsCategories"] = productsCategories;
 
@@ -71,23 +73,14 @@ namespace TattooShop.Web.Areas.Products.Controllers
 
         public IActionResult Details(string id)
         {
-            var product = this._productsService.ProductDetails(id);
-            var similars = this._productsService.OtherSimilar(product.Category.Name)
+            var product = this._productsService.ProductDetails<ProductDetailsViewModel>(id);
+            var similars = this._productsService.OtherSimilar(product.Category)
                 .To<SimilarProductsDisplayModel>()
                 .ToList();
 
-            var dto = new ProductDetailsViewModel()
-            {
-                Description = product.Description,
-                Id = product.Id,
-                Name = product.Name,
-                Price = product.Price.ToString(),
-                Category = product.Category.ToString(),
-                ImageUrl = product.ImageUrl,
-                SimilarProducts = similars
-            };
+            product.SimilarProducts = similars;
 
-            return this.View(dto);
+            return this.View(product);
         }
     }
 }

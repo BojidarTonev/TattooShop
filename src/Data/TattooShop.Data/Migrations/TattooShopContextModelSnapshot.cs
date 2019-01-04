@@ -286,7 +286,7 @@ namespace TattooShop.Data.Migrations
 
                     b.Property<int>("Sessions");
 
-                    b.Property<string>("TattoRelevantName");
+                    b.Property<string>("TattooRelevantName");
 
                     b.Property<string>("TattooStyleId");
 

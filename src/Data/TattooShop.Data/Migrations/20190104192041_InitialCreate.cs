@@ -273,7 +273,7 @@ namespace TattooShop.Data.Migrations
                     Id = table.Column<string>(nullable: false),
                     DoneOn = table.Column<DateTime>(nullable: false),
                     ArtistId = table.Column<string>(nullable: true),
-                    TattoRelevantName = table.Column<string>(nullable: true),
+                    TattooRelevantName = table.Column<string>(nullable: true),
                     TattooStyleId = table.Column<string>(nullable: true),
                     TattooUrl = table.Column<string>(nullable: true),
                     Sessions = table.Column<int>(nullable: false)

@@ -36,41 +36,18 @@ namespace TattooShop.Web.Areas.Artists.Controllers
 
         public IActionResult Details(string id)
         {
-            var tattoosDto = new List<ArtistDetailsTattoosViewModel>();
-            var artist = this._artistsService.Details(id);
+            var artist = this._artistsService.Details<DisplayArtistDetailsViewModel>(id);
+            var artistTattoos = this._artistsService.GetArtistsArtwork<ArtistDetailsTattoosViewModel>(artist.Id);
 
-            foreach (var tattoo in artist.TattooCollection)
-            {
-                var tatDto = new ArtistDetailsTattoosViewModel()
-                {
-                    TattooStyle = tattoo.TattooStyle.Name.ToString(),
-                    TattooId = tattoo.Id,
-                    TattooRelevantName = tattoo.TattoRelevantName,
-                    TattooUrl = tattoo.TattooUrl
-                };
+            artist.Tattoos = artistTattoos.ToList();
 
-
-                tattoosDto.Add(tatDto);
-            }
-
-            var dto = new DisplayArtistDetailsViewModel()
-            {
-                ArtistId = artist.Id,
-                Autobiography = artist.Autobiography,
-                BestAt = artist.BestAt.ToString(),
-                FirstName = artist.FirstName,
-                ImageUrl = artist.ImageUrl,
-                LastName = artist.LastName,
-                Tattoos = tattoosDto
-            };
-
-            return View(dto);
+            return View(artist);
         }
 
         [Authorize]
         public IActionResult BookTattoo(string id)
         {
-            var artist = this._artistsService.Details(id);
+            var artist = this._artistsService.Details<BookTattooInputViewModel>(id);
 
             this.ViewData["TattooStyles"] = this._tattoosService.GetAllStyles()
                 .Select(ts => new SelectListItem
@@ -79,12 +56,7 @@ namespace TattooShop.Web.Areas.Artists.Controllers
                     Text = ts.Name.ToString()
                 });
 
-            var model = new BookTattooInputViewModel()
-            {
-                ArtistImageUrl = artist.ImageUrl
-            };
-
-            return this.View(model);
+            return this.View(artist);
         }
 
         [Authorize]
@@ -96,13 +68,12 @@ namespace TattooShop.Web.Areas.Artists.Controllers
                 return this.View(model);
             }
             var artistId = this.HttpContext.GetRouteData().Values["id"].ToString();
-            var artist = this._artistsService.Details(artistId);
 
             var style = this._stylesService.GetStyle(model.Style).Name.ToString();
 
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var bookSuccessful = this._artistsService.AddBook(model.BookedFor, model.Description, model.Image, style, userId, artist).Result;
+            var bookSuccessful = this._artistsService.AddBook(model.BookedFor, model.Description, model.Image, style, userId, artistId).Result;
 
             if (!bookSuccessful)
             {
