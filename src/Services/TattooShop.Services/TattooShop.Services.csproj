@@ -11,6 +11,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\TattooShop.Data.Models\TattooShop.Data.Models.csproj" />
     <ProjectReference Include="..\..\Data\TattooShop.Data\TattooShop.Data.csproj" />
+    <ProjectReference Include="..\TattooShop.Services.Automapper\TattooShop.Services.Automapper.csproj" />
   </ItemGroup>
 
 </Project>

@@ -24,7 +24,7 @@ namespace TattooShop.Services
             this._booksRepository = booksRepository;
         }
 
-        public IEnumerable<Artist> All() => this._artistsRepository.All().ToList();
+        public IQueryable<Artist> All() => this._artistsRepository.All();
 
         public Artist Details(string id)
         {

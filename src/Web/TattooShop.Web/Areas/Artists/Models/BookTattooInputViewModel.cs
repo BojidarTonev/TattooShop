@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http;
-using TattooShop.Data.Models;
 
 namespace TattooShop.Web.Areas.Artists.Models
 {

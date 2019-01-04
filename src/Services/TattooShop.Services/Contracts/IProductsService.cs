@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using TattooShop.Data.Models;
 using TattooShop.Data.Models.Enums;
 
@@ -6,14 +7,14 @@ namespace TattooShop.Services.Contracts
 {
     public interface IProductsService
     {
-        IEnumerable<Product> All();
+        IQueryable<Product> All();
 
         Product ProductDetails(string productId);
 
-        IEnumerable<Product> OtherSimilar(ProductsCategories category);
+        IQueryable<Product> OtherSimilar(ProductsCategories category);
 
         IEnumerable<Category> GetAllCategories();
 
-        IEnumerable<Product> GetAllProductsByCategory(string category);
+        IQueryable<Product> GetAllProductsByCategory(string category);
     }
 }

@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TattooShop.Web", "Web\TattooShop.Web\TattooShop.Web.csproj", "{A25B8953-7AD8-425C-A49E-E9D2E2DDB2F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TattooShop.Web", "Web\TattooShop.Web\TattooShop.Web.csproj", "{A25B8953-7AD8-425C-A49E-E9D2E2DDB2F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TattooShop.Data", "Data\TattooShop.Data\TattooShop.Data.csproj", "{40AB39BF-621F-445A-9A38-3D62F63D9B23}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TattooShop.Data", "Data\TattooShop.Data\TattooShop.Data.csproj", "{40AB39BF-621F-445A-9A38-3D62F63D9B23}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TattooShop.Data.Models", "Data\TattooShop.Data.Models\TattooShop.Data.Models.csproj", "{54F2CF53-C8AA-4D99-895C-5016691653D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TattooShop.Data.Models", "Data\TattooShop.Data.Models\TattooShop.Data.Models.csproj", "{54F2CF53-C8AA-4D99-895C-5016691653D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sandbox", "Tests\Sandbox\Sandbox.csproj", "{6678264B-7491-40BA-9F2F-D8103363F89E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sandbox", "Tests\Sandbox\Sandbox.csproj", "{6678264B-7491-40BA-9F2F-D8103363F89E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TattooShop.Services", "Services\TattooShop.Services\TattooShop.Services.csproj", "{24BA4FF2-C035-4562-AD5A-EF3C6693A7A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TattooShop.Services", "Services\TattooShop.Services\TattooShop.Services.csproj", "{24BA4FF2-C035-4562-AD5A-EF3C6693A7A1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TattooShop.Services.Automapper", "Services\TattooShop.Services.Automapper\TattooShop.Services.Automapper.csproj", "{1C62FC11-CFCB-4CD7-8D38-4A3E63259307}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{24BA4FF2-C035-4562-AD5A-EF3C6693A7A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24BA4FF2-C035-4562-AD5A-EF3C6693A7A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24BA4FF2-C035-4562-AD5A-EF3C6693A7A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C62FC11-CFCB-4CD7-8D38-4A3E63259307}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C62FC11-CFCB-4CD7-8D38-4A3E63259307}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C62FC11-CFCB-4CD7-8D38-4A3E63259307}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C62FC11-CFCB-4CD7-8D38-4A3E63259307}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

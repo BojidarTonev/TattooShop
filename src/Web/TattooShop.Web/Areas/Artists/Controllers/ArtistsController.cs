@@ -1,13 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Routing;
-using TattooShop.Data.Models;
+using TattooShop.Services.Automapper;
 using TattooShop.Services.Contracts;
 using TattooShop.Web.Areas.Artists.Models;
 
@@ -30,15 +28,8 @@ namespace TattooShop.Web.Areas.Artists.Controllers
         public IActionResult All()
         {
             var artists = this._artistsService.All()
-                .Select(a => new DisplayAllArtistsViewModel()
-                {
-                    ArtistId = a.Id,
-                    Autobiography = a.Autobiography,
-                    BestAt = a.BestAt.ToString(),
-                    FirstName = a.FirstName,
-                    ImageUrl = a.ImageUrl,
-                    LastName = a.LastName
-                });
+                .To<DisplayAllArtistsViewModel>()
+                .ToList();
 
             return this.View(artists);
         }
@@ -92,6 +83,7 @@ namespace TattooShop.Web.Areas.Artists.Controllers
             {
                 ArtistImageUrl = artist.ImageUrl
             };
+
             return this.View(model);
         }
 
@@ -118,15 +110,8 @@ namespace TattooShop.Web.Areas.Artists.Controllers
             }
 
             var artistsDto = this._artistsService.All()
-                .Select(a => new DisplayAllArtistsViewModel()
-                {
-                    ArtistId = a.Id,
-                    Autobiography = a.Autobiography,
-                    BestAt = a.BestAt.ToString(),
-                    FirstName = a.FirstName,
-                    ImageUrl = a.ImageUrl,
-                    LastName = a.LastName
-                });
+                .To<DisplayAllArtistsViewModel>()
+                .ToList();
 
             return this.View("All", artistsDto);
         }

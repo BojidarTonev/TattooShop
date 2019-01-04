@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using TattooShop.Data.Models;
@@ -7,7 +8,7 @@ namespace TattooShop.Services.Contracts
 {
     public interface IArtistsService
     {
-        IEnumerable<Artist> All();
+        IQueryable<Artist> All();
 
         Artist Details(string id);
 

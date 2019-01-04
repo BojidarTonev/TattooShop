@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using TattooShop.Services.Automapper;
 using TattooShop.Services.Contracts;
 using TattooShop.Web.Areas.Products.Models;
 
@@ -21,13 +22,8 @@ namespace TattooShop.Web.Areas.Products.Controllers
         public IActionResult All()
         {
             var products = this._productsService.All()
-                .Select(p => new ProductsAllViewModel()
-                {
-                    Category = p.Category.Name.ToString(),
-                    Id = p.Id,
-                    ImageUrl = p.ImageUrl,
-                    Name = p.Name
-                });
+                .To<ProductsAllViewModel>()
+                .ToList();
 
             var dto = new ProductsAllViewModelWrapper()
             {
@@ -53,13 +49,8 @@ namespace TattooShop.Web.Areas.Products.Controllers
             var category = this._categoriesService.GetCategory(categoryId);
 
             var products = this._productsService.GetAllProductsByCategory(category.Name.ToString())
-                .Select(p => new ProductsAllViewModel()
-                {
-                    Id = p.Id,
-                    Category = p.Category.Name.ToString(),
-                    ImageUrl = p.ImageUrl,
-                    Name = p.Name
-                }).ToList();
+                .To<ProductsAllViewModel>()
+                .ToList();
 
             var productsCategories = this._productsService.GetAllCategories().Select(t => new SelectListItem()
             {
@@ -71,7 +62,7 @@ namespace TattooShop.Web.Areas.Products.Controllers
 
             var dto = new ProductsAllViewModelWrapper()
             {
-                DisplayCategory = model.DisplayCategory,
+                DisplayCategory = category.Name.ToString(),
                 Products = products
             };
 
@@ -82,13 +73,8 @@ namespace TattooShop.Web.Areas.Products.Controllers
         {
             var product = this._productsService.ProductDetails(id);
             var similars = this._productsService.OtherSimilar(product.Category.Name)
-                .Select(p => new SimilarProductsDisplayModel()
-                {
-                    Category = p.Category.Name.ToString(),
-                    Id = p.Id,
-                    ImageUrl = p.ImageUrl,
-                    Name = p.Name
-                }).ToList();
+                .To<SimilarProductsDisplayModel>()
+                .ToList();
 
             var dto = new ProductDetailsViewModel()
             {

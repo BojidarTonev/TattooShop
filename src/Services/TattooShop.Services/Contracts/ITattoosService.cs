@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using TattooShop.Data.Models;
 using TattooShop.Data.Models.Enums;
 
@@ -6,7 +7,7 @@ namespace TattooShop.Services.Contracts
 {
     public interface ITattoosService
     {
-        IEnumerable<Tattoo> All();
+        IQueryable<Tattoo> All();
 
         Tattoo Details(string id);
 
@@ -14,6 +15,6 @@ namespace TattooShop.Services.Contracts
 
         IEnumerable<Style> GetAllStyles();
 
-        IEnumerable<Tattoo> GetAllTattoosFromStyle(string id);
+        IQueryable<Tattoo> GetAllTattoosFromStyle(string style);
     }
 }

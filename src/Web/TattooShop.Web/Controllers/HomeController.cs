@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using TattooShop.Services.Automapper;
 using TattooShop.Services.Contracts;
 using TattooShop.Web.Models;
 
@@ -18,13 +19,8 @@ namespace TattooShop.Web.Controllers
         public IActionResult Index()
         {
             var tattoos = this._homeService.RecentTattoos()
-                .Select(t => new IndexTattooViewModel()
-                {
-                    Id = t.Id,
-                    TattooUrl = t.TattooUrl,
-                    TattooRelevantName = t.TattoRelevantName,
-                    TattooStyle = t.TattooStyle.Name.ToString()
-                }).ToList();
+                .To<IndexTattooViewModel>()
+                .ToList();
 
             return View(tattoos);
         }
@@ -45,15 +41,8 @@ namespace TattooShop.Web.Controllers
         public IActionResult About()
         {
             var artists = this._homeService.AllArtists()
-                .Select(a => new AboutArtistsDisplayViewModel()
-                {
-                    Autobiography = a.Autobiography,
-                    FirstName = a.FirstName,
-                    Id = a.Id,
-                    LastName = a.LastName,
-                    TattoosDone = a.TattoosDone.ToString(),
-                    ImageUrl = a.ImageUrl
-                }).ToList();
+                .To<AboutArtistsDisplayViewModel>()
+                .ToList();
 
             return this.View(artists);
         }

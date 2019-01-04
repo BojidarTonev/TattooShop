@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using TattooShop.Data.Models;
 
 namespace TattooShop.Services.Contracts
 {
     public interface IHomeService
     {
-        IEnumerable<Tattoo> RecentTattoos();
+        IQueryable<Tattoo> RecentTattoos();
 
-        IEnumerable<Artist> AllArtists();
+        IQueryable<Artist> AllArtists();
 
         void RegisterFeedBack(string firstName, string lastName, string message, string email, string phone);
 

@@ -19,7 +19,7 @@ namespace TattooShop.Services
             this._stylesRepository = stylesRepository;
         }
 
-        public IEnumerable<Tattoo> All() => this._tattoosRepository.All().Include(t => t.TattooStyle).OrderBy(t => t.DoneOn);
+        public IQueryable<Tattoo> All() => this._tattoosRepository.All().Include(t => t.TattooStyle).OrderBy(t => t.DoneOn);
 
         public Tattoo Details(string id)
         {
@@ -39,9 +39,9 @@ namespace TattooShop.Services
             return this._stylesRepository.All().ToList();
         }
 
-        public IEnumerable<Tattoo> GetAllTattoosFromStyle(string style)
+        public IQueryable<Tattoo> GetAllTattoosFromStyle(string style)
         {
-            return this._tattoosRepository.All().Where(t => t.TattooStyle.Name.ToString() == style).ToList();
+            return this._tattoosRepository.All().Where(t => t.TattooStyle.Name.ToString() == style);
         }
     }
 }

@@ -10,7 +10,9 @@ using TattooShop.Data;
 using TattooShop.Data.Contracts;
 using TattooShop.Data.Models;
 using TattooShop.Services;
+using TattooShop.Services.Automapper;
 using TattooShop.Services.Contracts;
+using TattooShop.Web.Models;
 
 namespace TattooShop.Web
 {
@@ -55,6 +57,10 @@ namespace TattooShop.Web
                     facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
                     facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
                 });
+
+            AutoMapperConfig.RegisterMappings(
+                typeof(IndexTattooViewModel).Assembly
+                );
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 

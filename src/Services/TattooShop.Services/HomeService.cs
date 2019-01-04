@@ -24,14 +24,14 @@ namespace TattooShop.Services
             this._feedbackRepository = feedbackRepository;
         }
 
-        public IEnumerable<Tattoo> RecentTattoos()
+        public IQueryable<Tattoo> RecentTattoos()
         {
-            return this._tattoosRepository.All().Include(t => t.TattooStyle).Take(TattoosToTake).OrderBy(x => x.DoneOn).ToList();
+            return this._tattoosRepository.All().Include(t => t.TattooStyle).Take(TattoosToTake).OrderBy(x => x.DoneOn);
         }
 
-        public IEnumerable<Artist> AllArtists()
+        public IQueryable<Artist> AllArtists()
         {
-            return this._artistsRepository.All().Include(a => a.TattooCollection).ToList();
+            return this._artistsRepository.All().Include(a => a.TattooCollection);
         }
 
         public void RegisterFeedBack(string firstName, string lastName, string message, string email, string phone)

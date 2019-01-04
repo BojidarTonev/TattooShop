@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using TattooShop.Services.Automapper;
 using TattooShop.Services.Contracts;
 using TattooShop.Web.Areas.Tattoos.Models;
 
@@ -23,13 +24,8 @@ namespace TattooShop.Web.Areas.Tattoos.Controllers
         public IActionResult All()
         {
             var tattoos = this._tattoosService.All()
-                .Select(t => new AllTattoosViewModel()
-                {
-                    Id =t.Id,
-                    TattooUrl = t.TattooUrl,
-                    TattooRelevantName = t.TattoRelevantName,
-                    TattooStyle = t.TattooStyle.Name.ToString()
-                }).ToList();
+                .To<AllTattoosViewModel>()
+                .ToList();
 
             var tattooStyles = this._tattoosService.GetAllStyles().Select(t => new SelectListItem()
             {
@@ -89,15 +85,8 @@ namespace TattooShop.Web.Areas.Tattoos.Controllers
             var style = this._stylesService.GetStyle(styleId);
 
             var tattoos = this._tattoosService.GetAllTattoosFromStyle(style.Name.ToString())
-                .Select(t => new AllTattoosViewModel()
-                {
-                    Id = t.Id,
-                    TattooUrl = t.TattooUrl,
-                    TattooRelevantName = t.TattoRelevantName,
-                    TattooStyle = t.TattooStyle.Name.ToString()
-                }).ToList();
-
-           // var tattoosDto = Mapper.Map<AllTattoosViewModel>(tattoos);
+                .To<AllTattoosViewModel>()
+                .ToList();
 
             var tattooStyles = this._tattoosService.GetAllStyles().Select(t => new SelectListItem()
             {

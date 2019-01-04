@@ -19,7 +19,7 @@ namespace TattooShop.Services
             this._categoriesRepository = categoriesRepository;
         }
 
-        public IEnumerable<Product> All() => this._productsRepository.All().Include(p => p.Category).ToList();
+        public IQueryable<Product> All() => this._productsRepository.All().Include(p => p.Category);
 
         public Product ProductDetails(string productId)
         {
@@ -28,7 +28,7 @@ namespace TattooShop.Services
             return product;
         }
 
-        public IEnumerable<Product> OtherSimilar(ProductsCategories category)
+        public IQueryable<Product> OtherSimilar(ProductsCategories category)
         {
             return this._productsRepository.All().Include(p => p.Category).Where(p => p.Category.Name == category).Take(9);
         }
@@ -38,9 +38,9 @@ namespace TattooShop.Services
             return this._categoriesRepository.All().ToList();
         }
 
-        public IEnumerable<Product> GetAllProductsByCategory(string category)
+        public IQueryable<Product> GetAllProductsByCategory(string category)
         {
-            return this._productsRepository.All().Where(p => p.Category.Name.ToString() == category).ToList();
+            return this._productsRepository.All().Where(p => p.Category.Name.ToString() == category);
         }
     }
 }
