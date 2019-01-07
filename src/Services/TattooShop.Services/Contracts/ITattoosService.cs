@@ -8,8 +8,6 @@ namespace TattooShop.Services.Contracts
     {
         IQueryable<Tattoo> All();
 
-        Tattoo Details(string id);
-
         TViewModel Details<TViewModel>(string id);
 
         IQueryable<Tattoo> OtherSimilar(string tattooStyle);

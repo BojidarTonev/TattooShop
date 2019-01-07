@@ -54,14 +54,5 @@ namespace TattooShop.Services
         {
             return await _context.SaveChangesAsync() > 0;
         }
-
-        //public string ReturnImage(TattooImage image)
-        //{
-        //    string url = _cloudinary.Api.UrlImgUp.Transform(
-        //            new Transformation().Width(2000).Height(300).Crop("fill").Gravity("center"))
-        //        .BuildUrl(image.PublicId);
-
-        //    return url;
-        //}
     }
 }

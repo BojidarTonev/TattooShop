@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.ComponentModel.DataAnnotations;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using TattooShop.Data.Models;
 using TattooShop.Services.Automapper;
@@ -10,7 +11,7 @@ namespace TattooShop.Web.Areas.Artists.Models
         public string Description { get; set; }
 
         public IFormFile Image { get; set; }
-
+        
         public string BookedFor { get; set; }
 
         public string Style { get; set; }

@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sandbox", "Tests\Sandbox\Sa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TattooShop.Services", "Services\TattooShop.Services\TattooShop.Services.csproj", "{24BA4FF2-C035-4562-AD5A-EF3C6693A7A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TattooShop.Services.Automapper", "Services\TattooShop.Services.Automapper\TattooShop.Services.Automapper.csproj", "{1C62FC11-CFCB-4CD7-8D38-4A3E63259307}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TattooShop.Services.Automapper", "Services\TattooShop.Services.Automapper\TattooShop.Services.Automapper.csproj", "{1C62FC11-CFCB-4CD7-8D38-4A3E63259307}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TattooShop.Services.Tests", "Tests\TattooShop.Services.Tests\TattooShop.Services.Tests.csproj", "{8C15FA5F-8808-4564-979C-302585A93DD5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{1C62FC11-CFCB-4CD7-8D38-4A3E63259307}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C62FC11-CFCB-4CD7-8D38-4A3E63259307}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C62FC11-CFCB-4CD7-8D38-4A3E63259307}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C15FA5F-8808-4564-979C-302585A93DD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C15FA5F-8808-4564-979C-302585A93DD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C15FA5F-8808-4564-979C-302585A93DD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C15FA5F-8808-4564-979C-302585A93DD5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

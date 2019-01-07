@@ -48,11 +48,5 @@ namespace TattooShop.Services
         {
             return this._tattoosRepository.All().Where(t => t.TattooStyle.Name.ToString() == style);
         }
-
-        public Tattoo Details(string id)
-        {
-
-            return new Tattoo();
-        }
     }
 }

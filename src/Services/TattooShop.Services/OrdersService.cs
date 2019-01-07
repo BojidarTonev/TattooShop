@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using TattooShop.Data.Contracts;
 using TattooShop.Data.Models;
