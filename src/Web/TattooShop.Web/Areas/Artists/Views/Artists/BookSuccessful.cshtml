@@ -1,0 +1,25 @@
+﻿@model BooksSuccesfullViewModel
+@{
+    ViewData["Title"] = "You book has been accepted.";
+}
+
+<section class="probootstrap-slider flexslider">
+    <ul class="slides">
+        <li style="background-image: url(https://www.pinknews.co.uk/images/2017/04/GettyImages-163320274.jpg);" class="overlay2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <div class="slides-text probootstrap-animate" data-animate-effect="fadeIn">
+                            <h1>@ViewData["Title"]</h1>
+                            <h3>Book date: @Model.BookedFor</h3><br />
+                            <h3>Artist: @Model.FirstName @Model.LastName</h3><br />
+                            <h3>Thank you for choosing us for your next tattoo! We appreciate your trust in us!</h3>
+                            <h3>Soon the tattoo artist will contact you at the Email you contacted us on:</br> @Model.Email</h3>
+                            <a asp-area="Artists" asp-controller="Artists" asp-action="All" class="btn btn-success">Back to artists</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</section>

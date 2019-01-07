@@ -16,12 +16,14 @@ namespace TattooShop.Web.Areas.Artists.Controllers
         private readonly IArtistsService _artistsService;
         private readonly ITattoosService _tattoosService;
         private readonly IStylesService _stylesService;
+        private readonly IUsersService _usersService;
 
-        public ArtistsController(IArtistsService artistsService, ITattoosService tattoosService, IStylesService stylesService)
+        public ArtistsController(IArtistsService artistsService, ITattoosService tattoosService, IStylesService stylesService, IUsersService usersService)
         {
             this._artistsService = artistsService;
             this._tattoosService = tattoosService;
             this._stylesService = stylesService;
+            this._usersService = usersService;
         }
 
         public IActionResult All()
@@ -98,11 +100,13 @@ namespace TattooShop.Web.Areas.Artists.Controllers
                 return this.View(artist);
             }
 
-            var artistsDto = this._artistsService.All()
-                .To<DisplayAllArtistsViewModel>()
-                .ToList();
+            var successDto = this._artistsService
+                .Details<BooksSuccesfullViewModel>(artistId);
+            var userEmail = this._usersService.GetUserEmail(userId);
+            successDto.BookedFor = model.BookedFor;
+            successDto.Email = userEmail;
 
-            return this.View("All", artistsDto);
+            return this.View("BookSuccessful", successDto);
         }
     }
 }

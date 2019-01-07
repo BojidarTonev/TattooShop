@@ -38,5 +38,12 @@ namespace TattooShop.Services
 
             return user.Address;
         }
+
+        public string GetUserEmail(string id)
+        {
+            var user = this._usersRepository.All().Single(u => u.Id == id);
+
+            return user.Email;
+        }
     }
 }

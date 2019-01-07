@@ -10,5 +10,7 @@ namespace TattooShop.Services.Contracts
         IEnumerable<Order> GetUserOrders(string userId);
 
         string GetUserAddress(string id);
+
+        string GetUserEmail(string id);
     }
 }

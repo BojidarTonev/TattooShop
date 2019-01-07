@@ -87,5 +87,22 @@ namespace TattooShop.Services.Tests
             var service = new UsersService(null, null, usersRepository.Object);
             Assert.Same("Sample address", service.GetUserAddress("1"));
         }
+
+        [Fact]
+        public void GetUserEmailShouldReturnUserValidEmail()
+        {
+            var usersRepository = new Mock<IRepository<TattooShopUser>>();
+            usersRepository.Setup(r => r.All()).Returns(new List<TattooShopUser>()
+            {
+                new TattooShopUser()
+                {
+                    Id = "1",
+                    Email = "Sample address"
+                }
+            }.AsQueryable());
+
+            var service = new UsersService(null, null, usersRepository.Object);
+            Assert.Same("Sample address", service.GetUserEmail("1"));
+        }
     }
 }
