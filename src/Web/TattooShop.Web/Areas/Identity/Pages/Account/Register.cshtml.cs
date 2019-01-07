@@ -40,16 +40,15 @@ namespace TattooShop.Web.Areas.Identity.Pages.Account
             [Display(Name = "Email")]
             public string Email { get; set; }
 
-            [Required]
             [DataType(DataType.Text)]
             [Display(Name = "First name")]
             public string FirstName { get; set; }
 
-            [Required]
             [DataType(DataType.Text)]
             [Display(Name = "Last name")]
             public string LastName { get; set; }
 
+            [Required]
             [DataType(DataType.Text)]
             [MinLength(3, ErrorMessage = "Username  must be at least 3 characters long.")]
             [Display(Name = "Username")]
@@ -68,6 +67,7 @@ namespace TattooShop.Web.Areas.Identity.Pages.Account
 
             //[RegularExpression("[/d]", ErrorMessage = "Invalid phone number.")]
             [DataType(DataType.Text)]
+            [Phone]
             public string PhoneNumber { get; set; }
 
             public byte[] Image { get; set; }

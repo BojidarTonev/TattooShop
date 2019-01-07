@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -35,7 +34,7 @@ namespace TattooShop.Services.Tests
         public async Task AddBookShouldActuallyAddBookToDatabase()
         {
             var options = new DbContextOptionsBuilder<TattooShopContext>()
-                .UseInMemoryDatabase(databaseName: "Unique_Db_Name_5785219")
+                .UseInMemoryDatabase(databaseName: "Unique_Db_Name_5785216")
                 .Options;
             var dbContext = new TattooShopContext(options);
             dbContext.Artists.Add(new Artist()

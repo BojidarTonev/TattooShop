@@ -16,7 +16,7 @@ namespace TattooShop.Services.Tests
         public async Task AddOrderShouldActuallyAddOrder()
         {
             var options = new DbContextOptionsBuilder<TattooShopContext>()
-                .UseInMemoryDatabase(databaseName: "Unique_Db_Name_5785219")
+                .UseInMemoryDatabase(databaseName: "Unique_Db_Name_578521936")
                 .Options;
             var dbContext = new TattooShopContext(options);
             dbContext.Products.Add(new Product()

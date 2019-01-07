@@ -8,10 +8,13 @@ namespace TattooShop.Web.Areas.Artists.Models
 {
     public class BookTattooInputViewModel : IMapFrom<Artist>, IHaveCustomMappings
     {
+        public string Id { get; set; }
+
         public string Description { get; set; }
 
         public IFormFile Image { get; set; }
-        
+
+        [Required(ErrorMessage = "Please select date in the near future, we are not wizard, we cant go back in time, neither predict your wishes.")]
         public string BookedFor { get; set; }
 
         public string Style { get; set; }

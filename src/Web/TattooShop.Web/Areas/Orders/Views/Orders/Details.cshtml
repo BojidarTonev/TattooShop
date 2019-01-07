@@ -37,6 +37,7 @@
                     <div class="form-group col-md-auto">
                         <label asp-for="@Model.DeliveryAddress">Delivery Address</label><br />
                         <input asp-for="@Model.DeliveryAddress" type="text" class="form-control" plceholder="The address you want the product delivered to..">
+                        <span asp-validation-for="@Model.DeliveryAddress" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="row">

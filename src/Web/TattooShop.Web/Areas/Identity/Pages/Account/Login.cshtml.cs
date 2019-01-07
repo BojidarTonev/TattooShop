@@ -36,15 +36,13 @@ namespace TattooShop.Web.Areas.Identity.Pages.Account
 
         public class InputModel
         {
+            [Required(ErrorMessage = "Log in without username? Nope.")]
             [DataType(DataType.Text)]
-            [MinLength(3, ErrorMessage = "Username  must be at least 3 characters long.")]
             [Display(Name = "Username")]
-            [RegularExpression("^[0-9a-zA-Z-_.*~]+$", ErrorMessage = "Username may only contain alphanumeric characters, dashes, underscores, dots, asterisks and tildes.")]
             public string UserName { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Log in without password? Nope.")]
             [DataType(DataType.Password)]
-            [MinLength(5, ErrorMessage = "Password must be atleast 5 characters long.")]
             [Display(Name = "Password")]
             public string Password { get; set; }
 

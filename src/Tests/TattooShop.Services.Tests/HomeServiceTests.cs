@@ -57,7 +57,7 @@ namespace TattooShop.Services.Tests
         public void RegisterFeedBackShouldActuallyRegistersFeedback()
         {
             var options = new DbContextOptionsBuilder<TattooShopContext>()
-                .UseInMemoryDatabase(databaseName: "Unique_Db_Name_5785219")
+                .UseInMemoryDatabase(databaseName: "Unique_Db_Name_57852181")
                 .Options;
             var dbContext = new TattooShopContext(options);
 

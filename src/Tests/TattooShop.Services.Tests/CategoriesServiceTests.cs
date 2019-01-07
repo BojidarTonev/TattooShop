@@ -11,7 +11,7 @@ namespace TattooShop.Services.Tests
         public void GetCategoryShouldReturnTheRightCategory()
         {
             var options = new DbContextOptionsBuilder<TattooShopContext>()
-                .UseInMemoryDatabase(databaseName: "Unique_Db_Name_5785219")
+                .UseInMemoryDatabase(databaseName: "Unique_Db_Name_5785217")
                 .Options;
             var dbContext = new TattooShopContext(options);
             dbContext.Categories.Add(new Category()

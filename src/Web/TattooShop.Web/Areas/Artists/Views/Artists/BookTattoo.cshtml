@@ -37,6 +37,7 @@
                     <div class="form-group col-md-auto">
                         <label asp-for="@Model.BookedFor">Book date:</label>
                         <input asp-for="@Model.BookedFor" type="date" class="form-control" plceholder="The date you wishto visit us...">
+                        <span asp-validation-for="@Model.BookedFor" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="row">
@@ -52,6 +53,7 @@
                     <div class="form-group col-md-auto">
                         <label asp-for="@Model.Image"></label>
                         <input asp-for="@Model.Image" class="form-control" placeholder="Send us example image...">
+                        <span asp-validation-for="@Model.Image" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="text-center">

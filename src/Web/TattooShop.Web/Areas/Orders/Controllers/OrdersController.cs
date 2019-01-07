@@ -53,7 +53,17 @@ namespace TattooShop.Web.Areas.Orders.Controllers
         {
             if (!TryValidateModel(model))
             {
-                return this.View(model);
+                var productt = this._productsService.ProductDetails<OrderProductDisplayViewModel>(model.Id);
+                var userIdd = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var userAddress = this._usersService.GetUserAddress(userIdd);
+
+                var dto = new CreateOrderViewModel()
+                {
+                    Product = productt,
+                    UserAddress = userAddress
+                };
+
+                return this.View(dto);
             }
             var productId = this.HttpContext.GetRouteData().Values["id"].ToString();
             var product = this._productsService.ProductDetails<ProductDetailsViewModel>(productId);
@@ -64,7 +74,17 @@ namespace TattooShop.Web.Areas.Orders.Controllers
 
             if (!orderSuccessful)
             {
-                return this.View("Error");
+                var productt = this._productsService.ProductDetails<OrderProductDisplayViewModel>(model.Id);
+                var userIdd = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var userAddress = this._usersService.GetUserAddress(userIdd);
+
+                var dto = new CreateOrderViewModel()
+                {
+                    Product = productt,
+                    UserAddress = userAddress
+                };
+
+                return this.View(dto);
             }
 
             var finalPrice = model.Quantity * decimal.Parse(product.Price);

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -65,8 +64,18 @@ namespace TattooShop.Web.Areas.Artists.Controllers
         {
             if (!TryValidateModel(model))
             {
-                return this.View(model);
+                var artist = this._artistsService.Details<BookTattooInputViewModel>(model.Id);
+
+                this.ViewData["TattooStyles"] = this._tattoosService.GetAllStyles()
+                    .Select(ts => new SelectListItem
+                    {
+                        Value = ts.Id.ToString(),
+                        Text = ts.Name.ToString()
+                    });
+
+                return this.View(artist);
             }
+
             var artistId = this.HttpContext.GetRouteData().Values["id"].ToString();
 
             var style = this._stylesService.GetStyle(model.Style).Name.ToString();
@@ -77,7 +86,16 @@ namespace TattooShop.Web.Areas.Artists.Controllers
 
             if (!bookSuccessful)
             {
-                return this.View("Error");
+                var artist = this._artistsService.Details<BookTattooInputViewModel>(model.Id);
+
+                this.ViewData["TattooStyles"] = this._tattoosService.GetAllStyles()
+                    .Select(ts => new SelectListItem
+                    {
+                        Value = ts.Id.ToString(),
+                        Text = ts.Name.ToString()
+                    });
+
+                return this.View(artist);
             }
 
             var artistsDto = this._artistsService.All()
