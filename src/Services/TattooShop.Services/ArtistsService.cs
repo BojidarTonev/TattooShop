@@ -85,7 +85,6 @@ namespace TattooShop.Services
             var artistTattoos = this._tattoosRepository.All()
                 .Where(t => t.ArtistId == id)
                 .Include(t => t.TattooStyle)
-                .ThenInclude(t => t.Name)
                 .To<TViewModel>()
                 .ToList();
 

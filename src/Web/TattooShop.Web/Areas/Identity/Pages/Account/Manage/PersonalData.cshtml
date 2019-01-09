@@ -57,9 +57,9 @@
                                 {
                                     <tr>
                                         <th scope="row"></th>
-                                        <td>@book.BookedFor</td>
+                                        <td>@book.BookedFor.ToString("D")</td>
                                         <td>@book.Artist.FirstName @book.Artist.LastName</td>
-                                        <td>@book.BookedOn</td>
+                                        <td>@book.BookedOn.ToString("D")</td>
                                     </tr>
                                 }
                             }
@@ -94,9 +94,9 @@
                                 {
                                     <tr>
                                         <th scope="row"></th>
-                                        <td>@book.EstimatedDeliveryDay</td>
+                                        <td>@book.EstimatedDeliveryDay.ToString("D")</td>
                                         <td>@book.Product.Name</td>
-                                        <td>@book.OrderedOn</td>
+                                        <td>@book.OrderedOn.ToString("D")</td>
                                     </tr>
                                 }
                             }

@@ -14,6 +14,7 @@
                             <h2>@Model.TattooRelevantName</h2>
                             <h1>Done by: <a asp-area="Artists" asp-controller="Artists" asp-action="Details" asp-route-id="@Model.ArtistId">@Model.ArtistFirstName @Model.ArtistLastName</a></h1>
                             <h2>Style: @Model.TattooStyle</h2>
+                            <p><a href="@Model.TattooUrl">raw image</a></p>
                         </div>
                     </div>
                 </div>

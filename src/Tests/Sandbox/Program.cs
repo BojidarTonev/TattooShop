@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.IO;
 using System.Text;
@@ -36,13 +35,8 @@ namespace Sandbox
         private static void SandboxCode(IServiceProvider serviceProvider)
         {
             //TODO: code here...
-            SeedTattooShopDatabaseRolesAndDefaultAdminAndArtist(serviceProvider);
-            SeedEnumsDatabase(serviceProvider);
-            SeedSampleProductsData(serviceProvider);
-            SeedSampleTattooArtistData(serviceProvider);
-            SeedSampleTattoosData(serviceProvider);
+            SeedDatabase(serviceProvider);
         }
-       
 
         private static void ConfigureServices(ServiceCollection services)
         {
@@ -67,6 +61,15 @@ namespace Sandbox
                 .AddEntityFrameworkStores<TattooShopContext>();
 
             services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
+        }
+
+        private static void SeedDatabase(IServiceProvider serviceProvider)
+        {
+            SeedTattooShopDatabaseRolesAndDefaultAdminAndArtist(serviceProvider);
+            SeedEnumsDatabase(serviceProvider);
+            SeedSampleProductsData(serviceProvider);
+            SeedSampleTattooArtistData(serviceProvider);
+            SeedSampleTattoosData(serviceProvider);
         }
 
         private static void SeedEnumsDatabase(IServiceProvider serviceProvider)
@@ -191,191 +194,378 @@ namespace Sandbox
 
         public static void SeedSampleTattooArtistData(IServiceProvider serviceProvider)
         {
-            int numberOfArtistsToSeed = 3;
             var db = serviceProvider.GetService<TattooShopContext>();
+
             if (!db.Artists.Any())
             {
-                var artistsToAdd = new List<Artist>();
-                string firstArtistImage =
-                    "http://opentranscripts.org/wp-content/uploads/2015/12/filip-leu.png";
-                string secondArtistImage =
-                    "https://www.tattoolife.com/wp-content/uploads/2017/05/tattoolife-tattoo-artists-section.jpg";
-                string thirdArtistImage =
-                    "https://vice-images.vice.com/images/content-images-crops/2015/08/11/sampa-tattoo-all-girl-parlour-876brazil-body-image-1439305125-size_1000.jpg?output-quality=75?resize=320:*";
-                for (int i = 0; i < numberOfArtistsToSeed; i++)
-                {
-                    string url;
-                    TattooStyles bestAt;
-                    if (i == 0)
-                    {
-                        url = firstArtistImage;
-                        bestAt = TattooStyles.Realistic;
-                    }
-                    else if (i == 1)
-                    {
-                        url = secondArtistImage;
-                        bestAt = TattooStyles.Geometric;
-                    }
-                    else
-                    {
-                        url = thirdArtistImage;
-                        bestAt = TattooStyles.TraditionalJapanese;
-                    }
-
-                    var artist = new Artist()
-                    {
-                        Autobiography = $"Bla-bla-bla-bla I am great artist <3. I have done {i} tattoos by now.",
-                        BestAt = bestAt,
-                        BirthDate = DateTime.ParseExact($"11/08/199{i}", "dd/mm/yyyy", CultureInfo.InvariantCulture),
-                        FirstName = $"Peter",
-                        LastName = $"01{i}",
-                        ImageUrl = url
-                    };
-
-                    artistsToAdd.Add(artist);
-                }
+                var artistsToAdd = CreateArtistsEntities(db);
 
                 db.Artists.AddRange(artistsToAdd);
                 db.SaveChanges();
             }
         }
 
+        private static List<Artist> CreateArtistsEntities(TattooShopContext db)
+        {
+            var artists = new List<Artist>();
+
+            string firstArtistImage =
+                "http://opentranscripts.org/wp-content/uploads/2015/12/filip-leu.png";
+            string secondArtistImage =
+                "https://www.tattoolife.com/wp-content/uploads/2017/05/tattoolife-tattoo-artists-section.jpg";
+            string thirdArtistImage =
+                "https://vice-images.vice.com/images/content-images-crops/2015/08/11/sampa-tattoo-all-girl-parlour-876brazil-body-image-1439305125-size_1000.jpg?output-quality=75?resize=320:*";
+
+            var firstArtistBestAt = db.Styles.First(s => s.Name == TattooStyles.Geometric).Name;
+            var secondArtistBestAt = db.Styles.First(s => s.Name == TattooStyles.Realistic).Name;
+            var thirdArtistBestAt = db.Styles.First(s => s.Name == TattooStyles.Polynesian).Name;
+
+            var firstArtist = new Artist()
+            {
+                Autobiography = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
+                BestAt = firstArtistBestAt,
+                BirthDate = DateTime.ParseExact("31-07-1988", "dd-MM-yyyy", null),
+                FirstName = "Peter",
+                LastName = "Peterson",
+                ImageUrl = firstArtistImage
+            };
+            artists.Add(firstArtist);
+
+            var secondArtist = new Artist()
+            {
+                Autobiography = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
+                BestAt = secondArtistBestAt,
+                BirthDate = DateTime.ParseExact("05-12-1973", "dd-MM-yyyy", null),
+                FirstName = "Storm",
+                LastName = "Spirit",
+                ImageUrl = secondArtistImage
+            };
+            artists.Add(secondArtist);
+
+            var thirdArtist = new Artist()
+            {
+                Autobiography = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
+                BestAt = thirdArtistBestAt,
+                BirthDate = DateTime.ParseExact("12-10-1987", "dd-MM-yyyy", null),
+                FirstName = "Rubick",
+                LastName = "Rubickson",
+                ImageUrl = thirdArtistImage
+            };
+            artists.Add(thirdArtist);
+
+            return artists;
+        }
+
         public static void SeedSampleProductsData(IServiceProvider serviceProvider)
         {
-            const int numberOfItemsToSeed = 10;
-
-            const string TattoCareCategory = "TattoCare";
-            const string TattoCareImageUrl = "https://i.etsystatic.com/14397240/r/il/034b89/1339559018/il_570xN.1339559018_hbcs.jpg";
-
-            const string PiercingAndSouvenirCategory = "Piercing and souvenir";
-            const string PiercingAndSouvenirImageUrl = "http://www.cuded.com/wp-content/uploads/2014/04/20-Ear-Piercings.jpg";
-
-            const string ClothesCategory = "Clothes";
-            const string ClothesImageUrl = "https://cdn.shopify.com/s/files/1/1248/7893/products/employed_242471d7-7144-4bff-abff-ec26d7d1ab5a_900x.jpg?v=1531421487";
-            
             var db = serviceProvider.GetService<TattooShopContext>();
-
-            var tattooCareCategory = db.Categories.First(c => c.Name == ProductsCategories.TattooCare);
-            var clothesCategory = db.Categories.First(c => c.Name == ProductsCategories.Clothes);
-            var piercingCategory = db.Categories.First(c => c.Name == ProductsCategories.Piercing);
 
             if (!db.Products.Any())
             {
-                var productsToAdd = new List<Product>();
-                for (int i = 0; i < numberOfItemsToSeed; i++)
-                {
-                    if (i <= 3)
-                    {
-                        var product = new Product()
-                        {
-                            Name = $"Tattoo care product{i}",
-                            Category = tattooCareCategory,
-                            Description = $"This is a great product buy it now please",
-                            Price = decimal.Parse("22.50"),
-                            ImageUrl = TattoCareImageUrl
-                        };
-
-                        productsToAdd.Add(product);
-                    }
-                    else if (i <= 6)
-                    {
-                        var product = new Product()
-                        {
-                            Name = $"Piercing product {i}",
-                            Category = piercingCategory,
-                            Description = $"This is a great product buy it now please",
-                            Price = decimal.Parse("22.50"),
-                            ImageUrl = PiercingAndSouvenirImageUrl
-                        };
-
-                        productsToAdd.Add(product);
-                    }
-                    else
-                    {
-                        var product = new Product()
-                        {
-                            Name = $"Employed t-shirt {i}",
-                            Category = clothesCategory,
-                            Description = $"This is a great product buy it now please",
-                            Price = decimal.Parse("22.50"),
-                            ImageUrl = ClothesImageUrl
-                        };
-
-                        productsToAdd.Add(product);
-                    }
-                }
+                var productsToAdd = CreateProductsEntities(db);
 
                 db.Products.AddRange(productsToAdd);
                 db.SaveChanges();
             }
         }
 
+        private static List<Product> CreateProductsEntities(TattooShopContext db)
+        {
+            const string tattooCareProductOneImageUrl = "https://i.etsystatic.com/14397240/r/il/034b89/1339559018/il_570xN.1339559018_hbcs.jpg";
+            const string tattooCareProductTwoImageUrl = "https://www.electricinkskin.com/images/skincare_slide.jpg";
+            const string piercingImageUrl = "https://authoritytattoo.com/wp-content/uploads/2017/09/Industrial-Piercing-3.jpg";
+            const string piercingTwoImageUrl = "https://i.pinimg.com/originals/4a/e0/d9/4ae0d93483b04b3ccb6998c985e45e38.jpg";
+            const string clothesImageUrl = "https://shop.r10s.jp/kuziyaku/cabinet/ts/kz-t-56/img57604367.jpg";
+            const string clothesTwoImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1mmHi-otjqNw5Ghat2cqsv8p2ZMpjtN4OfuiS6_xzGGu-sWeM";
+
+            var clothesCategory = db.Categories.First(c => c.Name == ProductsCategories.Clothes);
+            var piercingCategory = db.Categories.First(c => c.Name == ProductsCategories.Piercing);
+            var tattooCareCategory = db.Categories.First(c => c.Name == ProductsCategories.TattooCare);
+
+            var products = new List<Product>();
+
+            for (int i = 0; i < 8; i++)
+            {
+                if (i % 2 == 0)
+                {
+                    var tattooCareProduct = new Product()
+                    {
+                        Category = tattooCareCategory,
+                        Description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
+                        ImageUrl = tattooCareProductOneImageUrl,
+                        Name = "Ink balm 28g. 250ml",
+                        Price = 25.99m
+                    };
+                    products.Add(tattooCareProduct);
+
+                    var piercingProduct = new Product()
+                    {
+                        Category = piercingCategory,
+                        Description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
+                        ImageUrl = piercingImageUrl,
+                        Name = "Piercing arrow",
+                        Price = 14.99m
+                    };
+                    products.Add(piercingProduct);
+
+                    var clothesProduct = new Product()
+                    {
+                        Category = clothesCategory,
+                        Description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
+                        ImageUrl = clothesImageUrl,
+                        Name = "YX Japanese traditional black and white t-shirt",
+                        Price = 25.99m
+                    };
+                    products.Add(clothesProduct);
+
+                }
+                else
+                {
+                    var tattooCareProduct = new Product()
+                    {
+                        Category = tattooCareCategory,
+                        Description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
+                        ImageUrl = tattooCareProductTwoImageUrl,
+                        Name = "Electric ink 3.7fl. oz. 110ml",
+                        Price = 29.99m
+                    };
+                    products.Add(tattooCareProduct);
+
+                    var piercingProduct = new Product()
+                    {
+                        Category = piercingCategory,
+                        Description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
+                        ImageUrl = piercingTwoImageUrl,
+                        Name = "Mouth piercing",
+                        Price = 14.99m
+                    };
+                    products.Add(piercingProduct);
+
+                    var clothesProduct = new Product()
+                    {
+                        Category = clothesCategory,
+                        Description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
+                        ImageUrl = clothesTwoImageUrl,
+                        Name = "Just ink it black t-shirt",
+                        Price = 30.99m
+                    };
+                    products.Add(clothesProduct);
+                }
+            }
+
+            return products;
+        }
+
         public static void SeedSampleTattoosData(IServiceProvider serviceProvider)
         {
-            const int NumberTattoosToSeed = 15;
-            const string firstTattooUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoQE1fzbgF-DKuG8y_FLyD1mE2S9V8a-T7geIy6Y-PXXs78uva";
-            const string secondTattooUrl = "https://i.pinimg.com/originals/24/b4/ac/24b4ac1a18eed9379d231bc06bb6a3a7.jpg";
-            const string thirdTattooUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5YdjOBLTmfr2ctsacFE4S6nwJtz9do_SFRycTJT_9lrnT-D0T-Q";
-
             var db = serviceProvider.GetService<TattooShopContext>();
+
+            if (!db.Tattoos.Any())
+            {
+                var tattooList = CreateTattooEntities(db);
+
+                db.Tattoos.AddRange(tattooList);
+                db.SaveChanges();
+            }
+        }
+
+        private static List<Tattoo> CreateTattooEntities(TattooShopContext db)
+        {
+            const string americanTraditionalTattooUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoQE1fzbgF-DKuG8y_FLyD1mE2S9V8a-T7geIy6Y-PXXs78uva";
+            const string americanTraditionalTwoTattooUrl = "http://stephenking.club/wp-content/uploads/2018/06/american-traditional-chest-piece-traditional-tattoo-sleeves-chest-american-traditional-owl-chest-tattoo.jpg";
+
+            const string geometricTattooUrl = "https://i.pinimg.com/originals/24/b4/ac/24b4ac1a18eed9379d231bc06bb6a3a7.jpg";
+            const string geometricTwoTattooUrl = "https://i.ytimg.com/vi/BK-o-pa8zUA/maxresdefault.jpg";
+
+            const string realisticTattooUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUbgv4hHk2IfsUqYYTffZy7PAUAhW0XklYSmQn6jPszWj12o72";
+            const string realisticTwoTattooUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKXQS9EtI1VyEepL-GxDJt_6Hd1BcfRjPvhMcQQY_LslcMuVlGHA";
+
+            const string biomechanicalTattooUrl = "https://i.pinimg.com/originals/af/49/0a/af490a6c8534a43306cf62a944452693.jpg";
+            const string biomechanicalTwoTattooUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRE_kKEbe43TqKGSnY7lS-vC0zxFgqlnK9xuLQTyBR0nTHgxHDOWg";
+
+            const string polynesianTattooUrl = "https://i.pinimg.com/originals/e2/49/60/e24960b50a8e042744cb95a6063a84db.jpg";
+            const string polynesianTwoTattooUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS41vZiTbCoP1JtMCXEYT-ACZ-1x8CBcQ4xmQFU_xdOekfUE3Zw";
+
+            const string japaneseTraditionalTattooUrl = "https://editorial.designtaxi.com/editorial-images/news-GakkinTattoos060516/1-Blackwork-Japanese-Tattoo-Gakkin.jpg";
+            const string japaneseTraditionalTwoTattooUrl = "https://i.redd.it/jwoopymjuj601.jpg";
+
+            const string watercolorTattooUrl = "https://kickassthings.com/wp-content/uploads/2017/05/best-watercolor-tattoo-artists-Adrian-Bascur-17.jpg";
+            const string watercolorTwoTattooUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLtkhkZM2dlhysdfUQ2XLZbbBpF8vJWQmZUx770mkb_uB7e62rEA";
 
             var americanTraditionalStyle = db.Styles.First(s => s.Name == TattooStyles.AmericanTraditional);
             var geometricStyle = db.Styles.First(s => s.Name == TattooStyles.Geometric);
             var realisticStyle = db.Styles.First(s => s.Name == TattooStyles.Realistic);
+            var biomechanicalStyle = db.Styles.First(s => s.Name == TattooStyles.Biomechanical);
+            var polynesianStyle = db.Styles.First(s => s.Name == TattooStyles.Polynesian);
+            var japaneseTraditionalStyle = db.Styles.First(s => s.Name == TattooStyles.TraditionalJapanese);
+            var watercolorStyle = db.Styles.First(s => s.Name == TattooStyles.Watercolor);
 
-            if (!db.Tattoos.Any())
+            var tattooList = new List<Tattoo>();
+
+            for (int i = 0; i < 8; i++)
             {
-                var tattooList = new List<Tattoo>();
-
-                for (int i = 0; i < NumberTattoosToSeed; i++)
+                if (i % 2 == 0)
                 {
-                    if (i % 2 == 0)
+                    var americanTraditionalTattoo = new Tattoo()
                     {
-                        var tattoo = new Tattoo()
-                        {
-                            Artist = db.Artists.First(),
-                            DoneOn = DateTime.UtcNow.Date,
-                            Sessions = i,
-                            TattooStyle = americanTraditionalStyle,
-                            TattooUrl = firstTattooUrl,
-                            TattooRelevantName = $"{i} Petko"
-                        };
+                        TattooStyle = americanTraditionalStyle,
+                        Artist = db.Artists.First(a => a.FirstName == "Peter"),
+                        DoneOn = DateTime.UtcNow.Subtract(TimeSpan.FromDays(45)),
+                        Sessions = 3,
+                        TattooRelevantName = "Mad gorilla",
+                        TattooUrl = americanTraditionalTattooUrl
+                    };
+                    tattooList.Add(americanTraditionalTattoo);
 
-                        db.Tattoos.Add(tattoo);
-                        db.SaveChanges();
-                    }
-                    else if (i % 3 == 0)
+                    var geometricTattoo = new Tattoo()
                     {
-                        var tattoo = new Tattoo()
-                        {
-                            Artist = db.Artists.Skip(1).First(),
-                            DoneOn = DateTime.UtcNow.Date,
-                            Sessions = i,
-                            TattooStyle = geometricStyle,
-                            TattooUrl = secondTattooUrl,
-                            TattooRelevantName = $"{i} Bojidar"
-                        };
+                        TattooStyle = geometricStyle,
+                        Artist = db.Artists.First(a => a.FirstName == "Rubick"),
+                        DoneOn = DateTime.UtcNow.Subtract(TimeSpan.FromDays(37)),
+                        Sessions = 2,
+                        TattooRelevantName = "Cool flowers",
+                        TattooUrl = geometricTattooUrl
+                    };
+                    tattooList.Add(geometricTattoo);
 
-                        db.Tattoos.Add(tattoo);
-                        db.SaveChanges();
-                    }
-                    else
+                    var realisticTattoo = new Tattoo()
                     {
-                        var tattoo = new Tattoo()
-                        {
-                            Artist = db.Artists.Skip(2).First(),
-                            DoneOn = DateTime.UtcNow.Date,
-                            Sessions = i,
-                            TattooStyle = realisticStyle,
-                            TattooUrl = thirdTattooUrl,
-                            TattooRelevantName = $"{i} Kristiqn"
-                        };
+                        TattooStyle = realisticStyle,
+                        Artist = db.Artists.First(a => a.FirstName == "Storm"),
+                        DoneOn = DateTime.UtcNow.Subtract(TimeSpan.FromDays(26)),
+                        Sessions = 3,
+                        TattooRelevantName = "Cats are cool",
+                        TattooUrl = realisticTattooUrl
+                    };
+                    tattooList.Add(realisticTattoo);
 
-                        db.Tattoos.Add(tattoo);
-                        db.SaveChanges();
-                    }
+                    var biomechanicalTattoo = new Tattoo()
+                    {
+                        TattooStyle = biomechanicalStyle,
+                        Artist = db.Artists.First(a => a.FirstName == "Peter"),
+                        DoneOn = DateTime.UtcNow.Subtract(TimeSpan.FromDays(40)),
+                        Sessions = 2,
+                        TattooRelevantName = "Engineering stuff inked",
+                        TattooUrl = biomechanicalTattooUrl
+                    };
+                    tattooList.Add(biomechanicalTattoo);
+
+                    var traditionalJapaneseTattoo = new Tattoo()
+                    {
+                        TattooStyle = japaneseTraditionalStyle,
+                        Artist = db.Artists.First(a => a.FirstName == "Storm"),
+                        DoneOn = DateTime.UtcNow.Subtract(TimeSpan.FromDays(12)),
+                        Sessions = 9,
+                        TattooRelevantName = "Big traditional japanese tattoo",
+                        TattooUrl = japaneseTraditionalTattooUrl
+                    };
+                    tattooList.Add(traditionalJapaneseTattoo);
+
+                    var polynesianTattoo = new Tattoo()
+                    {
+                        TattooStyle = polynesianStyle,
+                        Artist = db.Artists.First(a => a.FirstName == "Rubick"),
+                        DoneOn = DateTime.UtcNow.Subtract(TimeSpan.FromDays(15)),
+                        Sessions = 3,
+                        TattooRelevantName = "Chest and hand maori",
+                        TattooUrl = polynesianTattooUrl
+                    };
+                    tattooList.Add(polynesianTattoo);
+
+                    var watercolorTattoo = new Tattoo()
+                    {
+                        TattooStyle = watercolorStyle,
+                        Artist = db.Artists.First(a => a.FirstName == "Peter"),
+                        DoneOn = DateTime.UtcNow.Subtract(TimeSpan.FromDays(7)),
+                        Sessions = 1,
+                        TattooRelevantName = "Fresh cats",
+                        TattooUrl = watercolorTattooUrl
+                    };
+                    tattooList.Add(watercolorTattoo);
                 }
+                else
+                {
+                    var americanTraditionalTattoo = new Tattoo()
+                    {
+                        TattooStyle = americanTraditionalStyle,
+                        Artist = db.Artists.First(a => a.FirstName == "Rubick"),
+                        DoneOn = DateTime.UtcNow.Subtract(TimeSpan.FromDays(12)),
+                        Sessions = 4,
+                        TattooRelevantName = "Crow on chest holding keys",
+                        TattooUrl = americanTraditionalTwoTattooUrl
+                    };
+                    tattooList.Add(americanTraditionalTattoo);
+
+                    var geometricTattoo = new Tattoo()
+                    {
+                        TattooStyle = geometricStyle,
+                        Artist = db.Artists.First(a => a.FirstName == "Peter"),
+                        DoneOn = DateTime.UtcNow.Subtract(TimeSpan.FromDays(10)),
+                        Sessions = 3,
+                        TattooRelevantName = "geometric sleeve",
+                        TattooUrl = geometricTwoTattooUrl
+                    };
+                    tattooList.Add(geometricTattoo);
+
+                    var realisticTattoo = new Tattoo()
+                    {
+                        TattooStyle = realisticStyle,
+                        Artist = db.Artists.First(a => a.FirstName == "Rubick"),
+                        DoneOn = DateTime.UtcNow.Subtract(TimeSpan.FromDays(21)),
+                        Sessions = 2,
+                        TattooRelevantName = "Viking and emptiness",
+                        TattooUrl = realisticTwoTattooUrl
+                    };
+                    tattooList.Add(realisticTattoo);
+
+                    var biomechanicalTattoo = new Tattoo()
+                    {
+                        TattooStyle = biomechanicalStyle,
+                        Artist = db.Artists.First(a => a.FirstName == "Storm"),
+                        DoneOn = DateTime.UtcNow.Subtract(TimeSpan.FromDays(42)),
+                        Sessions = 2,
+                        TattooRelevantName = "Instrument under skin",
+                        TattooUrl = biomechanicalTwoTattooUrl
+                    };
+                    tattooList.Add(biomechanicalTattoo);
+
+                    var traditionalJapaneseTattoo = new Tattoo()
+                    {
+                        TattooStyle = japaneseTraditionalStyle,
+                        Artist = db.Artists.First(a => a.FirstName == "Rubick"),
+                        DoneOn = DateTime.UtcNow.Subtract(TimeSpan.FromDays(8)),
+                        Sessions = 1,
+                        TattooRelevantName = "Japanese style sun and waves",
+                        TattooUrl = japaneseTraditionalTwoTattooUrl
+                    };
+                    tattooList.Add(traditionalJapaneseTattoo);
+
+                    var polynesianTattoo = new Tattoo()
+                    {
+                        TattooStyle = polynesianStyle,
+                        Artist = db.Artists.First(a => a.FirstName == "Peter"),
+                        DoneOn = DateTime.UtcNow.Subtract(TimeSpan.FromDays(19)),
+                        Sessions = 5,
+                        TattooRelevantName = "Big maori upper back",
+                        TattooUrl = polynesianTwoTattooUrl
+                    };
+                    tattooList.Add(polynesianTattoo);
+
+                    var watercolorTattoo = new Tattoo()
+                    {
+                        TattooStyle = watercolorStyle,
+                        Artist = db.Artists.First(a => a.FirstName == "Storm"),
+                        DoneOn = DateTime.UtcNow.Subtract(TimeSpan.FromDays(3)),
+                        Sessions = 1,
+                        TattooRelevantName = "Fresh wolf",
+                        TattooUrl = watercolorTwoTattooUrl
+                    };
+                    tattooList.Add(watercolorTattoo);
+                }
+                
             }
+
+            return tattooList;
         }
     }
 }
