@@ -33,6 +33,11 @@ namespace TattooShop.Web.Controllers
         [HttpPost]
         public IActionResult Contact(ContactViewModel model)
         {
+            if (!TryValidateModel(model))
+            {
+                return this.View(model);
+            }
+
             this._homeService.RegisterFeedBack(model.FirstName, model.LastName, model.Message, model.SenderEmail, model.SenderPhoneNumber);
 
             return this.View();
