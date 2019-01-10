@@ -40,7 +40,7 @@ namespace TattooShop.Web.Areas.Artists.Controllers
             var artist = this._artistsService.Details<DisplayArtistDetailsViewModel>(id);
             var artistTattoos = this._artistsService.GetArtistsArtwork<ArtistDetailsTattoosViewModel>(artist.Id);
 
-            artist.Tattoos = artistTattoos.ToList();
+            artist.TattooCollection = artistTattoos.ToList();
 
             return View(artist);
         }

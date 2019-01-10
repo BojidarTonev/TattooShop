@@ -1,6 +1,5 @@
 ﻿using System;
 using TattooShop.Data.Models.Contracts;
-using TattooShop.Data.Models.Enums;
 
 namespace TattooShop.Data.Models
 {

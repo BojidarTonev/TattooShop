@@ -86,6 +86,7 @@ namespace TattooShop.Services
                 .Where(t => t.ArtistId == id)
                 .OrderByDescending(x => x.DoneOn)
                 .Include(t => t.TattooStyle)
+                .ThenInclude(t => t.Name)
                 .To<TViewModel>()
                 .ToList();
 
