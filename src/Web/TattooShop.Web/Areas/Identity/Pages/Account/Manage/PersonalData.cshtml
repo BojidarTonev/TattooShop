@@ -43,30 +43,31 @@
                     <br />
                     <table class="table table-dark">
                         <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Book date</th>
-                                <th scope="col">Artist name</th>
-                                <th scope="col">Booked on</th>
-                                <th scopr="col">Image you have sent us</th>
-                            </tr>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Book date</th>
+                            <th scope="col">Artist name</th>
+                            <th scope="col">Booked on</th>
+                            <th scopr="col">Image you have sent us</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            @if (@Model.Books.Any())
+                        @if (@Model.Books.Any())
+                        {
+                            foreach (var book in @Model.Books)
                             {
-                                foreach (var book in @Model.Books)
-                                {
-                                    <tr>
-                                        <th scope="row"></th>
-                                        <td>@book.BookedFor.ToString("D")</td>
-                                        <td>@book.Artist.FirstName @book.Artist.LastName</td>
-                                        <td>@book.BookedOn.ToString("D")</td>
-                                        <td><a href="@book.ImageUrl">image url</a></td>
-                                    </tr>
-                                }
+                                <tr>
+                                    <th scope="row"></th>
+                                    <td>@book.BookedFor.ToString("D")</td>
+                                    <td>@book.Artist.FirstName @book.Artist.LastName</td>
+                                    <td>@book.BookedOn.ToString("D")</td>
+                                    <td><a href="@book.ImageUrl">image url</a></td>
+                                </tr>
                             }
+                        }
                         </tbody>
                     </table>
+                    <br/>
                 </div>
             </div>
         </div>
@@ -82,28 +83,29 @@
                     <br />
                     <table class="table table-dark">
                         <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Delivery date</th>
-                                <th scope="col">Product name</th>
-                                <th scope="col">Ordered on</th>
-                            </tr>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Delivery date</th>
+                            <th scope="col">Product name</th>
+                            <th scope="col">Ordered on</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            @if (@Model.Orders.Any())
+                        @if (@Model.Orders.Any())
+                        {
+                            foreach (var book in @Model.Orders)
                             {
-                                foreach (var book in @Model.Orders)
-                                {
-                                    <tr>
-                                        <th scope="row"></th>
-                                        <td>@book.EstimatedDeliveryDay.ToString("D")</td>
-                                        <td>@book.Product.Name</td>
-                                        <td>@book.OrderedOn.ToString("D")</td>
-                                    </tr>
-                                }
+                                <tr>
+                                    <th scope="row"></th>
+                                    <td>@book.EstimatedDeliveryDay.ToString("D")</td>
+                                    <td>@book.Product.Name</td>
+                                    <td>@book.OrderedOn.ToString("D")</td>
+                                </tr>
                             }
+                        }
                         </tbody>
                     </table>
+                    <br/>
                 </div>
             </div>
         </div>
@@ -122,30 +124,31 @@ else
                     <br />
                     <table class="table table-dark">
                         <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Feedback send date:</th>
-                                <th scope="col">Sender email</th>
-                                <th scope="col">Sender message</th>
-                                <th scope="col">Sender phone:</th>
-                            </tr>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Feedback send date:</th>
+                            <th scope="col">Sender email</th>
+                            <th scope="col">Sender message</th>
+                            <th scope="col">Sender phone:</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            @if (@Model.Feedback.Any())
+                        @if (@Model.Feedback.Any())
+                        {
+                            foreach (var feedback in @Model.Feedback)
                             {
-                                foreach (var feedback in @Model.Feedback)
-                                {
-                                    <tr>
-                                        <th scope="row"></th>
-                                        <td>@feedback.SendOn</td>
-                                        <td>@feedback.SenderEmail</td>
-                                        <td>@feedback.Message</td>
-                                        <td>@feedback.SenderPhoneNumber</td>
-                                    </tr>
-                                }
+                                <tr>
+                                    <th scope="row"></th>
+                                    <td>@feedback.SendOn</td>
+                                    <td>@feedback.SenderEmail</td>
+                                    <td>@feedback.Message</td>
+                                    <td>@feedback.SenderPhoneNumber</td>
+                                </tr>
                             }
+                        }
                         </tbody>
                     </table>
+                    <br/>
                 </div>
             </div>
         </div>

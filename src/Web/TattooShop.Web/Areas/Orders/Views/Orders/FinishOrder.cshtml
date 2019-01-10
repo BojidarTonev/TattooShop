@@ -1,6 +1,6 @@
 ﻿@model FinishOrderViewModel
 @{
-    ViewData["Title"] = "You order has been accepted.";
+    ViewData["Title"] = "Your order has been accepted.";
 }
 
 <section class="probootstrap-slider flexslider">
@@ -16,7 +16,7 @@
                             <h3>Address: @Model.DeliveryAddress</h3>
                             <h3>Expect delivery at: @Model.DeliveryDay</h3>
                             <h3>Thank you for ordering from us!</h3>
-                            <a asp-area="Products" asp-controller="Products" asp-action="All" class="btn btn-success">Back to products</a>
+                            <a asp-area="Products" asp-controller="Products" asp-action="All" class="btn btn-danger">Back to products</a>
                         </div>
                     </div>
                 </div>
