@@ -35,9 +35,9 @@
                         <p>Filter the products that you want to see:</p>
                         <form asp-area="Products" asp-controller="Products" asp-action="All" method="post">
                             <div class="dropdown">
-                                <select asp-items="productCategories" asp-for="@Model.DisplayCategory" class="btn btn-danger dropdown-toggle" type="button"
+                                <select asp-items="productCategories" asp-for="@Model.DisplayCategory" class="btn btn-black dropdown-toggle" type="button"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></select>
-                            </div><br/>
+                            </div><br />
                             <button class="btn btn-black" type="submit" value="Submit">Submit</button>
                         </form>
                     </div>
@@ -69,22 +69,27 @@
         </div>
     </div>
 </section>
-<div class="container">
-    @foreach (var product in @Model.Products)
-    {
-        <div class="col-md-4 probootstrap-animate ">
-            <div class="probootstrap-card with-hover">
-                <div class="probootstrap-card-media">
-                    <a asp-area="Products" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id"><img src="@product.ImageUrl" class="img-responsive img-border image_css"></a>
-                </div>
-                <div class="probootstrap-card-text">
-                    <h2 class="probootstrap-card-heading mb0">@product.Name</h2>
-                    <p class="category">@product.Category</p>
-                    <p><a asp-area="Products" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">View details</a></p>
-                </div>
+    <div class="background">
+        <div class="container" style="background-color: #000">
+            <div class="card card-outline-secondary my-4">
+                @foreach (var product in @Model.Products)
+                {
+                    <div class="col-md-4 m-t-40 probootstrap-animate ">
+                        <div class="probootstrap-card with-hover">
+                            <div class="probootstrap-card-media">
+                                <a asp-area="Products" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id"><img src="@product.ImageUrl" class="img-responsive img-border image_css"></a>
+                            </div>
+                            <div class="probootstrap-card-text">
+                                <h2 class="probootstrap-card-heading mb0 text-color-white">@product.Name</h2>
+                                <p class="category">@product.Category</p>
+                                <p><a asp-area="Products" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" class="btn btn-danger">View details</a></p>
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
-    }
 </div>
+
 
 

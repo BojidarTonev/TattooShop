@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.ComponentModel.DataAnnotations;
+using AutoMapper;
 using TattooShop.Data.Models;
 using TattooShop.Services.Automapper;
 
@@ -12,6 +13,7 @@ namespace TattooShop.Web.Areas.Orders.Models
 
         public string Category { get; set; }
 
+        [Range(1, int.MaxValue, ErrorMessage = "You want just the shipping fee or what?")]
         public string Price { get; set; }
 
         public string ImageUrl { get; set; }

@@ -35,7 +35,7 @@
                         <p>Filter the tattoos that you want to see:</p>
                         <form asp-area="Tattoos" asp-controller="Tattoos" asp-action="All" method="post">
                             <div class="dropdown">
-                                <select asp-items="tattooStyles" asp-for="@Model.DisplayStyle" class="btn btn-danger dropdown-toggle" type="button"
+                                <select asp-items="tattooStyles" asp-for="@Model.DisplayStyle" class="btn btn-black dropdown-toggle" type="button"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></select>
                             </div><br/>
                             <button class="btn btn-black" type="submit" value="Submit">Submit</button>
@@ -46,20 +46,22 @@
         </div>
     </div>
 </section>
-<div class="container">
-    @foreach (var tattoo in @Model.Tattoos)
-    {
-        <div class="col-md-4 probootstrap-animate ">
-            <div class="probootstrap-card with-hover">
-                <div class="probootstrap-card-media">
-                    <a asp-area="Tattoos" asp-controller="Tattoos" asp-action="Details" asp-route-id="@tattoo.Id"><img src="@tattoo.TattooUrl" class="img-responsive img-border image_css"></a>
-                </div>
-                <div class="probootstrap-card-text">
-                    <h2 class="probootstrap-card-heading mb0">@tattoo.TattooRelevantName</h2>
-                    <p class="category">@tattoo.TattooStyle</p>
-                    <p><a asp-area="Tattoos" asp-controller="Tattoos" asp-action="Details" asp-route-id="@tattoo.Id">View details</a></p>
+<div class="background">
+    <div class="container" style="background-color: #000">
+        @foreach (var tattoo in @Model.Tattoos)
+        {
+            <div class="col-md-4 m-t-40 probootstrap-animate">
+                <div class="probootstrap-card with-hover">
+                    <div class="probootstrap-card-media">
+                        <a asp-area="Tattoos" asp-controller="Tattoos" asp-action="Details" asp-route-id="@tattoo.Id"><img src="@tattoo.TattooUrl" class="img-responsive img-border image_css"></a>
+                    </div>
+                    <div class="probootstrap-card-text">
+                        <h2 class="probootstrap-card-heading mb0 text-color-white">@tattoo.TattooRelevantName</h2>
+                        <p class="category">@tattoo.TattooStyle</p>
+                        <p><a asp-area="Tattoos" asp-controller="Tattoos" asp-action="Details" asp-route-id="@tattoo.Id" class="btn btn-danger">View details</a></p>
+                    </div>
                 </div>
             </div>
-        </div>
-    }
+        }
+    </div>
 </div>

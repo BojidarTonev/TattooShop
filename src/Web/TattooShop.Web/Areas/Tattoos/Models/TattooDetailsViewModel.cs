@@ -38,6 +38,7 @@ namespace TattooShop.Web.Areas.Tattoos.Models
 
             configuration.CreateMap<Tattoo, TattooDetailsViewModel>()
                 .ForMember(x => x.TattooStyle, m => m.MapFrom(s => s.TattooStyle.Name));
+            
         }
     }
 }

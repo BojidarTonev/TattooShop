@@ -48,6 +48,7 @@
                                 <th scope="col">Book date</th>
                                 <th scope="col">Artist name</th>
                                 <th scope="col">Booked on</th>
+                                <th scopr="col">Image you have sent us</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -60,6 +61,7 @@
                                         <td>@book.BookedFor.ToString("D")</td>
                                         <td>@book.Artist.FirstName @book.Artist.LastName</td>
                                         <td>@book.BookedOn.ToString("D")</td>
+                                        <td><a href="@book.ImageUrl">image url</a></td>
                                     </tr>
                                 }
                             }

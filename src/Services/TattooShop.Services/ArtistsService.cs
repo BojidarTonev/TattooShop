@@ -84,6 +84,7 @@ namespace TattooShop.Services
         {
             var artistTattoos = this._tattoosRepository.All()
                 .Where(t => t.ArtistId == id)
+                .OrderByDescending(x => x.DoneOn)
                 .Include(t => t.TattooStyle)
                 .To<TViewModel>()
                 .ToList();

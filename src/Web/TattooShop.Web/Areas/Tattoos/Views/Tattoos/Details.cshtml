@@ -22,36 +22,35 @@
         </li>
     </ul>
 </section>
-<hr />
-<div class="container">
-    <h1 class="lead text-center">This tattoo has been done on: @date.ToString("D").</h1>
-    <h1 class="lead text-center">The tattoo took @Model.Sessions sessions to be completed</h1>
-</div>
-<hr />
-<div class="container">
-    <div class="row">
-        <div class="col-lg-9">
-            <div class="card card-outline-secondary my-4">
-                <div class="card-header text-center">
-                    <h1>Other similar tattoos:</h1>
-                </div>
-                <br />
-                @foreach (var tattoo in @Model.SimilarTattoos)
-                {
-                    <div class="col-md-4 probootstrap-animate ">
-                        <div class="probootstrap-card with-hover">
-                            <div class="probootstrap-card-media">
-                                <a asp-area="Tattoos" asp-controller="Tattoos" asp-action="Details" asp-route-id="@tattoo.Id"><img src="@tattoo.TattooUrl" class="img-responsive img-border image_css"></a>
-                            </div>
-                            <div class="probootstrap-card-text">
-                                <h2 class="probootstrap-card-heading mb0">@tattoo.RelevantName</h2>
-                                <p class="category">@tattoo.TattooStyle</p>
-                                <p><a asp-area="Tattoos" asp-controller="Tattoos" asp-action="Details" asp-route-id="@tattoo.Id">View details</a></p>
+<section class="probootstrap-section">
+    <div class="container" style="background-color: #000">
+        <div class="row">
+            <div class="col-md-12 text-center section-heading probootstrap-animate">
+                <h4 class="probootstrap-card-heading mb0 text-color-white"><span>Done on: </span>@date.ToString("D")</h4>
+                <h4 class="probootstrap-card-heading mb0 text-color-white"><span>Sessions to make: </span>@Model.Sessions</h4>
+                <h2 class="probootstrap-card-heading mb0 text-color-white">Other similar tattoos</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="container" style="background-color: #000">
+                <div class="card card-outline-secondary my-4">
+                    @foreach (var tattoo in @Model.SimilarTattoos)
+                    {
+                        <div class="col-md-4 m-t-40 probootstrap-animate ">
+                            <div class="probootstrap-card with-hover">
+                                <div class="probootstrap-card-media">
+                                    <a asp-area="Tattoos" asp-controller="Tattoos" asp-action="Details" asp-route-id="@tattoo.Id"><img src="@tattoo.TattooUrl" class="img-responsive img-border image_css"></a>
+                                </div>
+                                <div class="probootstrap-card-text">
+                                    <h2 class="probootstrap-card-heading mb0 text-color-white">@tattoo.RelevantName</h2>
+                                    <p class="category">@tattoo.TattooStyle</p>
+                                    <p><a asp-area="Tattoos" asp-controller="Tattoos" asp-action="Details" asp-route-id="@tattoo.Id" class="btn btn-danger">View details</a></p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                }
+                    }
+                </div>
             </div>
         </div>
     </div>
-</div>
+</section>

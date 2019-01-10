@@ -1826,7 +1826,15 @@ pre {
     padding-right: 15px;
     padding-left: 15px;
     margin-right: auto;
-    margin-left: auto
+    margin-left: auto;
+}
+
+.container-all {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: #000;
 }
 
 @media (min-width:768px) {
@@ -3663,7 +3671,7 @@ a.btn.disabled, fieldset[disabled] a.btn {
 
     .btn-danger:hover {
         color: #fff;
-        background-color: #c9302c;
+        background-color: black;
         border-color: #ac2925
     }
 
@@ -7220,10 +7228,10 @@ Licensed under the MIT license - http://opensource.org/licenses/MIT
 
 Copyright (c) 2015 Daniel Eden
 */
-.image_css {
+/*.image_css {
     width: 100%;
     max-height: 360px;
-}
+}*/
 
 .animated {
     -webkit-animation-duration: 1s;
@@ -16378,3 +16386,8 @@ a.pswp__share--download:hover {
 .pswp--minimal--dark .pswp__top-bar {
     background: none;
 }
+
+.m-t-1 {
+    margin-top: 70px;
+}
+

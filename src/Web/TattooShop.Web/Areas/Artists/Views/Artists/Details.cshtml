@@ -19,24 +19,24 @@
     </ul>
 </section>
 <section class="probootstrap-section">
-    <div class="container">
+    <div class="container" style="background-color: #000">
         <div class="row">
             <div class="col-md-12 text-center section-heading probootstrap-animate">
-                <h2>Recent Work</h2>
+                <h2 class="probootstrap-card-heading mb0 text-color-white">Recent Work</h2>
             </div>
         </div>
         <div class="row">
             @foreach (var tattoo in @Model.Tattoos)
             {
-                <div class="col-md-4 probootstrap-animate ">
+                <div class="col-md-4 m-t-40 probootstrap-animate ">
                     <div class="probootstrap-card with-hover">
                         <div class="probootstrap-card-media">
                             <a asp-area="Tattoos" asp-controller="Tattoos" asp-action="Details" asp-route-id="@tattoo.TattooId"><img src="@tattoo.TattooUrl" class="img-responsive img-border image_css"></a>
                         </div>
                         <div class="probootstrap-card-text">
-                            <h2 class="probootstrap-card-heading mb0">@tattoo.TattooRelevantName</h2>
+                            <h2 class="probootstrap-card-heading mb0 text-color-white">@tattoo.TattooRelevantName</h2>
                             <p class="category">@tattoo.TattooStyle</p>
-                            <p><a asp-area="Tattoos" asp-controller="Tattoos" asp-action="Details" asp-route-id="@tattoo.TattooId">View details</a></p>
+                            <p><a asp-area="Tattoos" asp-controller="Tattoos" asp-action="Details" asp-route-id="@tattoo.TattooId" class="btn btn-danger">View details</a></p>
                         </div>
                     </div>
                 </div>

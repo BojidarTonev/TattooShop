@@ -10,5 +10,44 @@
 }
 .image_css {
     width: 100%;
-    max-height: 300px;
+    height: 400px;
+
+}
+
+.m-t-40 {
+    margin-top: 40px;
+}
+
+.text-color-white {
+    color: #fff;
+}
+
+.map-container{
+    overflow:hidden;
+    padding-bottom:56.25%;
+    position:relative;
+    height:0;
+}
+.map-container iframe{
+    left:0;
+    top:0;
+    height:100%;
+    width:100%;
+    position:absolute;
+}
+
+.custom-text {
+    width: 300px;
+    padding-bottom: 80px;
+}
+
+.custom {
+    height: 1px;
+    color: red;
+    background-color: red;
+    border: none;
+}
+
+.m-b-1 {
+    margin-bottom: 2px;
 }

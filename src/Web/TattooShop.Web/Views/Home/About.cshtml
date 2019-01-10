@@ -61,8 +61,8 @@
                             <img src="@artist.ImageUrl" class="img-responsive">
                         </div>
                         <div class="probootstrap-card-text">
-                            <a asp-area="Artists" asp-controller="Artists" asp-action="Details" asp-route-id="@artist.Id">@artist.FirstName @artist.LastName</a>
-                            <p><small>tattoos done: @artist.TattoosDone</small></p>
+                            <a asp-area="Artists" asp-controller="Artists" asp-action="Details" asp-route-id="@artist.Id"><strong>@artist.FirstName @artist.LastName</strong></a>
+                            <p>tattoos done: @artist.TattoosDone</p>
                             <p>@artist.Autobiography</p>
                             <ul class="probootstrap-social">
                                 <li><a href="#"><i class="icon-facebook2"></i></a></li>

@@ -14,6 +14,7 @@ namespace TattooShop.Services
     {
         private readonly IRepository<Product> _productsRepository;
         private readonly IRepository<Category> _categoriesRepository;
+        private const int OrdersToTake = 9;
 
         public ProductsService(IRepository<Product> productsRepository, IRepository<Category> categoriesRepository)
         {
@@ -37,7 +38,7 @@ namespace TattooShop.Services
         {
             var productCategory = Enum.Parse<ProductsCategories>(category);
 
-            return this._productsRepository.All().Include(p => p.Category).Where(p => p.Category.Name == productCategory).Take(9);
+            return this._productsRepository.All().Include(p => p.Category).Where(p => p.Category.Name == productCategory).Take(OrdersToTake);
         }
 
         public IEnumerable<Category> GetAllCategories()

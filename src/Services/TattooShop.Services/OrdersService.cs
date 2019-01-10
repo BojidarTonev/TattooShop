@@ -17,9 +17,9 @@ namespace TattooShop.Services
 
         public async Task<bool> AddOrder(string address, string description, int quantity, string productId, string userId)
         {
-            if (description == null ||
-                productId == null ||
-                userId == null)
+            if (productId == null ||
+                userId == null ||
+                quantity <= 0)
             {
                 return false;
             }

@@ -12,6 +12,7 @@ namespace TattooShop.Web.Areas.Artists.Models
 
         public string Description { get; set; }
 
+        [Required(ErrorMessage = "Please provide us with an image example of the image you want to be tattooed.")]
         public IFormFile Image { get; set; }
 
         [Required(ErrorMessage = "Please select date in the near future, we are not wizard, we cant go back in time, neither predict your wishes.")]

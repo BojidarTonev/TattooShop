@@ -22,13 +22,13 @@ namespace TattooShop.Services
 
         public IEnumerable<Book> GetUserBooks(string userId)
         {
-            var userBooks = this._booksRepository.All().Where(b => b.UserId == userId).Include(x => x.Artist);
+            var userBooks = this._booksRepository.All().Where(b => b.UserId == userId).Include(x => x.Artist).OrderByDescending(x => x.BookedOn);
             return userBooks;
         }
 
         public IEnumerable<Order> GetUserOrders(string userId)
         {
-            var userOrders = this._ordersRepository.All().Where(o => o.UserId == userId).Include(x => x.Product);
+            var userOrders = this._ordersRepository.All().Where(o => o.UserId == userId).Include(x => x.Product).OrderByDescending(x => x.OrderedOn);
             return userOrders;
         }
 

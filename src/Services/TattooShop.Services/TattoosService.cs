@@ -14,6 +14,7 @@ namespace TattooShop.Services
     {
         private readonly IRepository<Tattoo> _tattoosRepository;
         private readonly IRepository<Style> _stylesRepository;
+        private const int TattoosToTake = 9;
 
         public TattoosService(IRepository<Tattoo> tattoosRepository, IRepository<Style> stylesRepository)
         {
@@ -36,7 +37,7 @@ namespace TattooShop.Services
         {
             var style = Enum.Parse<TattooStyles>(tattooStyle);
             return this._tattoosRepository.All().Include(t => t.TattooStyle)
-                .Where(t => t.TattooStyle.Name == style).OrderBy(t => t.DoneOn).Take(9);
+                .Where(t => t.TattooStyle.Name == style).OrderBy(t => t.DoneOn).Take(TattoosToTake);
         }
 
         public IEnumerable<Style> GetAllStyles()

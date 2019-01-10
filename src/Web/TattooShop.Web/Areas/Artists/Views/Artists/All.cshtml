@@ -3,7 +3,7 @@
     ViewData["Title"] = "Our team!";
 }
 
-<section class="probootstrap-slider flexslider">
+<section class="probootstrap-slider flexslider m-b-1">
     <ul class="slides">
         <li style="background-image: url(https://res.cloudinary.com/site-stuff/image/upload/q_100/v1545018899/tattooShop/27ef868543abf9c4e16439c1aeb8f0bd.jpg);" class="overlay2">
             <div class="container">
@@ -22,18 +22,21 @@
 
 @foreach (var artist in @Model)
 {
-    <section class="probootstrap-slider flexslider artsitDetails">
+    <section class="probootstrap-slider flexslider artsitDetails m-b-1">
         <ul class="slides">
-            <li style="background-image: url(@artist.ImageUrl);" class="overlay2">
+            <li style="background-image: url(@artist.ImageUrl);" class="overlay2 ">
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-12 text-left">
+                        <div class="col-md-12 text-left m-t-1">
                             <h1>This is @artist.FirstName @artist.LastName!</h1>
                             <p>Specialization: @artist.BestAt</p>
-                            <p>@artist.Autobiography</p>
+                            <div class="custom-text">
+                                @artist.Autobiography
+                            </div>
                             <a asp-area="Artists" asp-controller="Artists" asp-action="Details" asp-route-id="@artist.ArtistId" class="btn btn-primary">Details</a>
                             <a asp-area="Artists" asp-controller="Artists" asp-action="BookTattoo" asp-route-id="@artist.ArtistId" class="btn btn-primary">Book tattoo!</a>
                         </div>
+
                     </div>
                 </div>
             </li>
